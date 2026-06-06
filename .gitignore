@@ -1,3 +1,17 @@
+# Data files — NEVER commit
+*.csv
+*.parquet
+*.json
+
+# Secrets
+.env
+*.token
+secrets.*
+config/secrets*
+
+# Databricks
+.databricks/
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[codz]
