@@ -1,0 +1,145 @@
+# Metadata Governance Certification Rubric
+# Project: GK-DG-2026-01 - Metadata Governance Platform
+# Scope: Per-asset evaluation across Unity Catalog (bronze/silver/gold)
+# A column-level asset must pass all applicable checks to receive a certification_level.
+
+rubric_version: "1.0"
+evaluation_scope: per_asset
+catalog: governance
+schemas:
+  - bronze
+  - silver
+  - gold
+
+certification_levels:
+  - name: Registered
+    description: Asset is known to the catalog with minimum viable identity fields.
+    min_checks_passed: 3
+  - name: Documented
+    description: Asset has descriptive metadata and ownership assigned.
+    min_checks_passed: 6
+  - name: Certified
+    description: Asset meets all governance, quality, and tagging requirements.
+    min_checks_passed: 11
+
+checks:
+
+  # --- Catalog / Structure (3 checks) ---
+
+  - id: CHK-01
+    name: column_id_present
+    category: catalog_structure
+    description: Every column asset must have a non-null unique identifier.
+    field: column_id
+    rule: not_null
+    severity: critical
+    fail_message: "column_id is missing -- asset cannot be registered in Unity Catalog."
+
+  - id: CHK-02
+    name: column_name_present
+    category: catalog_structure
+    description: Every column asset must have a non-null column name.
+    field: column_name
+    rule: not_null
+    severity: critical
+    fail_message: "column_name is missing -- asset identity is incomplete."
+
+  - id: CHK-03
+    name: schema_assignment_valid
+    category: catalog_structure
+    description: Every asset must be assigned to a recognised medallion schema.
+    field: schema_name
+    rule: allowed_values
+    allowed: [bronze, silver, gold]
+    severity: critical
+    fail_message: "schema_name is null or not one of bronze / silver / gold."
+
+  # --- Metadata Completeness (4 checks) ---
+
+  - id: CHK-04
+    name: column_description_present
+    category: metadata_completeness
+    description: A human-readable description must exist for the column.
+    field: column_desc
+    rule: not_null
+    severity: high
+    fail_message: "column_desc is missing -- column is not documented."
+
+  - id: CHK-05
+    name: business_term_linked
+    category: metadata_completeness
+    description: The column must be linked to a business glossary term via term_name.
+    field: term_name
+    rule: not_null
+    severity: high
+    fail_message: "term_name is null -- column has no business glossary linkage."
+
+  - id: CHK-06
+    name: data_steward_assigned
+    category: metadata_completeness
+    description: A named data steward must be assigned to the column asset.
+    field: data_steward
+    rule: not_null
+    severity: high
+    fail_message: "data_steward is null -- no accountable owner is defined."
+
+  - id: CHK-07
+    name: security_classification_present
+    category: metadata_completeness
+    description: Security classification must be one of the approved values.
+    field: security_classification
+    rule: allowed_values
+    allowed: [Internal, Public, Conf]
+    severity: high
+    fail_message: "security_classification is null or unrecognised."
+
+  # --- Governance / Quality (3 checks) ---
+
+  - id: CHK-08
+    name: sensitivity_flags_set
+    category: governance_quality
+    description: Both pii_flag and critical_data_element_flag must be explicitly set (true or false -- null is not acceptable).
+    fields:
+      - pii_flag
+      - critical_data_element_flag
+    rule: not_null_all
+    severity: critical
+    fail_message: "pii_flag or critical_data_element_flag is null -- sensitivity cannot be determined."
+
+  - id: CHK-09
+    name: invalid_record_ratio_within_threshold
+    category: governance_quality
+    description: The ratio of invalid_record_count to total_record_count must be below the defined threshold.
+    fields:
+      - invalid_record_count
+      - total_record_count
+    rule: ratio_below_threshold
+    ratio: invalid_record_count / total_record_count
+    threshold: 0.05
+    severity: high
+    fail_message: "Invalid record ratio exceeds 5% -- data quality does not meet certification standard."
+    notes: "If total_record_count is null the check is skipped and flagged as unverifiable."
+
+  - id: CHK-10
+    name: certification_level_populated
+    category: governance_quality
+    description: The asset must carry a certification_level value from the approved set.
+    field: certification_level
+    rule: allowed_values
+    allowed: [Registered, Documented, Certified]
+    severity: medium
+    fail_message: "certification_level is null or unrecognised."
+
+  # --- Tagging (1 check) ---
+
+  - id: CHK-11
+    name: domain_tag_present
+    category: tagging
+    description: Every asset must have a domain tag with a non-null tag_value.
+    fields:
+      - tag_name
+      - tag_value
+    rule: not_null_all
+    condition: "tag_name == 'domain'"
+    severity: medium
+    fail_message: "Domain tag is missing or tag_value is null -- asset is not domain-classified."
