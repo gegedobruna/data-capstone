@@ -1,0 +1,117 @@
+<svg viewBox="0 0 1340 720" xmlns="http://www.w3.org/2000/svg" font-family="Segoe UI, Helvetica, Arial, sans-serif">
+<defs><marker id="a" markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto"><path d="M0,0 L7,3 L0,6 Z" fill="#7d8694"/></marker></defs>
+<rect x="0" y="0" width="1340" height="720" fill="#0f1115"/>
+<text x="34" y="40" fill="#f5f7fa" font-size="25" font-weight="700">Build Timeline — 3 Weeks</text>
+<text x="34" y="64" fill="#9ba3af" font-size="13">Mon 8 June → Sun 28 June 2026  ·  kickoff to presentation</text>
+<rect x="477.1" y="126" width="51.4" height="544.0" fill="#ffffff" opacity="0.028"/>
+<rect x="528.6" y="126" width="51.4" height="544.0" fill="#ffffff" opacity="0.028"/>
+<rect x="837.1" y="126" width="51.4" height="544.0" fill="#ffffff" opacity="0.028"/>
+<rect x="888.6" y="126" width="51.4" height="544.0" fill="#ffffff" opacity="0.028"/>
+<rect x="1197.1" y="126" width="51.4" height="544.0" fill="#ffffff" opacity="0.028"/>
+<rect x="1248.6" y="126" width="51.4" height="544.0" fill="#ffffff" opacity="0.028"/>
+<rect x="220.0" y="88" width="360.0" height="26" rx="5" fill="#5b8bd0" opacity="0.16"/>
+<text x="400.0" y="105" fill="#5b8bd0" font-size="11.5" font-weight="700" text-anchor="middle">Week 1 · Jun 8–14 · Foundation</text>
+<rect x="580.0" y="88" width="360.0" height="26" rx="5" fill="#7c5cff" opacity="0.16"/>
+<text x="760.0" y="105" fill="#7c5cff" font-size="11.5" font-weight="700" text-anchor="middle">Week 2 · Jun 15–21 · Core logic</text>
+<rect x="940.0" y="88" width="360.0" height="26" rx="5" fill="#ff7a59" opacity="0.16"/>
+<text x="1120.0" y="105" fill="#ff7a59" font-size="11.5" font-weight="700" text-anchor="middle">Week 3 · Jun 22–28 · Integration &amp; presentation</text>
+<text x="245.7" y="131" fill="#8b93a1" font-size="9" text-anchor="middle">8</text>
+<text x="297.1" y="131" fill="#8b93a1" font-size="9" text-anchor="middle">9</text>
+<text x="348.6" y="131" fill="#8b93a1" font-size="9" text-anchor="middle">10</text>
+<text x="400.0" y="131" fill="#8b93a1" font-size="9" text-anchor="middle">11</text>
+<text x="451.4" y="131" fill="#8b93a1" font-size="9" text-anchor="middle">12</text>
+<text x="502.9" y="131" fill="#5b6472" font-size="9" text-anchor="middle">13</text>
+<text x="554.3" y="131" fill="#5b6472" font-size="9" text-anchor="middle">14</text>
+<text x="605.7" y="131" fill="#8b93a1" font-size="9" text-anchor="middle">15</text>
+<text x="657.1" y="131" fill="#8b93a1" font-size="9" text-anchor="middle">16</text>
+<text x="708.6" y="131" fill="#8b93a1" font-size="9" text-anchor="middle">17</text>
+<text x="760.0" y="131" fill="#8b93a1" font-size="9" text-anchor="middle">18</text>
+<text x="811.4" y="131" fill="#8b93a1" font-size="9" text-anchor="middle">19</text>
+<text x="862.9" y="131" fill="#5b6472" font-size="9" text-anchor="middle">20</text>
+<text x="914.3" y="131" fill="#5b6472" font-size="9" text-anchor="middle">21</text>
+<text x="965.7" y="131" fill="#8b93a1" font-size="9" text-anchor="middle">22</text>
+<text x="1017.1" y="131" fill="#8b93a1" font-size="9" text-anchor="middle">23</text>
+<text x="1068.6" y="131" fill="#8b93a1" font-size="9" text-anchor="middle">24</text>
+<text x="1120.0" y="131" fill="#8b93a1" font-size="9" text-anchor="middle">25</text>
+<text x="1171.4" y="131" fill="#8b93a1" font-size="9" text-anchor="middle">26</text>
+<text x="1222.9" y="131" fill="#5b6472" font-size="9" text-anchor="middle">27</text>
+<text x="1274.3" y="131" fill="#5b6472" font-size="9" text-anchor="middle">28</text>
+<rect x="220" y="138" width="1080" height="532" rx="6" fill="none" stroke="#2a2f3a" stroke-width="1.3"/>
+<line x1="580.0" y1="138" x2="580.0" y2="670" stroke="#2a2f3a" stroke-width="1.2"/>
+<line x1="940.0" y1="138" x2="940.0" y2="670" stroke="#2a2f3a" stroke-width="1.2"/>
+<path d="M220.0 157 L227.0 164 L220.0 171 L213.0 164 Z" fill="#ffd166" stroke="#0f1115" stroke-width="1"/>
+<text x="228.0" y="152" fill="#cdd3db" font-size="9" font-weight="600" text-anchor="start">Kickoff &amp; sign-off · Jun 8</text>
+<line x1="580.0" y1="170" x2="580.0" y2="670" stroke="#3a4250" stroke-width="1" stroke-dasharray="4 5"/>
+<path d="M580.0 157 L587.0 164 L580.0 171 L573.0 164 Z" fill="#ffd166" stroke="#0f1115" stroke-width="1"/>
+<text x="580.0" y="152" fill="#cdd3db" font-size="9" font-weight="600" text-anchor="middle">Bronze live · Jun 14</text>
+<line x1="940.0" y1="170" x2="940.0" y2="670" stroke="#3a4250" stroke-width="1" stroke-dasharray="4 5"/>
+<path d="M940.0 157 L947.0 164 L940.0 171 L933.0 164 Z" fill="#ffd166" stroke="#0f1115" stroke-width="1"/>
+<text x="940.0" y="152" fill="#cdd3db" font-size="9" font-weight="600" text-anchor="middle">Scoring done · Jun 21</text>
+<line x1="1197.1" y1="170" x2="1197.1" y2="670" stroke="#3a4250" stroke-width="1" stroke-dasharray="4 5"/>
+<path d="M1197.1 157 L1204.1 164 L1197.1 171 L1190.1 164 Z" fill="#ffd166" stroke="#0f1115" stroke-width="1"/>
+<text x="1197.1" y="140" fill="#cdd3db" font-size="9" font-weight="600" text-anchor="middle">Genie + BI · Jun 26</text>
+<line x1="1293.0" y1="170" x2="1293.0" y2="670" stroke="#3a4250" stroke-width="1" stroke-dasharray="4 5"/>
+<path d="M1293.0 155 L1302.0 164 L1293.0 173 L1284.0 164 Z" fill="#ff7a59" stroke="#0f1115" stroke-width="1"/>
+<text x="1285.0" y="156" fill="#ff9d80" font-size="10" font-weight="800" text-anchor="end">PRESENTATION · Jun 28</text>
+<text x="14" y="232" fill="#e7eaef" font-size="10.5" font-weight="600">Architecture &amp; governance</text>
+<text x="14" y="247" fill="#7d8694" font-size="9" font-style="italic">Gege</text>
+<rect x="220.0" y="220" width="154.3" height="26" rx="6" fill="#3a3216" fill-opacity="0.92" stroke="#d4a017" stroke-width="1.5"/>
+<text x="229.0" y="237" fill="#f0d060" font-size="9">Rubric + model sign-off</text>
+<rect x="374.3" y="220" width="720.0" height="26" rx="6" fill="#3a3216" fill-opacity="0.30" stroke="#d4a017" stroke-width="1.5" stroke-dasharray="5 4"/>
+<text x="383.3" y="237" fill="#9aa3ad" font-size="9">Reviews · coordination</text>
+<rect x="1094.3" y="220" width="205.7" height="26" rx="6" fill="#3a3216" fill-opacity="0.92" stroke="#d4a017" stroke-width="1.5"/>
+<text x="1103.3" y="237" fill="#f0d060" font-size="9">Deck + dry run</text>
+<rect x="220" y="256" width="1080" height="46" fill="#ffffff" opacity="0.015"/>
+<text x="14" y="278" fill="#e7eaef" font-size="10.5" font-weight="600">Platform · CI/CD</text>
+<text x="14" y="293" fill="#7d8694" font-size="9" font-style="italic">Flandër</text>
+<rect x="220.0" y="266" width="257.1" height="26" rx="6" fill="#16263a" fill-opacity="0.92" stroke="#5b8bd0" stroke-width="1.5"/>
+<text x="229.0" y="283" fill="#9fc2ec" font-size="9">Workspace · repo · branches · secrets · DAB</text>
+<rect x="477.1" y="266" width="720.0" height="26" rx="6" fill="#16263a" fill-opacity="0.30" stroke="#5b8bd0" stroke-width="1.5" stroke-dasharray="5 4"/>
+<text x="486.1" y="283" fill="#9aa3ad" font-size="9">CI/CD · jobs · access (ongoing)</text>
+<rect x="1197.1" y="266" width="102.9" height="26" rx="6" fill="#16263a" fill-opacity="0.92" stroke="#5b8bd0" stroke-width="1.5"/>
+<text x="1206.1" y="283" fill="#9fc2ec" font-size="9">Release</text>
+<text x="14" y="324" fill="#e7eaef" font-size="10.5" font-weight="600">Ingestion → Bronze</text>
+<text x="14" y="339" fill="#7d8694" font-size="9" font-style="italic">Bledi</text>
+<rect x="271.4" y="312" width="308.6" height="26" rx="6" fill="#33241a" fill-opacity="0.92" stroke="#c77b3b" stroke-width="1.5"/>
+<text x="280.4" y="329" fill="#e8b98a" font-size="9">Azure read → Bronze</text>
+<rect x="220" y="348" width="1080" height="46" fill="#ffffff" opacity="0.015"/>
+<text x="14" y="370" fill="#e7eaef" font-size="10.5" font-weight="600">Silver → Gold pipeline</text>
+<text x="14" y="385" fill="#7d8694" font-size="9" font-style="italic">Bledi / Erzen</text>
+<rect x="528.6" y="358" width="411.4" height="26" rx="6" fill="#24272d" fill-opacity="0.92" stroke="#9aa3ad" stroke-width="1.5"/>
+<text x="537.6" y="375" fill="#d7dce2" font-size="9">Bronze → Silver → Gold transforms</text>
+<text x="14" y="416" fill="#e7eaef" font-size="10.5" font-weight="600">Validation &amp; rules</text>
+<text x="14" y="431" fill="#7d8694" font-size="9" font-style="italic">Erza (Azure)</text>
+<rect x="580.0" y="404" width="360.0" height="26" rx="6" fill="#142a22" fill-opacity="0.92" stroke="#3fae84" stroke-width="1.5"/>
+<text x="589.0" y="421" fill="#8fe0c2" font-size="9">11 checks · quarantine · scoring</text>
+<rect x="220" y="440" width="1080" height="46" fill="#ffffff" opacity="0.015"/>
+<text x="14" y="462" fill="#e7eaef" font-size="10.5" font-weight="600">Metadata · profiling</text>
+<text x="14" y="477" fill="#7d8694" font-size="9" font-style="italic">Erzen</text>
+<rect x="374.3" y="450" width="308.6" height="26" rx="6" fill="#2e2913" fill-opacity="0.92" stroke="#c9a227" stroke-width="1.5"/>
+<text x="383.3" y="467" fill="#e6cd70" font-size="9">Catalog model · profiling</text>
+<rect x="682.9" y="450" width="257.1" height="26" rx="6" fill="#2e2913" fill-opacity="0.92" stroke="#c9a227" stroke-width="1.5"/>
+<text x="691.9" y="467" fill="#e6cd70" font-size="9">Gold repo · structure profile</text>
+<text x="14" y="508" fill="#e7eaef" font-size="10.5" font-weight="600">Genie chatbot</text>
+<text x="14" y="523" fill="#7d8694" font-size="9" font-style="italic">Ajete</text>
+<rect x="785.7" y="496" width="411.4" height="26" rx="6" fill="#1b1830" fill-opacity="0.92" stroke="#7c5cff" stroke-width="1.5"/>
+<text x="794.7" y="513" fill="#b9a8ff" font-size="9">Scope · instructions · trusted SQL</text>
+<rect x="220" y="532" width="1080" height="46" fill="#ffffff" opacity="0.015"/>
+<text x="14" y="554" fill="#e7eaef" font-size="10.5" font-weight="600">Dashboard / BI</text>
+<text x="14" y="569" fill="#7d8694" font-size="9" font-style="italic">Erza (AWS)</text>
+<rect x="785.7" y="542" width="411.4" height="26" rx="6" fill="#102622" fill-opacity="0.92" stroke="#2fb3a8" stroke-width="1.5"/>
+<text x="794.7" y="559" fill="#7fe3da" font-size="9">KPIs · dashboard · scorecards</text>
+<text x="14" y="600" fill="#e7eaef" font-size="10.5" font-weight="600">App + AI Ops</text>
+<text x="14" y="615" fill="#7d8694" font-size="9" font-style="italic">Gresa</text>
+<rect x="991.4" y="588" width="257.1" height="26" rx="6" fill="#2b1812" fill-opacity="0.92" stroke="#ff7a59" stroke-width="1.5"/>
+<text x="1000.4" y="605" fill="#ff9d80" font-size="9">App · Genie API · monitoring</text>
+<rect x="220" y="624" width="1080" height="46" fill="#ffffff" opacity="0.015"/>
+<text x="14" y="646" fill="#e7eaef" font-size="10.5" font-weight="600">Integration · test · deck</text>
+<text x="14" y="661" fill="#7d8694" font-size="9" font-style="italic">all</text>
+<rect x="1094.3" y="634" width="205.7" height="26" rx="6" fill="#1c2028" fill-opacity="0.92" stroke="#8b93a1" stroke-width="1.5"/>
+<text x="1103.3" y="651" fill="#cdd3db" font-size="9">E2E test · polish · rehearse</text>
+<rect x="220" y="683" width="20" height="13" rx="3" fill="#1b1830" stroke="#7c5cff" stroke-width="1.3"/>
+<text x="248" y="694" fill="#9ba3af" font-size="10">active build</text>
+<rect x="350" y="683" width="20" height="13" rx="3" fill="#1b1830" fill-opacity="0.3" stroke="#7c5cff" stroke-width="1.3" stroke-dasharray="5 4"/>
+<text x="378" y="694" fill="#9ba3af" font-size="10">ongoing / oversight</text>
+<path d="M520 684 L528 691 L520 698 L512 691 Z" fill="#ffd166"/>
+<text x="536" y="694" fill="#9ba3af" font-size="10">milestone</text>
+</svg>
