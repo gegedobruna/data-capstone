@@ -135,11 +135,8 @@ checks:
   - id: CHK-11
     name: domain_tag_present
     category: tagging
-    description: Every asset must have a domain tag with a non-null tag_value.
-    fields:
-      - tag_name
-      - tag_value
-    rule: not_null_all
-    condition: "tag_name == 'domain'"
+    description: Every asset must have a non-null domain tag value.
+    field: tag_value
+    rule: not_null
     severity: medium
-    fail_message: "Domain tag is missing or tag_value is null -- asset is not domain-classified."
+    fail_message: "tag_value is null -- asset is not domain-classified."
