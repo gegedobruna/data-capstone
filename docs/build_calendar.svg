@@ -1,0 +1,190 @@
+<svg viewBox="0 0 1340 738" xmlns="http://www.w3.org/2000/svg" font-family="Segoe UI, Helvetica, Arial, sans-serif">
+<rect x="0" y="0" width="1340" height="738" fill="#0f1115"/>
+<text x="34" y="40" fill="#f5f7fa" font-size="25" font-weight="700">Build Calendar — June 2026</text>
+<text x="34" y="64" fill="#9ba3af" font-size="13">Mon 8 → Sun 28  ·  daily focus by owner  ·  ★ = milestone</text>
+<text x="116.3" y="108" fill="#9ba3af" font-size="11" font-weight="700" text-anchor="middle">MON</text>
+<text x="300.9" y="108" fill="#9ba3af" font-size="11" font-weight="700" text-anchor="middle">TUE</text>
+<text x="485.4" y="108" fill="#9ba3af" font-size="11" font-weight="700" text-anchor="middle">WED</text>
+<text x="670.0" y="108" fill="#9ba3af" font-size="11" font-weight="700" text-anchor="middle">THU</text>
+<text x="854.6" y="108" fill="#9ba3af" font-size="11" font-weight="700" text-anchor="middle">FRI</text>
+<text x="1039.1" y="108" fill="#6b7280" font-size="11" font-weight="700" text-anchor="middle">SAT</text>
+<text x="1223.7" y="108" fill="#6b7280" font-size="11" font-weight="700" text-anchor="middle">SUN</text>
+<rect x="24" y="124" width="1292" height="22" rx="5" fill="#5b8bd0" opacity="0.16"/>
+<text x="36" y="139" fill="#5b8bd0" font-size="11.5" font-weight="700">Week 1 · Jun 8–14 · Foundation</text>
+<rect x="28.0" y="150" width="176.6" height="150" rx="9" fill="#15181f" stroke="#ffd166" stroke-width="2.0"/>
+<text x="38.0" y="174" fill="#e7eaef" font-size="16" font-weight="700">8</text>
+<text x="194.6" y="172" fill="#ffd166" font-size="15" text-anchor="end">★</text>
+<rect x="36.0" y="180" width="160.6" height="20" rx="6" fill="#ffd166" fill-opacity="0.20" stroke="#ffd166" stroke-width="1.2"/>
+<text x="116.3" y="194" fill="#ffd166" font-size="9.5" font-weight="800" text-anchor="middle">KICKOFF</text>
+<rect x="36.0" y="208" width="160.6" height="22" rx="6" fill="#d4a017" fill-opacity="0.14" stroke="#d4a017" stroke-opacity="0.55" stroke-width="1"/>
+<circle cx="46.0" cy="219" r="3.4" fill="#d4a017"/>
+<text x="55.0" y="223" fill="#d7dce2" font-size="8.6">Gege · rubric sign-off</text>
+<rect x="36.0" y="235" width="160.6" height="22" rx="6" fill="#5b8bd0" fill-opacity="0.14" stroke="#5b8bd0" stroke-opacity="0.55" stroke-width="1"/>
+<circle cx="46.0" cy="246" r="3.4" fill="#5b8bd0"/>
+<text x="55.0" y="250" fill="#d7dce2" font-size="8.6">Flandër · workspace+repo</text>
+<rect x="212.6" y="150" width="176.6" height="150" rx="9" fill="#15181f" stroke="#2a2f3a" stroke-width="1.2"/>
+<text x="222.6" y="174" fill="#e7eaef" font-size="16" font-weight="700">9</text>
+<rect x="220.6" y="188" width="160.6" height="22" rx="6" fill="#5b8bd0" fill-opacity="0.14" stroke="#5b8bd0" stroke-opacity="0.55" stroke-width="1"/>
+<circle cx="230.6" cy="199" r="3.4" fill="#5b8bd0"/>
+<text x="239.6" y="203" fill="#d7dce2" font-size="8.6">Flandër · branches·secrets</text>
+<rect x="220.6" y="215" width="160.6" height="22" rx="6" fill="#c77b3b" fill-opacity="0.14" stroke="#c77b3b" stroke-opacity="0.55" stroke-width="1"/>
+<circle cx="230.6" cy="226" r="3.4" fill="#c77b3b"/>
+<text x="239.6" y="230" fill="#d7dce2" font-size="8.6">Bledi · Azure read</text>
+<rect x="397.1" y="150" width="176.6" height="150" rx="9" fill="#15181f" stroke="#2a2f3a" stroke-width="1.2"/>
+<text x="407.1" y="174" fill="#e7eaef" font-size="16" font-weight="700">10</text>
+<rect x="405.1" y="188" width="160.6" height="22" rx="6" fill="#c77b3b" fill-opacity="0.14" stroke="#c77b3b" stroke-opacity="0.55" stroke-width="1"/>
+<circle cx="415.1" cy="199" r="3.4" fill="#c77b3b"/>
+<text x="424.1" y="203" fill="#d7dce2" font-size="8.6">Bledi · Bronze ingest</text>
+<rect x="405.1" y="215" width="160.6" height="22" rx="6" fill="#c9a227" fill-opacity="0.14" stroke="#c9a227" stroke-opacity="0.55" stroke-width="1"/>
+<circle cx="415.1" cy="226" r="3.4" fill="#c9a227"/>
+<text x="424.1" y="230" fill="#d7dce2" font-size="8.6">Erzen · catalog model</text>
+<rect x="581.7" y="150" width="176.6" height="150" rx="9" fill="#15181f" stroke="#2a2f3a" stroke-width="1.2"/>
+<text x="591.7" y="174" fill="#e7eaef" font-size="16" font-weight="700">11</text>
+<rect x="589.7" y="188" width="160.6" height="22" rx="6" fill="#5b8bd0" fill-opacity="0.14" stroke="#5b8bd0" stroke-opacity="0.55" stroke-width="1"/>
+<circle cx="599.7" cy="199" r="3.4" fill="#5b8bd0"/>
+<text x="608.7" y="203" fill="#d7dce2" font-size="8.6">Flandër · CI/CD skeleton</text>
+<rect x="589.7" y="215" width="160.6" height="22" rx="6" fill="#c9a227" fill-opacity="0.14" stroke="#c9a227" stroke-opacity="0.55" stroke-width="1"/>
+<circle cx="599.7" cy="226" r="3.4" fill="#c9a227"/>
+<text x="608.7" y="230" fill="#d7dce2" font-size="8.6">Erzen · profiling</text>
+<rect x="766.3" y="150" width="176.6" height="150" rx="9" fill="#15181f" stroke="#2a2f3a" stroke-width="1.2"/>
+<text x="776.3" y="174" fill="#e7eaef" font-size="16" font-weight="700">12</text>
+<rect x="774.3" y="188" width="160.6" height="22" rx="6" fill="#c77b3b" fill-opacity="0.14" stroke="#c77b3b" stroke-opacity="0.55" stroke-width="1"/>
+<circle cx="784.3" cy="199" r="3.4" fill="#c77b3b"/>
+<text x="793.3" y="203" fill="#d7dce2" font-size="8.6">Bledi · Bronze→Silver</text>
+<rect x="774.3" y="215" width="160.6" height="22" rx="6" fill="#3fae84" fill-opacity="0.14" stroke="#3fae84" stroke-opacity="0.55" stroke-width="1"/>
+<circle cx="784.3" cy="226" r="3.4" fill="#3fae84"/>
+<text x="793.3" y="230" fill="#d7dce2" font-size="8.6">Erza·A · checks start</text>
+<rect x="950.9" y="150" width="176.6" height="150" rx="9" fill="#121419" stroke="#2a2f3a" stroke-width="1.2"/>
+<text x="960.9" y="174" fill="#9ba3af" font-size="16" font-weight="700">13</text>
+<rect x="958.9" y="188" width="160.6" height="22" rx="6" fill="#8b93a1" fill-opacity="0.14" stroke="#8b93a1" stroke-opacity="0.55" stroke-width="1"/>
+<circle cx="968.9" cy="199" r="3.4" fill="#8b93a1"/>
+<text x="977.9" y="203" fill="#d7dce2" font-size="8.6">All · catch-up / review</text>
+<rect x="1135.4" y="150" width="176.6" height="150" rx="9" fill="#121419" stroke="#ffd166" stroke-width="2.0"/>
+<text x="1145.4" y="174" fill="#9ba3af" font-size="16" font-weight="700">14</text>
+<text x="1302.0" y="172" fill="#ffd166" font-size="15" text-anchor="end">★</text>
+<text x="1223.7" y="227.0" fill="#ffd166" font-size="11" font-weight="800" text-anchor="middle">BRONZE LIVE</text>
+<rect x="24" y="310" width="1292" height="22" rx="5" fill="#7c5cff" opacity="0.16"/>
+<text x="36" y="325" fill="#7c5cff" font-size="11.5" font-weight="700">Week 2 · Jun 15–21 · Core logic</text>
+<rect x="28.0" y="336" width="176.6" height="150" rx="9" fill="#15181f" stroke="#2a2f3a" stroke-width="1.2"/>
+<text x="38.0" y="360" fill="#e7eaef" font-size="16" font-weight="700">15</text>
+<rect x="36.0" y="374" width="160.6" height="22" rx="6" fill="#3fae84" fill-opacity="0.14" stroke="#3fae84" stroke-opacity="0.55" stroke-width="1"/>
+<circle cx="46.0" cy="385" r="3.4" fill="#3fae84"/>
+<text x="55.0" y="389" fill="#d7dce2" font-size="8.6">Erza·A · 11 checks</text>
+<rect x="36.0" y="401" width="160.6" height="22" rx="6" fill="#c9a227" fill-opacity="0.14" stroke="#c9a227" stroke-opacity="0.55" stroke-width="1"/>
+<circle cx="46.0" cy="412" r="3.4" fill="#c9a227"/>
+<text x="55.0" y="416" fill="#d7dce2" font-size="8.6">Erzen · Gold repo</text>
+<rect x="212.6" y="336" width="176.6" height="150" rx="9" fill="#15181f" stroke="#2a2f3a" stroke-width="1.2"/>
+<text x="222.6" y="360" fill="#e7eaef" font-size="16" font-weight="700">16</text>
+<rect x="220.6" y="374" width="160.6" height="22" rx="6" fill="#3fae84" fill-opacity="0.14" stroke="#3fae84" stroke-opacity="0.55" stroke-width="1"/>
+<circle cx="230.6" cy="385" r="3.4" fill="#3fae84"/>
+<text x="239.6" y="389" fill="#d7dce2" font-size="8.6">Erza·A · quarantine</text>
+<rect x="220.6" y="401" width="160.6" height="22" rx="6" fill="#c9a227" fill-opacity="0.14" stroke="#c9a227" stroke-opacity="0.55" stroke-width="1"/>
+<circle cx="230.6" cy="412" r="3.4" fill="#c9a227"/>
+<text x="239.6" y="416" fill="#d7dce2" font-size="8.6">Erzen · structure profile</text>
+<rect x="397.1" y="336" width="176.6" height="150" rx="9" fill="#15181f" stroke="#2a2f3a" stroke-width="1.2"/>
+<text x="407.1" y="360" fill="#e7eaef" font-size="16" font-weight="700">17</text>
+<rect x="405.1" y="374" width="160.6" height="22" rx="6" fill="#c77b3b" fill-opacity="0.14" stroke="#c77b3b" stroke-opacity="0.55" stroke-width="1"/>
+<circle cx="415.1" cy="385" r="3.4" fill="#c77b3b"/>
+<text x="424.1" y="389" fill="#d7dce2" font-size="8.6">Bledi · Gold scoring</text>
+<rect x="405.1" y="401" width="160.6" height="22" rx="6" fill="#2fb3a8" fill-opacity="0.14" stroke="#2fb3a8" stroke-opacity="0.55" stroke-width="1"/>
+<circle cx="415.1" cy="412" r="3.4" fill="#2fb3a8"/>
+<text x="424.1" y="416" fill="#d7dce2" font-size="8.6">Erza·B · KPI design</text>
+<rect x="581.7" y="336" width="176.6" height="150" rx="9" fill="#15181f" stroke="#2a2f3a" stroke-width="1.2"/>
+<text x="591.7" y="360" fill="#e7eaef" font-size="16" font-weight="700">18</text>
+<rect x="589.7" y="374" width="160.6" height="22" rx="6" fill="#7c5cff" fill-opacity="0.14" stroke="#7c5cff" stroke-opacity="0.55" stroke-width="1"/>
+<circle cx="599.7" cy="385" r="3.4" fill="#7c5cff"/>
+<text x="608.7" y="389" fill="#d7dce2" font-size="8.6">Ajete · Genie scope+instr</text>
+<rect x="589.7" y="401" width="160.6" height="22" rx="6" fill="#2fb3a8" fill-opacity="0.14" stroke="#2fb3a8" stroke-opacity="0.55" stroke-width="1"/>
+<circle cx="599.7" cy="412" r="3.4" fill="#2fb3a8"/>
+<text x="608.7" y="416" fill="#d7dce2" font-size="8.6">Erza·B · dashboard</text>
+<rect x="766.3" y="336" width="176.6" height="150" rx="9" fill="#15181f" stroke="#2a2f3a" stroke-width="1.2"/>
+<text x="776.3" y="360" fill="#e7eaef" font-size="16" font-weight="700">19</text>
+<rect x="774.3" y="374" width="160.6" height="22" rx="6" fill="#7c5cff" fill-opacity="0.14" stroke="#7c5cff" stroke-opacity="0.55" stroke-width="1"/>
+<circle cx="784.3" cy="385" r="3.4" fill="#7c5cff"/>
+<text x="793.3" y="389" fill="#d7dce2" font-size="8.6">Ajete · trusted SQL</text>
+<rect x="774.3" y="401" width="160.6" height="22" rx="6" fill="#2fb3a8" fill-opacity="0.14" stroke="#2fb3a8" stroke-opacity="0.55" stroke-width="1"/>
+<circle cx="784.3" cy="412" r="3.4" fill="#2fb3a8"/>
+<text x="793.3" y="416" fill="#d7dce2" font-size="8.6">Erza·B · scorecards</text>
+<rect x="950.9" y="336" width="176.6" height="150" rx="9" fill="#121419" stroke="#2a2f3a" stroke-width="1.2"/>
+<text x="960.9" y="360" fill="#9ba3af" font-size="16" font-weight="700">20</text>
+<rect x="958.9" y="374" width="160.6" height="22" rx="6" fill="#8b93a1" fill-opacity="0.14" stroke="#8b93a1" stroke-opacity="0.55" stroke-width="1"/>
+<circle cx="968.9" cy="385" r="3.4" fill="#8b93a1"/>
+<text x="977.9" y="389" fill="#d7dce2" font-size="8.6">All · review</text>
+<rect x="1135.4" y="336" width="176.6" height="150" rx="9" fill="#121419" stroke="#ffd166" stroke-width="2.0"/>
+<text x="1145.4" y="360" fill="#9ba3af" font-size="16" font-weight="700">21</text>
+<text x="1302.0" y="358" fill="#ffd166" font-size="15" text-anchor="end">★</text>
+<text x="1223.7" y="413.0" fill="#ffd166" font-size="11" font-weight="800" text-anchor="middle">SCORING DONE</text>
+<rect x="24" y="496" width="1292" height="22" rx="5" fill="#ff7a59" opacity="0.16"/>
+<text x="36" y="511" fill="#ff7a59" font-size="11.5" font-weight="700">Week 3 · Jun 22–28 · Integration &amp; presentation</text>
+<rect x="28.0" y="522" width="176.6" height="150" rx="9" fill="#15181f" stroke="#2a2f3a" stroke-width="1.2"/>
+<text x="38.0" y="546" fill="#e7eaef" font-size="16" font-weight="700">22</text>
+<rect x="36.0" y="560" width="160.6" height="22" rx="6" fill="#7c5cff" fill-opacity="0.14" stroke="#7c5cff" stroke-opacity="0.55" stroke-width="1"/>
+<circle cx="46.0" cy="571" r="3.4" fill="#7c5cff"/>
+<text x="55.0" y="575" fill="#d7dce2" font-size="8.6">Ajete · Genie tuning</text>
+<rect x="36.0" y="587" width="160.6" height="22" rx="6" fill="#2fb3a8" fill-opacity="0.14" stroke="#2fb3a8" stroke-opacity="0.55" stroke-width="1"/>
+<circle cx="46.0" cy="598" r="3.4" fill="#2fb3a8"/>
+<text x="55.0" y="602" fill="#d7dce2" font-size="8.6">Erza·B · dashboard polish</text>
+<rect x="212.6" y="522" width="176.6" height="150" rx="9" fill="#15181f" stroke="#2a2f3a" stroke-width="1.2"/>
+<text x="222.6" y="546" fill="#e7eaef" font-size="16" font-weight="700">23</text>
+<rect x="220.6" y="560" width="160.6" height="22" rx="6" fill="#ff7a59" fill-opacity="0.14" stroke="#ff7a59" stroke-opacity="0.55" stroke-width="1"/>
+<circle cx="230.6" cy="571" r="3.4" fill="#ff7a59"/>
+<text x="239.6" y="575" fill="#d7dce2" font-size="8.6">Gresa · App build</text>
+<rect x="220.6" y="587" width="160.6" height="22" rx="6" fill="#7c5cff" fill-opacity="0.14" stroke="#7c5cff" stroke-opacity="0.55" stroke-width="1"/>
+<circle cx="230.6" cy="598" r="3.4" fill="#7c5cff"/>
+<text x="239.6" y="602" fill="#d7dce2" font-size="8.6">Ajete · Q&amp;A testing</text>
+<rect x="397.1" y="522" width="176.6" height="150" rx="9" fill="#15181f" stroke="#2a2f3a" stroke-width="1.2"/>
+<text x="407.1" y="546" fill="#e7eaef" font-size="16" font-weight="700">24</text>
+<rect x="405.1" y="560" width="160.6" height="22" rx="6" fill="#ff7a59" fill-opacity="0.14" stroke="#ff7a59" stroke-opacity="0.55" stroke-width="1"/>
+<circle cx="415.1" cy="571" r="3.4" fill="#ff7a59"/>
+<text x="424.1" y="575" fill="#d7dce2" font-size="8.6">Gresa · Genie API wiring</text>
+<rect x="405.1" y="587" width="160.6" height="22" rx="6" fill="#d4a017" fill-opacity="0.14" stroke="#d4a017" stroke-opacity="0.55" stroke-width="1"/>
+<circle cx="415.1" cy="598" r="3.4" fill="#d4a017"/>
+<text x="424.1" y="602" fill="#d7dce2" font-size="8.6">Gege · deck start</text>
+<rect x="581.7" y="522" width="176.6" height="150" rx="9" fill="#15181f" stroke="#2a2f3a" stroke-width="1.2"/>
+<text x="591.7" y="546" fill="#e7eaef" font-size="16" font-weight="700">25</text>
+<rect x="589.7" y="560" width="160.6" height="22" rx="6" fill="#ff7a59" fill-opacity="0.14" stroke="#ff7a59" stroke-opacity="0.55" stroke-width="1"/>
+<circle cx="599.7" cy="571" r="3.4" fill="#ff7a59"/>
+<text x="608.7" y="575" fill="#d7dce2" font-size="8.6">Gresa · monitor+feedback</text>
+<rect x="589.7" y="587" width="160.6" height="22" rx="6" fill="#8b93a1" fill-opacity="0.14" stroke="#8b93a1" stroke-opacity="0.55" stroke-width="1"/>
+<circle cx="599.7" cy="598" r="3.4" fill="#8b93a1"/>
+<text x="608.7" y="602" fill="#d7dce2" font-size="8.6">All · integration test</text>
+<rect x="766.3" y="522" width="176.6" height="150" rx="9" fill="#15181f" stroke="#ffd166" stroke-width="2.0"/>
+<text x="776.3" y="546" fill="#e7eaef" font-size="16" font-weight="700">26</text>
+<text x="932.9" y="544" fill="#ffd166" font-size="15" text-anchor="end">★</text>
+<rect x="774.3" y="552" width="160.6" height="20" rx="6" fill="#ffd166" fill-opacity="0.20" stroke="#ffd166" stroke-width="1.2"/>
+<text x="854.6" y="566" fill="#ffd166" font-size="9.5" font-weight="800" text-anchor="middle">GENIE + BI</text>
+<rect x="774.3" y="580" width="160.6" height="22" rx="6" fill="#8b93a1" fill-opacity="0.14" stroke="#8b93a1" stroke-opacity="0.55" stroke-width="1"/>
+<circle cx="784.3" cy="591" r="3.4" fill="#8b93a1"/>
+<text x="793.3" y="595" fill="#d7dce2" font-size="8.6">All · E2E test</text>
+<rect x="950.9" y="522" width="176.6" height="150" rx="9" fill="#121419" stroke="#2a2f3a" stroke-width="1.2"/>
+<text x="960.9" y="546" fill="#9ba3af" font-size="16" font-weight="700">27</text>
+<rect x="958.9" y="560" width="160.6" height="22" rx="6" fill="#8b93a1" fill-opacity="0.14" stroke="#8b93a1" stroke-opacity="0.55" stroke-width="1"/>
+<circle cx="968.9" cy="571" r="3.4" fill="#8b93a1"/>
+<text x="977.9" y="575" fill="#d7dce2" font-size="8.6">All · polish·rehearse</text>
+<rect x="958.9" y="587" width="160.6" height="22" rx="6" fill="#d4a017" fill-opacity="0.14" stroke="#d4a017" stroke-opacity="0.55" stroke-width="1"/>
+<circle cx="968.9" cy="598" r="3.4" fill="#d4a017"/>
+<text x="977.9" y="602" fill="#d7dce2" font-size="8.6">Gege · dry run</text>
+<rect x="1135.4" y="522" width="176.6" height="150" rx="9" fill="#121419" stroke="#ff7a59" stroke-width="2.0"/>
+<text x="1145.4" y="546" fill="#9ba3af" font-size="16" font-weight="700">28</text>
+<text x="1302.0" y="544" fill="#ff7a59" font-size="15" text-anchor="end">★</text>
+<text x="1223.7" y="599.0" fill="#ff7a59" font-size="13" font-weight="800" text-anchor="middle">PRESENTATION</text>
+<text x="28" y="706" fill="#9ba3af" font-size="10" font-weight="700">OWNERS:</text>
+<circle cx="92" cy="702" r="4" fill="#d4a017"/>
+<text x="101" y="706" fill="#9ba3af" font-size="9.5">Gege</text>
+<circle cx="144.0" cy="702" r="4" fill="#5b8bd0"/>
+<text x="153.0" y="706" fill="#9ba3af" font-size="9.5">Flandër</text>
+<circle cx="214.0" cy="702" r="4" fill="#c77b3b"/>
+<text x="223.0" y="706" fill="#9ba3af" font-size="9.5">Bledi</text>
+<circle cx="272.0" cy="702" r="4" fill="#c9a227"/>
+<text x="281.0" y="706" fill="#9ba3af" font-size="9.5">Erzen</text>
+<circle cx="330.0" cy="702" r="4" fill="#3fae84"/>
+<text x="339.0" y="706" fill="#9ba3af" font-size="9.5">Erza·A</text>
+<circle cx="394.0" cy="702" r="4" fill="#7c5cff"/>
+<text x="403.0" y="706" fill="#9ba3af" font-size="9.5">Ajete</text>
+<circle cx="452.0" cy="702" r="4" fill="#2fb3a8"/>
+<text x="461.0" y="706" fill="#9ba3af" font-size="9.5">Erza·B</text>
+<circle cx="516.0" cy="702" r="4" fill="#ff7a59"/>
+<text x="525.0" y="706" fill="#9ba3af" font-size="9.5">Gresa</text>
+<circle cx="574.0" cy="702" r="4" fill="#8b93a1"/>
+<text x="583.0" y="706" fill="#9ba3af" font-size="9.5">All</text>
+</svg>
