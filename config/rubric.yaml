@@ -1,9 +1,21 @@
 # Metadata Governance Certification Rubric
 # Project: GK-DG-2026-01 - Metadata Governance Platform
-# Scope: Per-asset evaluation across Unity Catalog (bronze/silver/gold)
-# A column-level asset must pass all applicable checks to receive a certification_level.
+# Scope: Per-asset (column-level) evaluation across Unity Catalog bronze/silver/gold.
+#
+# v2.0 changes (GATED TIERING):
+#   - Certification is no longer a count of passed checks. Each level lists the
+#     exact gate_checks (cumulative) an asset MUST pass to earn that level.
+#     Falling short of any gate caps the asset at the highest fully-satisfied
+#     level, or 'None'.
+#   - Registered  = CHK-01..03  (identity + valid medallion schema)
+#     Documented  = Registered + CHK-04..06  (description, term, steward)
+#     Certified   = Documented + CHK-07..11  (classification, sensitivity, DQ,
+#                   declared level, domain tag)
+# v1.1 (retained):
+#   - CHK-07 allowed values use canonical "Confidential" (matches Silver VAL-03).
+#   - CHK-09: an unverifiable ratio (null/zero total) counts as not-passed.
 
-rubric_version: "1.0"
+rubric_version: "2.0"
 evaluation_scope: per_asset
 catalog: governance
 schemas:
@@ -11,20 +23,21 @@ schemas:
   - silver
   - gold
 
+# Gated tiering. gate_checks are cumulative and reference check ids below.
 certification_levels:
   - name: Registered
-    description: Asset is known to the catalog with minimum viable identity fields.
-    min_checks_passed: 3
+    description: Identity established and assigned to a valid medallion schema.
+    gate_checks: [CHK-01, CHK-02, CHK-03]
   - name: Documented
-    description: Asset has descriptive metadata and ownership assigned.
-    min_checks_passed: 6
+    description: Registered, plus described, glossary-linked, and owned.
+    gate_checks: [CHK-01, CHK-02, CHK-03, CHK-04, CHK-05, CHK-06]
   - name: Certified
-    description: Asset meets all governance, quality, and tagging requirements.
-    min_checks_passed: 11
+    description: Documented, plus classified, sensitivity-flagged, quality-checked, leveled, and domain-tagged.
+    gate_checks: [CHK-01, CHK-02, CHK-03, CHK-04, CHK-05, CHK-06, CHK-07, CHK-08, CHK-09, CHK-10, CHK-11]
 
 checks:
 
-  # --- Catalog / Structure (3 checks) ---
+  # --- Catalog / Structure (Registered gates) ---
 
   - id: CHK-01
     name: column_id_present
@@ -54,7 +67,7 @@ checks:
     severity: critical
     fail_message: "schema_name is null or not one of bronze / silver / gold."
 
-  # --- Metadata Completeness (4 checks) ---
+  # --- Metadata Completeness (Documented gates) ---
 
   - id: CHK-04
     name: column_description_present
@@ -83,22 +96,22 @@ checks:
     severity: high
     fail_message: "data_steward is null -- no accountable owner is defined."
 
+  # --- Governance / Quality + Tagging (Certified gates) ---
+
   - id: CHK-07
     name: security_classification_present
     category: metadata_completeness
-    description: Security classification must be one of the approved values.
+    description: Security classification must be one of the approved (canonical) values.
     field: security_classification
     rule: allowed_values
-    allowed: [Internal, Public, Conf]
+    allowed: [Internal, Public, Confidential]
     severity: high
-    fail_message: "security_classification is null or unrecognised."
-
-  # --- Governance / Quality (3 checks) ---
+    fail_message: "security_classification is null or not a canonical value (Internal / Public / Confidential)."
 
   - id: CHK-08
     name: sensitivity_flags_set
     category: governance_quality
-    description: Both pii_flag and critical_data_element_flag must be explicitly set (true or false -- null is not acceptable).
+    description: Both pii_flag and critical_data_element_flag must be explicitly set (null is not acceptable).
     fields:
       - pii_flag
       - critical_data_element_flag
@@ -118,19 +131,17 @@ checks:
     threshold: 0.05
     severity: high
     fail_message: "Invalid record ratio exceeds 5% -- data quality does not meet certification standard."
-    notes: "If total_record_count is null the check is skipped and flagged as unverifiable."
+    notes: "If total_record_count is null or zero the ratio cannot be computed; the check does not pass, so the asset cannot reach Certified until a valid record count is available."
 
   - id: CHK-10
     name: certification_level_populated
     category: governance_quality
-    description: The asset must carry a certification_level value from the approved set.
+    description: The asset must carry a declared certification_level value from the approved set.
     field: certification_level
     rule: allowed_values
     allowed: [Registered, Documented, Certified]
     severity: medium
     fail_message: "certification_level is null or unrecognised."
-
-  # --- Tagging (1 check) ---
 
   - id: CHK-11
     name: domain_tag_present
