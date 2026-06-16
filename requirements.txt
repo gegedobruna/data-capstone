@@ -1,0 +1,6 @@
+dash>=2.17.0
+dash-bootstrap-components>=1.6.0
+databricks-sdk>=0.28.0
+requests>=2.31.0
+python-dotenv
+databricks-sql-connector>=3.4.0
