@@ -1,1 +1,171 @@
-test
+# =============================================================================
+# Metadata Governance Platform  |  project GK-DG-2026-01
+# Single-bundle definition for the full medallion + AI/BI + Genie + App stack.
+#
+# engine: direct is REQUIRED (genie_spaces only deploy in direct mode, and it
+# keeps every resource on one engine).
+#
+# Placeholders to fill: anything marked  <<FILL>>  or  # TODO
+# =============================================================================
+
+bundle:
+  name: data-governance-capstone
+  engine: direct
+
+variables:
+  warehouse_id:
+    description: Serverless Starter Warehouse
+    default: 6d3a6392d8691ed6
+    # For multi-env portability later, swap the literal id for a name lookup:
+    # lookup:
+    #   warehouse: "Serverless Starter Warehouse"
+
+# -----------------------------------------------------------------------------
+# Resources
+# -----------------------------------------------------------------------------
+resources:
+
+  # --- Medallion pipelines (3) -------------------------------------------------
+  # These already exist in the workspace. Either:
+  #   a) run  databricks bundle generate pipeline --existing-id <id>  to pull the
+  #      exact definition (incl. source libraries) into resource files, or
+  #   b) keep them defined here and fill in the source paths under `libraries`,
+  #      then adopt the existing ones with `bundle deployment bind` (see notes).
+  pipelines:
+
+    Pipeline_01_bronze_ingestion:
+      name: Pipeline_01_bronze_ingestion
+      catalog: dbx_metadata_governance_dev
+      schema: bronze
+      serverless: true
+      libraries:
+        - notebook:
+            path: /Workspace/Users/flandercanaj18@gmail.com/data-capstone/ingestion/ingestion   # <<FILL: actual source path>>
+
+    Pipeline_02_silver_validate:
+      name: Pipeline_02_silver_validate
+      catalog: dbx_metadata_governance_dev
+      schema: silver
+      serverless: true
+      libraries:
+        - notebook:
+            path: /Workspace/Users/flandercanaj18@gmail.com/data-capstone/transformation/silver_validation    # <<FILL: actual source path>>
+
+    Pipeline_03_gold_governance:
+      name: Pipeline_03_gold_governance
+      catalog: dbx_metadata_governance_dev
+      schema: gold
+      serverless: true
+      libraries:
+        - notebook:
+            path: /Workspace/Users/flandercanaj18@gmail.com/data-capstone/validation/gold-layer    # <<FILL: actual source path>>
+
+  # --- Orchestration job -------------------------------------------------------
+  # Pipeline ids now come from the bundle refs above instead of being hardcoded,
+  # so binding/redeploys stay consistent.
+  jobs:
+
+    Metadata_Medallion:
+      name: Metadata Medallion
+      description: >-
+        Orchestrated job that runs the medallion architecture for the metadata
+        governance pipelines
+      queue:
+        enabled: true
+      performance_target: PERFORMANCE_OPTIMIZED
+      tasks:
+        - task_key: Bronze
+          pipeline_task:
+            pipeline_id: ${resources.pipelines.Pipeline_01_bronze_ingestion.id}
+          max_retries: 1
+          min_retry_interval_millis: 900000
+          email_notifications:
+            on_failure:
+              - flandercanaj18@gmail.com
+
+        - task_key: Silver
+          depends_on:
+            - task_key: Bronze
+          pipeline_task:
+            pipeline_id: ${resources.pipelines.Pipeline_02_silver_validate.id}
+          max_retries: 1
+          min_retry_interval_millis: 900000
+          email_notifications:
+            on_failure:
+              - flandercanaj18@gmail.com
+
+        - task_key: Gold
+          depends_on:
+            - task_key: Silver
+          pipeline_task:
+            pipeline_id: ${resources.pipelines.Pipeline_03_gold_governance.id}
+          max_retries: 1
+          min_retry_interval_millis: 900000
+          email_notifications:
+            on_failure:
+              - flandercanaj18@gmail.com
+
+  # --- AI/BI dashboard ---------------------------------------------------------
+  # Generate the .lvdash.json from the existing dashboard:
+  #   databricks bundle generate dashboard --existing-id 01f168ff1cb21c6ebaa55ea7c5b43210
+  dashboards:
+
+    metadata_gov_dashboard:
+      display_name: Metadata Governance Dashboard
+      file_path: ../src/dashboards/metadata_gov.lvdash.json   # <<FILL: from generate>>
+      warehouse_id: ${var.warehouse_id}
+
+  # --- Genie space -------------------------------------------------------------
+  # NOT bindable: deploy CREATES A NEW space with a NEW id (the old
+  # 01f168ff5ac612b59b29ad0e895f1ce2 is not adopted). Generate the json first:
+  #   databricks bundle generate genie-space --existing-id 01f168ff5ac612b59b29ad0e895f1ce2
+  genie_spaces:
+
+    metadata_gov_ai:
+      title: Metadata Gov AI
+      description: Ask questions about the governance metadata in natural language
+      warehouse_id: ${var.warehouse_id}
+      file_path: ../src/genie/metadata_gov_ai.geniespace.json   # <<FILL: from generate>>
+
+  # --- Databricks App ----------------------------------------------------------
+  # COMMENTED OUT until the app source exists. When you have it:
+    1. point source_code_path at the app folder (must contain app.yaml)
+    2. in the app code, read GENIE_SPACE_ID from env instead of the hardcoded
+       iframe url -- the binding below injects the NEW genie id automatically
+    3. uncomment, then `bundle validate` and `bundle deploy`
+  
+  apps:
+    metadata_gov_ui:
+      name: metadata-gov-ui
+      description: Self-service UI over the governance Genie space
+      source_code_path: ../src/app          # <<FILL: app folder with app.yaml>>
+      resources:
+        - name: genie-room
+          genie_space:
+            space_id: ${resources.genie_spaces.metadata_gov_ai.id}
+            permission: CAN_RUN
+        - name: app-warehouse
+          sql_warehouse:
+            id: ${var.warehouse_id}
+            permission: CAN_USE
+        # If the app reads the blob SAS secret directly:
+        # - name: blob-sas
+        #   secret:
+        #     scope: capstone-secrets
+        #     key: blob-sas-uri
+        #     permission: READ
+      config:
+        env:
+          - name: GENIE_SPACE_ID
+            valueFrom: genie-room
+
+# -----------------------------------------------------------------------------
+# Targets  (Free Edition = single workspace)
+# -----------------------------------------------------------------------------
+targets:
+  dev:
+    default: true
+    mode: development          # prefixes resource names with [dev <you>]; drop
+                               # this if you want clean names in the shared space
+    workspace:
+      host: https://dbc-3a1cd165-94e4.cloud.databricks.com
