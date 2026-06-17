@@ -1,0 +1,22 @@
+resources:
+  jobs:
+    Metadata_Medallion:
+      name: Metadata Medallion
+      queue:
+        enabled: true
+      tasks:
+        - task_key: Bronze
+          pipeline_task:
+            pipeline_id: ${resources.pipelines.Pipeline_01_bronze_ingestion.id}
+
+        - task_key: Silver
+          depends_on:
+            - task_key: Bronze
+          pipeline_task:
+            pipeline_id: ${resources.pipelines.Pipeline_02_silver_validate.id}
+
+        - task_key: Gold
+          depends_on:
+            - task_key: Silver
+          pipeline_task:
+            pipeline_id: ${resources.pipelines.Pipeline_03_gold_governance.id}
