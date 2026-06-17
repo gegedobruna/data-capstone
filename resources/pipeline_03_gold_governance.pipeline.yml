@@ -1,0 +1,14 @@
+resources:
+  pipelines:
+    pipeline_03_gold_governance:
+      name: Pipeline_03_gold_governance
+      libraries:
+        - glob:
+            include: /Workspace/Users/flandercanaj18@gmail.com/data-capstone/validation/gold-layer
+      catalog: dbx_metadata_governance_dev
+      channel: CURRENT
+      continuous: false
+      photon: true
+      root_path: ../src
+      schema: gold
+      serverless: true
