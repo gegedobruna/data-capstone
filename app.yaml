@@ -3,7 +3,7 @@ env:
   - name: SQL_WAREHOUSE_ID
     value: "6d3a6392d8691ed6"
   - name: GENIE_SPACE_ID
-    value: "01f168ff5ac612b59b29ad0e895f1ce2"
+    value: "01f1699b3c5718c395e11d9877d814d0"
   - name: GOLD_CATALOG
     value: "dbx_metadata_governance_dev"
   - name: GOLD_SCHEMA
