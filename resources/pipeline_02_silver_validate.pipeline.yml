@@ -1,0 +1,14 @@
+resources:
+  pipelines:
+    pipeline_02_silver_validate:
+      name: Pipeline_02_silver_validate
+      libraries:
+        - glob:
+            include: ../src/transformations/**
+      catalog: dbx_metadata_governance_dev
+      channel: CURRENT
+      continuous: false
+      photon: true
+      root_path: ../src
+      schema: silver
+      serverless: true

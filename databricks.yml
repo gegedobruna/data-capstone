@@ -16,6 +16,9 @@ variables:
   warehouse_id:
     description: Serverless Starter Warehouse
     default: 6d3a6392d8691ed6
+  metadata_sas_uri:
+    description: Metadata CSV SAS URI
+    default: ""
     # For multi-env portability later, swap the literal id for a name lookup:
     # lookup:
     #   warehouse: "Serverless Starter Warehouse"
@@ -38,9 +41,11 @@ resources:
       catalog: dbx_metadata_governance_dev
       schema: bronze
       serverless: true
+      configuration:
+        capstone.metadata_sas_uri: "{{secrets/capstone-secrets/blob-sas-uri}}"
       libraries:
         - notebook:
-            path: /Workspace/Users/flandercanaj18@gmail.com/data-capstone/ingestion/ingestion   # <<FILL: actual source path>>
+            path: /Workspace/Users/flandercanaj18@gmail.com/data-capstone/ingestion/ingestion  # <<FILL: actual source path>>
 
     Pipeline_02_silver_validate:
       name: Pipeline_02_silver_validate
@@ -112,7 +117,7 @@ resources:
 
     metadata_gov_dashboard:
       display_name: Metadata Governance Dashboard
-      file_path: ../src/dashboards/metadata_gov.lvdash.json   # <<FILL: from generate>>
+      file_path: src/metadata_dashboard.lvdash.json   # <<FILL: from generate>>
       warehouse_id: ${var.warehouse_id}
 
   # --- Genie space -------------------------------------------------------------
@@ -125,39 +130,36 @@ resources:
       title: Metadata Gov AI
       description: Ask questions about the governance metadata in natural language
       warehouse_id: ${var.warehouse_id}
-      file_path: ../src/genie/metadata_gov_ai.geniespace.json   # <<FILL: from generate>>
+      file_path: src/metadata_gov_ai.geniespace.json   # <<FILL: from generate>>
 
   # --- Databricks App ----------------------------------------------------------
   # COMMENTED OUT until the app source exists. When you have it:
-    1. point source_code_path at the app folder (must contain app.yaml)
-    2. in the app code, read GENIE_SPACE_ID from env instead of the hardcoded
-       iframe url -- the binding below injects the NEW genie id automatically
-    3. uncomment, then `bundle validate` and `bundle deploy`
+
   
-  apps:
-    metadata_gov_ui:
-      name: metadata-gov-ui
-      description: Self-service UI over the governance Genie space
-      source_code_path: ../src/app          # <<FILL: app folder with app.yaml>>
-      resources:
-        - name: genie-room
-          genie_space:
-            space_id: ${resources.genie_spaces.metadata_gov_ai.id}
-            permission: CAN_RUN
-        - name: app-warehouse
-          sql_warehouse:
-            id: ${var.warehouse_id}
-            permission: CAN_USE
-        # If the app reads the blob SAS secret directly:
-        # - name: blob-sas
-        #   secret:
-        #     scope: capstone-secrets
-        #     key: blob-sas-uri
-        #     permission: READ
-      config:
-        env:
-          - name: GENIE_SPACE_ID
-            valueFrom: genie-room
+  # apps:
+  #   metadata_gov_ui:
+  #     name: metadata-gov-ui
+  #     description: Self-service UI over the governance Genie space
+  #     source_code_path: ../src/app          # <<FILL: app folder with app.yaml>>
+  #     resources:
+  #       - name: genie-room
+  #         genie_space:
+  #           space_id: ${resources.genie_spaces.metadata_gov_ai.id}
+  #           permission: CAN_RUN
+  #       - name: app-warehouse
+  #         sql_warehouse:
+  #           id: ${var.warehouse_id}
+  #           permission: CAN_USE
+  #       # If the app reads the blob SAS secret directly:
+  #       # - name: blob-sas
+  #       #   secret:
+  #       #     scope: capstone-secrets
+  #       #     key: blob-sas-uri
+  #       #     permission: READ
+  #     config:
+  #       env:
+  #         - name: GENIE_SPACE_ID
+  #           valueFrom: genie-room
 
 # -----------------------------------------------------------------------------
 # Targets  (Free Edition = single workspace)

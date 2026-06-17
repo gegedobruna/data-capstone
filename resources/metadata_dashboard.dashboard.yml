@@ -1,0 +1,6 @@
+resources:
+  dashboards:
+    metadata_dashboard:
+      display_name: "Metadata Dashboard"
+      warehouse_id: 6d3a6392d8691ed6
+      file_path: ../src/metadata_dashboard.lvdash.json
