@@ -1,0 +1,16 @@
+resources:
+  pipelines:
+    pipeline_01_bronze_ingestion:
+      name: Pipeline_01_bronze_ingestion
+      configuration:
+        "BLOB_SAS_URI": "https://capstonemetadata.blob.core.windows.net/sources/metadata.csv?sp=r&st=2026-06-14T10:48:51Z&se=2026-07-03T19:03:51Z&spr=https&sv=2026-02-06&sr=b&sig=I%2F2Ki3d%2FjW5iTDCy%2BhJ2IQFk2Bg4wpz2ophitWKlTLk%3D"
+      libraries:
+        - glob:
+            include: /Workspace/Users/flandercanaj18@gmail.com/data-capstone/ingestion/ingestion
+      catalog: dbx_metadata_governance_dev
+      channel: CURRENT
+      continuous: false
+      photon: true
+      root_path: ../src
+      schema: bronze
+      serverless: true
