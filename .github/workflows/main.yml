@@ -2,11 +2,16 @@ name: Databricks CI/CD
 
 on:
   push:
-    branches: [ main ]
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
   workflow_dispatch:
 
 jobs:
-  deploy:
+  validate-deploy-run:
+    name: Validate, Deploy and Run Bundle
     runs-on: ubuntu-latest
 
     env:
@@ -18,17 +23,29 @@ jobs:
       GOLD_SCHEMA: "gold"
 
     steps:
-      - name: Checkout repo
+      - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Setup Databricks CLI
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install Databricks CLI
         uses: databricks/setup-cli@main
 
-      - name: Validate Databricks bundle
-        run: databricks bundle validate -t dev
+      - name: Verify Databricks authentication
+        run: |
+          databricks current-user me
 
-      - name: Deploy Databricks bundle
-        run: databricks bundle deploy -t dev
+      - name: Validate bundle
+        run: |
+          databricks bundle validate -t dev
+
+      - name: Deploy bundle
+        run: |
+          databricks bundle deploy -t dev
 
       - name: Run Metadata Medallion workflow
-        run: databricks bundle run Metadata_Medallion -t dev
+        run: |
+          databricks bundle run Metadata_Medallion -t dev
