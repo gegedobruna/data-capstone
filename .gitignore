@@ -1,7 +1,6 @@
 # Data files — NEVER commit
 *.csv
 *.parquet
-*.json
 
 # Secrets
 .env
