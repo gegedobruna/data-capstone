@@ -1,0 +1,2053 @@
+{
+  "data_sources": {
+    "tables": [
+      {
+        "column_configs": [
+          {
+            "column_name": "access_decision",
+            "enable_entity_matching": true,
+            "enable_format_assistance": true
+          },
+          {
+            "column_name": "access_reason",
+            "enable_entity_matching": true,
+            "enable_format_assistance": true
+          },
+          {
+            "column_name": "allowed_region",
+            "enable_entity_matching": true,
+            "enable_format_assistance": true
+          },
+          {
+            "column_name": "asset_location",
+            "enable_entity_matching": true,
+            "enable_format_assistance": true
+          },
+          {
+            "column_name": "asset_region",
+            "enable_entity_matching": true,
+            "enable_format_assistance": true
+          },
+          {
+            "column_name": "department",
+            "enable_entity_matching": true,
+            "enable_format_assistance": true
+          },
+          {
+            "column_name": "is_default_policy",
+            "enable_format_assistance": true
+          },
+          {
+            "column_name": "policy_rationale",
+            "enable_entity_matching": true,
+            "enable_format_assistance": true
+          },
+          {
+            "column_name": "required_access_group",
+            "enable_entity_matching": true,
+            "enable_format_assistance": true
+          },
+          {
+            "column_name": "table_id",
+            "enable_format_assistance": true
+          },
+          {
+            "column_name": "table_name",
+            "enable_entity_matching": true,
+            "enable_format_assistance": true
+          },
+          {
+            "column_name": "user_access_group",
+            "enable_entity_matching": true,
+            "enable_format_assistance": true
+          },
+          {
+            "column_name": "user_email",
+            "enable_entity_matching": true,
+            "enable_format_assistance": true
+          },
+          {
+            "column_name": "user_region",
+            "enable_entity_matching": true,
+            "enable_format_assistance": true
+          }
+        ],
+        "identifier": "dbx_metadata_governance_dev.gold.asset_access_check"
+      },
+      {
+        "column_configs": [
+          {
+            "column_name": "allowed_region",
+            "enable_entity_matching": true,
+            "enable_format_assistance": true
+          },
+          {
+            "column_name": "asset_region",
+            "enable_entity_matching": true,
+            "enable_format_assistance": true
+          },
+          {
+            "column_name": "database_name",
+            "enable_entity_matching": true,
+            "enable_format_assistance": true
+          },
+          {
+            "column_name": "is_default_policy",
+            "enable_format_assistance": true
+          },
+          {
+            "column_name": "policy_rationale",
+            "enable_entity_matching": true,
+            "enable_format_assistance": true
+          },
+          {
+            "column_name": "required_access_group",
+            "enable_entity_matching": true,
+            "enable_format_assistance": true
+          },
+          {
+            "column_name": "schema_name",
+            "enable_entity_matching": true,
+            "enable_format_assistance": true
+          },
+          {
+            "column_name": "table_id",
+            "enable_format_assistance": true
+          },
+          {
+            "column_name": "table_name",
+            "enable_entity_matching": true,
+            "enable_format_assistance": true
+          }
+        ],
+        "identifier": "dbx_metadata_governance_dev.gold.asset_access_policy"
+      },
+      {
+        "column_configs": [
+          {
+            "column_name": "certified_columns",
+            "enable_format_assistance": true
+          },
+          {
+            "column_name": "certified_pct",
+            "enable_format_assistance": true
+          },
+          {
+            "column_name": "column_count",
+            "enable_format_assistance": true
+          },
+          {
+            "column_name": "database_name",
+            "enable_entity_matching": true,
+            "enable_format_assistance": true
+          },
+          {
+            "column_name": "documented_columns",
+            "enable_format_assistance": true
+          },
+          {
+            "column_name": "documented_pct",
+            "enable_format_assistance": true
+          },
+          {
+            "column_name": "registered_columns",
+            "enable_format_assistance": true
+          },
+          {
+            "column_name": "registered_pct",
+            "enable_format_assistance": true
+          },
+          {
+            "column_name": "schema_name",
+            "enable_entity_matching": true,
+            "enable_format_assistance": true
+          },
+          {
+            "column_name": "table_id",
+            "enable_format_assistance": true
+          },
+          {
+            "column_name": "table_name",
+            "enable_entity_matching": true,
+            "enable_format_assistance": true
+          },
+          {
+            "column_name": "unclassified_columns",
+            "enable_format_assistance": true
+          },
+          {
+            "column_name": "unclassified_pct",
+            "enable_format_assistance": true
+          }
+        ],
+        "identifier": "dbx_metadata_governance_dev.gold.cert_level_summary"
+      },
+      {
+        "column_configs": [
+          {
+            "column_name": "dq_failed_rows",
+            "enable_format_assistance": true
+          },
+          {
+            "column_name": "dq_pass_rows",
+            "enable_format_assistance": true
+          },
+          {
+            "column_name": "pii_consistent_rows",
+            "enable_format_assistance": true
+          },
+          {
+            "column_name": "pii_inconsistent_rows",
+            "enable_format_assistance": true
+          },
+          {
+            "column_name": "silver_valid_rows",
+            "enable_format_assistance": true
+          }
+        ],
+        "identifier": "dbx_metadata_governance_dev.gold.dlt_summary"
+      },
+      {
+        "column_configs": [
+          {
+            "column_name": "avg_governance_score",
+            "enable_format_assistance": true
+          },
+          {
+            "column_name": "certified_columns",
+            "enable_format_assistance": true
+          },
+          {
+            "column_name": "certified_pct",
+            "enable_format_assistance": true
+          },
+          {
+            "column_name": "column_count",
+            "enable_format_assistance": true
+          },
+          {
+            "column_name": "documented_columns",
+            "enable_format_assistance": true
+          },
+          {
+            "column_name": "domain",
+            "enable_entity_matching": true,
+            "enable_format_assistance": true
+          },
+          {
+            "column_name": "registered_columns",
+            "enable_format_assistance": true
+          },
+          {
+            "column_name": "table_count",
+            "enable_format_assistance": true
+          },
+          {
+            "column_name": "unclassified_columns",
+            "enable_format_assistance": true
+          }
+        ],
+        "identifier": "dbx_metadata_governance_dev.gold.domain_summary"
+      },
+      {
+        "column_configs": [
+          {
+            "column_name": "achieved_cert_level",
+            "enable_entity_matching": true,
+            "enable_format_assistance": true
+          },
+          {
+            "column_name": "column_id",
+            "enable_format_assistance": true
+          },
+          {
+            "column_name": "column_name",
+            "enable_entity_matching": true,
+            "enable_format_assistance": true
+          },
+          {
+            "column_name": "completeness_pct",
+            "enable_format_assistance": true
+          },
+          {
+            "column_name": "data_steward",
+            "enable_entity_matching": true,
+            "enable_format_assistance": true
+          },
+          {
+            "column_name": "database_name",
+            "enable_entity_matching": true,
+            "enable_format_assistance": true
+          },
+          {
+            "column_name": "dq_invalid_pct",
+            "enable_format_assistance": true
+          },
+          {
+            "column_name": "gap_reason",
+            "enable_entity_matching": true,
+            "enable_format_assistance": true
+          },
+          {
+            "column_name": "schema_name",
+            "enable_entity_matching": true,
+            "enable_format_assistance": true
+          },
+          {
+            "column_name": "security_classification",
+            "enable_entity_matching": true,
+            "enable_format_assistance": true
+          },
+          {
+            "column_name": "table_name",
+            "enable_entity_matching": true,
+            "enable_format_assistance": true
+          }
+        ],
+        "identifier": "dbx_metadata_governance_dev.gold.governance_gaps"
+      },
+      {
+        "column_configs": [
+          {
+            "column_name": "avg_columns_per_table",
+            "enable_format_assistance": true
+          },
+          {
+            "column_name": "avg_completeness_pct",
+            "enable_format_assistance": true
+          },
+          {
+            "column_name": "avg_dq_invalid_pct",
+            "enable_format_assistance": true
+          },
+          {
+            "column_name": "certified_columns",
+            "enable_format_assistance": true
+          },
+          {
+            "column_name": "certified_pct",
+            "enable_format_assistance": true
+          },
+          {
+            "column_name": "critical_columns",
+            "enable_format_assistance": true
+          },
+          {
+            "column_name": "documented_columns",
+            "enable_format_assistance": true
+          },
+          {
+            "column_name": "documented_pct",
+            "enable_format_assistance": true
+          },
+          {
+            "column_name": "pii_columns",
+            "enable_format_assistance": true
+          },
+          {
+            "column_name": "registered_columns",
+            "enable_format_assistance": true
+          },
+          {
+            "column_name": "registered_pct",
+            "enable_format_assistance": true
+          },
+          {
+            "column_name": "total_columns",
+            "enable_format_assistance": true
+          },
+          {
+            "column_name": "total_databases",
+            "enable_format_assistance": true
+          },
+          {
+            "column_name": "total_schemas",
+            "enable_format_assistance": true
+          },
+          {
+            "column_name": "total_tables",
+            "enable_format_assistance": true
+          },
+          {
+            "column_name": "unclassified_columns",
+            "enable_format_assistance": true
+          },
+          {
+            "column_name": "unclassified_pct",
+            "enable_format_assistance": true
+          }
+        ],
+        "identifier": "dbx_metadata_governance_dev.gold.kpi_summary"
+      },
+      {
+        "column_configs": [
+          {
+            "column_name": "classification",
+            "enable_entity_matching": true,
+            "enable_format_assistance": true
+          },
+          {
+            "column_name": "column_count",
+            "enable_format_assistance": true
+          },
+          {
+            "column_name": "critical_columns",
+            "enable_format_assistance": true
+          },
+          {
+            "column_name": "pct_of_catalog",
+            "enable_format_assistance": true
+          },
+          {
+            "column_name": "pii_columns",
+            "enable_format_assistance": true
+          },
+          {
+            "column_name": "sensitivity_coverage_pct",
+            "enable_format_assistance": true
+          },
+          {
+            "column_name": "sensitivity_set_columns",
+            "enable_format_assistance": true
+          }
+        ],
+        "identifier": "dbx_metadata_governance_dev.gold.pii_classification_summary"
+      },
+      {
+        "column_configs": [
+          {
+            "column_name": "achieved_cert_level",
+            "enable_entity_matching": true,
+            "enable_format_assistance": true
+          },
+          {
+            "column_name": "certification_level",
+            "enable_entity_matching": true,
+            "enable_format_assistance": true
+          },
+          {
+            "column_name": "column_id",
+            "enable_format_assistance": true
+          },
+          {
+            "column_name": "column_name",
+            "enable_entity_matching": true,
+            "enable_format_assistance": true
+          },
+          {
+            "column_name": "completeness_pct",
+            "enable_format_assistance": true
+          },
+          {
+            "column_name": "critical_data_element_flag",
+            "enable_format_assistance": true
+          },
+          {
+            "column_name": "data_steward",
+            "enable_entity_matching": true,
+            "enable_format_assistance": true
+          },
+          {
+            "column_name": "database_name",
+            "enable_entity_matching": true,
+            "enable_format_assistance": true
+          },
+          {
+            "column_name": "dq_invalid_pct",
+            "enable_format_assistance": true
+          },
+          {
+            "column_name": "invalid_record_count",
+            "enable_format_assistance": true
+          },
+          {
+            "column_name": "pii_flag",
+            "enable_format_assistance": true
+          },
+          {
+            "column_name": "schema_name",
+            "enable_entity_matching": true,
+            "enable_format_assistance": true
+          },
+          {
+            "column_name": "security_classification",
+            "enable_entity_matching": true,
+            "enable_format_assistance": true
+          },
+          {
+            "column_name": "table_name",
+            "enable_entity_matching": true,
+            "enable_format_assistance": true
+          },
+          {
+            "column_name": "tag_value",
+            "enable_entity_matching": true,
+            "enable_format_assistance": true
+          },
+          {
+            "column_name": "term_description",
+            "enable_entity_matching": true,
+            "enable_format_assistance": true
+          },
+          {
+            "column_name": "term_name",
+            "enable_entity_matching": true,
+            "enable_format_assistance": true
+          },
+          {
+            "column_name": "term_subdomain",
+            "enable_entity_matching": true,
+            "enable_format_assistance": true
+          },
+          {
+            "column_name": "total_record_count",
+            "enable_format_assistance": true
+          }
+        ],
+        "identifier": "dbx_metadata_governance_dev.gold.profile"
+      },
+      {
+        "column_configs": [
+          {
+            "column_name": "allowed_region",
+            "enable_entity_matching": true,
+            "enable_format_assistance": true
+          },
+          {
+            "column_name": "asset_region",
+            "enable_entity_matching": true,
+            "enable_format_assistance": true
+          },
+          {
+            "column_name": "database_name",
+            "enable_entity_matching": true,
+            "enable_format_assistance": true
+          },
+          {
+            "column_name": "policy_rationale",
+            "enable_entity_matching": true,
+            "enable_format_assistance": true
+          },
+          {
+            "column_name": "required_access_group",
+            "enable_entity_matching": true,
+            "enable_format_assistance": true
+          }
+        ],
+        "identifier": "dbx_metadata_governance_dev.gold.region_assignment"
+      },
+      {
+        "column_configs": [
+          {
+            "column_name": "_ingestion_timestamp",
+            "enable_format_assistance": true
+          },
+          {
+            "column_name": "_source_file",
+            "enable_entity_matching": true,
+            "enable_format_assistance": true
+          },
+          {
+            "column_name": "achieved_cert_level",
+            "enable_entity_matching": true,
+            "enable_format_assistance": true
+          },
+          {
+            "column_name": "certification_level",
+            "enable_entity_matching": true,
+            "enable_format_assistance": true
+          },
+          {
+            "column_name": "check_business_term_linked",
+            "enable_format_assistance": true
+          },
+          {
+            "column_name": "check_certification_level_populated",
+            "enable_format_assistance": true
+          },
+          {
+            "column_name": "check_column_description_present",
+            "enable_format_assistance": true
+          },
+          {
+            "column_name": "check_column_id_present",
+            "enable_format_assistance": true
+          },
+          {
+            "column_name": "check_column_name_present",
+            "enable_format_assistance": true
+          },
+          {
+            "column_name": "check_data_steward_assigned",
+            "enable_format_assistance": true
+          },
+          {
+            "column_name": "check_domain_tag_present",
+            "enable_format_assistance": true
+          },
+          {
+            "column_name": "check_invalid_record_ratio_within_threshold",
+            "enable_format_assistance": true
+          },
+          {
+            "column_name": "check_schema_assignment_valid",
+            "enable_format_assistance": true
+          },
+          {
+            "column_name": "check_security_classification_present",
+            "enable_format_assistance": true
+          },
+          {
+            "column_name": "check_sensitivity_flags_set",
+            "enable_format_assistance": true
+          },
+          {
+            "column_name": "checks_passed",
+            "enable_format_assistance": true
+          },
+          {
+            "column_name": "checks_total",
+            "enable_format_assistance": true
+          },
+          {
+            "column_name": "classification_score",
+            "enable_format_assistance": true
+          },
+          {
+            "column_name": "column_desc",
+            "enable_entity_matching": true,
+            "enable_format_assistance": true
+          },
+          {
+            "column_name": "column_id",
+            "enable_format_assistance": true
+          },
+          {
+            "column_name": "column_name",
+            "enable_entity_matching": true,
+            "enable_format_assistance": true
+          },
+          {
+            "column_name": "completeness_pct",
+            "enable_format_assistance": true
+          },
+          {
+            "column_name": "critical_data_element_flag",
+            "enable_format_assistance": true
+          },
+          {
+            "column_name": "data_steward",
+            "enable_entity_matching": true,
+            "enable_format_assistance": true
+          },
+          {
+            "column_name": "database_id",
+            "enable_format_assistance": true
+          },
+          {
+            "column_name": "database_name",
+            "enable_entity_matching": true,
+            "enable_format_assistance": true
+          },
+          {
+            "column_name": "documentation_score",
+            "enable_format_assistance": true
+          },
+          {
+            "column_name": "dq_invalid_pct",
+            "enable_format_assistance": true
+          },
+          {
+            "column_name": "invalid_record_count",
+            "enable_format_assistance": true
+          },
+          {
+            "column_name": "location",
+            "enable_entity_matching": true,
+            "enable_format_assistance": true
+          },
+          {
+            "column_name": "overall_governance_score",
+            "enable_format_assistance": true
+          },
+          {
+            "column_name": "pii_flag",
+            "enable_format_assistance": true
+          },
+          {
+            "column_name": "quality_score",
+            "enable_format_assistance": true
+          },
+          {
+            "column_name": "schema_id",
+            "enable_format_assistance": true
+          },
+          {
+            "column_name": "schema_name",
+            "enable_entity_matching": true,
+            "enable_format_assistance": true
+          },
+          {
+            "column_name": "security_classification",
+            "enable_entity_matching": true,
+            "enable_format_assistance": true
+          },
+          {
+            "column_name": "source_column_id",
+            "enable_format_assistance": true
+          },
+          {
+            "column_name": "source_database_id",
+            "enable_format_assistance": true
+          },
+          {
+            "column_name": "source_schema_id",
+            "enable_format_assistance": true
+          },
+          {
+            "column_name": "source_table_id",
+            "enable_format_assistance": true
+          },
+          {
+            "column_name": "system_id",
+            "enable_format_assistance": true
+          },
+          {
+            "column_name": "system_name",
+            "enable_entity_matching": true,
+            "enable_format_assistance": true
+          },
+          {
+            "column_name": "table_desc",
+            "enable_entity_matching": true,
+            "enable_format_assistance": true
+          },
+          {
+            "column_name": "table_id",
+            "enable_format_assistance": true
+          },
+          {
+            "column_name": "table_name",
+            "enable_entity_matching": true,
+            "enable_format_assistance": true
+          },
+          {
+            "column_name": "table_owner_in_source",
+            "enable_entity_matching": true,
+            "enable_format_assistance": true
+          },
+          {
+            "column_name": "tag_name",
+            "enable_entity_matching": true,
+            "enable_format_assistance": true
+          },
+          {
+            "column_name": "tag_value",
+            "enable_entity_matching": true,
+            "enable_format_assistance": true
+          },
+          {
+            "column_name": "term_description",
+            "enable_entity_matching": true,
+            "enable_format_assistance": true
+          },
+          {
+            "column_name": "term_name",
+            "enable_entity_matching": true,
+            "enable_format_assistance": true
+          },
+          {
+            "column_name": "term_subdomain",
+            "enable_entity_matching": true,
+            "enable_format_assistance": true
+          },
+          {
+            "column_name": "total_record_count",
+            "enable_format_assistance": true
+          }
+        ],
+        "identifier": "dbx_metadata_governance_dev.gold.scores_pre"
+      },
+      {
+        "column_configs": [
+          {
+            "column_name": "column_count",
+            "enable_format_assistance": true
+          },
+          {
+            "column_name": "corrective_action",
+            "enable_entity_matching": true,
+            "enable_format_assistance": true
+          },
+          {
+            "column_name": "database_id",
+            "enable_format_assistance": true
+          },
+          {
+            "column_name": "database_name",
+            "enable_entity_matching": true,
+            "enable_format_assistance": true
+          },
+          {
+            "column_name": "is_outlier",
+            "enable_format_assistance": true
+          },
+          {
+            "column_name": "lower_bound",
+            "enable_format_assistance": true
+          },
+          {
+            "column_name": "schema_id",
+            "enable_format_assistance": true
+          },
+          {
+            "column_name": "schema_name",
+            "enable_entity_matching": true,
+            "enable_format_assistance": true
+          },
+          {
+            "column_name": "standard_column_count",
+            "enable_format_assistance": true
+          },
+          {
+            "column_name": "structural_status",
+            "enable_entity_matching": true,
+            "enable_format_assistance": true
+          },
+          {
+            "column_name": "table_id",
+            "enable_format_assistance": true
+          },
+          {
+            "column_name": "table_name",
+            "enable_entity_matching": true,
+            "enable_format_assistance": true
+          },
+          {
+            "column_name": "upper_bound",
+            "enable_format_assistance": true
+          }
+        ],
+        "identifier": "dbx_metadata_governance_dev.gold.structural_consistency"
+      },
+      {
+        "column_configs": [
+          {
+            "column_name": "avg_columns_per_table",
+            "enable_format_assistance": true
+          },
+          {
+            "column_name": "compliant_tables",
+            "enable_format_assistance": true
+          },
+          {
+            "column_name": "outlier_tables",
+            "enable_format_assistance": true
+          },
+          {
+            "column_name": "standard_column_count",
+            "enable_format_assistance": true
+          },
+          {
+            "column_name": "structural_consistency_pct",
+            "enable_format_assistance": true
+          },
+          {
+            "column_name": "total_tables",
+            "enable_format_assistance": true
+          }
+        ],
+        "identifier": "dbx_metadata_governance_dev.gold.structural_summary"
+      },
+      {
+        "column_configs": [
+          {
+            "column_name": "avg_documentation_score",
+            "enable_format_assistance": true
+          },
+          {
+            "column_name": "avg_quality_score",
+            "enable_format_assistance": true
+          },
+          {
+            "column_name": "column_count",
+            "enable_format_assistance": true
+          },
+          {
+            "column_name": "critical_column_count",
+            "enable_format_assistance": true
+          },
+          {
+            "column_name": "data_steward",
+            "enable_entity_matching": true,
+            "enable_format_assistance": true
+          },
+          {
+            "column_name": "database_name",
+            "enable_entity_matching": true,
+            "enable_format_assistance": true
+          },
+          {
+            "column_name": "pii_column_count",
+            "enable_format_assistance": true
+          },
+          {
+            "column_name": "schema_name",
+            "enable_entity_matching": true,
+            "enable_format_assistance": true
+          },
+          {
+            "column_name": "table_desc",
+            "enable_entity_matching": true,
+            "enable_format_assistance": true
+          },
+          {
+            "column_name": "table_governance_score",
+            "enable_format_assistance": true
+          },
+          {
+            "column_name": "table_id",
+            "enable_format_assistance": true
+          },
+          {
+            "column_name": "table_name",
+            "enable_entity_matching": true,
+            "enable_format_assistance": true
+          }
+        ],
+        "identifier": "dbx_metadata_governance_dev.gold.table_governance"
+      },
+      {
+        "column_configs": [
+          {
+            "column_name": "column_desc",
+            "enable_entity_matching": true,
+            "enable_format_assistance": true
+          },
+          {
+            "column_name": "column_id",
+            "enable_format_assistance": true
+          },
+          {
+            "column_name": "column_name",
+            "enable_entity_matching": true,
+            "enable_format_assistance": true
+          },
+          {
+            "column_name": "database_id",
+            "enable_format_assistance": true
+          },
+          {
+            "column_name": "database_name",
+            "enable_entity_matching": true,
+            "enable_format_assistance": true
+          },
+          {
+            "column_name": "location",
+            "enable_entity_matching": true,
+            "enable_format_assistance": true
+          },
+          {
+            "column_name": "schema_id",
+            "enable_format_assistance": true
+          },
+          {
+            "column_name": "schema_name",
+            "enable_entity_matching": true,
+            "enable_format_assistance": true
+          },
+          {
+            "column_name": "system_name",
+            "enable_entity_matching": true,
+            "enable_format_assistance": true
+          },
+          {
+            "column_name": "table_desc",
+            "enable_entity_matching": true,
+            "enable_format_assistance": true
+          },
+          {
+            "column_name": "table_id",
+            "enable_format_assistance": true
+          },
+          {
+            "column_name": "table_name",
+            "enable_entity_matching": true,
+            "enable_format_assistance": true
+          }
+        ],
+        "identifier": "dbx_metadata_governance_dev.gold.table_structure"
+      },
+      {
+        "column_configs": [
+          {
+            "column_name": "access_group",
+            "enable_entity_matching": true,
+            "enable_format_assistance": true
+          },
+          {
+            "column_name": "department",
+            "enable_entity_matching": true,
+            "enable_format_assistance": true
+          },
+          {
+            "column_name": "employee_location",
+            "enable_entity_matching": true,
+            "enable_format_assistance": true
+          },
+          {
+            "column_name": "user_country",
+            "enable_entity_matching": true,
+            "enable_format_assistance": true
+          },
+          {
+            "column_name": "user_email",
+            "enable_entity_matching": true,
+            "enable_format_assistance": true
+          },
+          {
+            "column_name": "user_region",
+            "enable_entity_matching": true,
+            "enable_format_assistance": true
+          }
+        ],
+        "identifier": "dbx_metadata_governance_dev.gold.user_profile"
+      }
+    ]
+  },
+  "instructions": {
+    "example_question_sqls": [
+      {
+        "id": "01f1690190fc124b982ea8018e78c3a4",
+        "question": [
+          "Which tables have the lowest governance scores?"
+        ],
+        "sql": [
+          "SELECT\n",
+          "    table_name,\n",
+          "    table_governance_score\n",
+          "FROM gold.table_governance\n",
+          "ORDER BY table_governance_score ASC\n",
+          "LIMIT 10"
+        ]
+      },
+      {
+        "id": "01f16901a3231b759151dce966939c0a",
+        "question": [
+          "Which tables have the highest governance scores?"
+        ],
+        "sql": [
+          "SELECT\n",
+          "    table_name,\n",
+          "    table_governance_score\n",
+          "FROM gold.table_governance\n",
+          "ORDER BY table_governance_score DESC\n",
+          "LIMIT 10"
+        ]
+      },
+      {
+        "id": "01f16901b33c1b63a503d1cc3de1bbee",
+        "question": [
+          "Which assets have governance gaps?"
+        ],
+        "sql": [
+          "SELECT\n",
+          "    table_name,\n",
+          "    column_name,\n",
+          "    gap_reason\n",
+          "FROM gold.governance_gaps"
+        ]
+      },
+      {
+        "id": "01f16901c2b9168c8e8dc9a1454b997e",
+        "question": [
+          "Which columns contain PII?"
+        ],
+        "sql": [
+          "SELECT\n",
+          "    table_name,\n",
+          "    column_name,\n",
+          "    security_classification\n",
+          "FROM gold.profile\n",
+          "WHERE pii_flag = TRUE"
+        ]
+      },
+      {
+        "id": "01f16901d2cd1423bd8a4de218be606b",
+        "question": [
+          "Which columns are classified as Critical Data Elements?"
+        ],
+        "sql": [
+          "SELECT\n",
+          "    table_name,\n",
+          "    column_name\n",
+          "FROM gold.profile\n",
+          "WHERE critical_data_element_flag = TRUE"
+        ]
+      },
+      {
+        "id": "01f16901e2f115b9a02f42145c39c0a7",
+        "question": [
+          "How many assets exist in each certification level?"
+        ],
+        "sql": [
+          "SELECT\n",
+          "    achieved_cert_level,\n",
+          "    COUNT(*) AS asset_count\n",
+          "FROM gold.profile\n",
+          "GROUP BY achieved_cert_level\n",
+          "ORDER BY asset_count DESC"
+        ]
+      },
+      {
+        "id": "01f16901f84c1c30b6ce301a53cc62a1",
+        "question": [
+          "Which data stewards own the most assets?"
+        ],
+        "sql": [
+          "SELECT\n",
+          "    data_steward,\n",
+          "    COUNT(*) AS asset_count\n",
+          "FROM gold.profile\n",
+          "GROUP BY data_steward\n",
+          "ORDER BY asset_count DESC"
+        ]
+      },
+      {
+        "id": "01f169020ad019adbc228e1aa4682dea",
+        "question": [
+          "Which assets have data quality issues?"
+        ],
+        "sql": [
+          "SELECT\n",
+          "    table_name,\n",
+          "    column_name,\n",
+          "    dq_invalid_pct\n",
+          "FROM gold.profile\n",
+          "WHERE dq_invalid_pct > 5\n",
+          "ORDER BY dq_invalid_pct DESC"
+        ]
+      },
+      {
+        "id": "01f1690220a311178582f08a37e7833e",
+        "question": [
+          "What is the average metadata completeness by table?"
+        ],
+        "sql": [
+          "SELECT\n",
+          "    table_name,\n",
+          "    ROUND(AVG(completeness_pct),2) AS avg_completeness_pct\n",
+          "FROM gold.profile\n",
+          "GROUP BY table_name\n",
+          "ORDER BY avg_completeness_pct DESC"
+        ]
+      },
+      {
+        "id": "01f1690237181b3bac23a14e16cb6a65",
+        "question": [
+          "What is the overall governance KPI summary?"
+        ],
+        "sql": [
+          "SELECT *\n",
+          "FROM gold.kpi_summary"
+        ]
+      },
+      {
+        "id": "01f169024b211dd8b20f89f24e3e565a",
+        "question": [
+          "What is the Delta Live Tables validation summary?"
+        ],
+        "sql": [
+          "SELECT *\n",
+          "FROM gold.dlt_summary"
+        ]
+      },
+      {
+        "id": "01f169025f35100b86e69cb11e31ed8d",
+        "question": [
+          "Who owns a specific data asset?"
+        ],
+        "sql": [
+          "SELECT\n",
+          "    table_name,\n",
+          "    data_steward\n",
+          "FROM gold.profile\n",
+          "WHERE data_steward IS NOT NULL"
+        ]
+      },
+      {
+        "id": "01f169027a031b5785f3d8ddc01ea315",
+        "parameters": [
+          {
+            "name": "table_name",
+            "type_hint": "STRING"
+          }
+        ],
+        "question": [
+          "Can I access billing_transactions_hhd?"
+        ],
+        "sql": [
+          "SELECT\n",
+          "    table_name,\n",
+          "    access_decision,\n",
+          "    contractual_terms\n",
+          "FROM gold.asset_access_check\n",
+          "WHERE table_name = :table_name\n",
+          "LIMIT 1"
+        ]
+      },
+      {
+        "id": "01f169029ffa175bb2bb3d14e4995718",
+        "question": [
+          "Which datasets are restricted to US employees?"
+        ],
+        "sql": [
+          "SELECT\n",
+          "    table_name,\n",
+          "    access_policy,\n",
+          "    allowed_country\n",
+          "FROM gold.asset_access_policy\n",
+          "WHERE access_policy = 'US_EMPLOYEES_ONLY'"
+        ]
+      },
+      {
+        "id": "01f1697ee5d31afb9d76306f5d094a02",
+        "parameters": [
+          {
+            "name": "table_name",
+            "type_hint": "STRING"
+          }
+        ],
+        "question": [
+          "Can a specific user access a specific table?"
+        ],
+        "sql": [
+          "SELECT\n",
+          " asset_location,\n",
+          " access_decision,\n",
+          " access_reason,\n",
+          " asset_region,\n",
+          " policy_rationale\n",
+          "FROM gold.asset_access_check\n",
+          "WHERE table_name = :table_name\n",
+          " AND us\n",
+          " LIMIT 1"
+        ]
+      },
+      {
+        "id": "01f1697f07fd12b2a29fade74f7887c1",
+        "question": [
+          "Which datasets are restricted to a given region?"
+        ],
+        "sql": [
+          "SELECT\n",
+          " table_name,\n",
+          " asset_region,\n",
+          " allowed_region,\n",
+          " required_access_group,\n",
+          " policy_rationale\n",
+          "FROM gold.asset_access_policy\n",
+          "WHERE asset_region <> 'UNRESTRICTED'\n",
+          "ORDER BY asset_region, table_name"
+        ]
+      },
+      {
+        "id": "01f1697f19b91f63a493e67df8444817",
+        "question": [
+          "What is the certification distribution per table?"
+        ],
+        "sql": [
+          "SELECT\n",
+          " table_name,\n",
+          " column_count,\n",
+          " certified_columns,\n",
+          " documented_columns,\n",
+          " registered_columns,\n",
+          " unclassified_columns,\n",
+          " certified_pct\n",
+          "FROM gold.cert_level_summary\n",
+          "ORDER BY certified_pct DESC"
+        ]
+      },
+      {
+        "id": "01f1697f266412cda1a3eab983e8edc8",
+        "question": [
+          "What is the governance performance by business domain?"
+        ],
+        "sql": [
+          "SELECT\n",
+          " domain,\n",
+          " table_count,\n",
+          " column_count,\n",
+          " avg_governance_score,\n",
+          " certified_pct\n",
+          "FROM gold.domain_summary\n",
+          "ORDER BY avg_governance_score DESC"
+        ]
+      },
+      {
+        "id": "01f1697f31a61573a72532deceef77bf",
+        "question": [
+          "What is the security classification and sensitivity coverage?"
+        ],
+        "sql": [
+          "SELECT\n",
+          " classification,\n",
+          " column_count,\n",
+          " pii_columns,\n",
+          " critical_columns,\n",
+          " pct_of_catalog,\n",
+          " sensitivity_coverage_pct\n",
+          "FROM gold.pii_classification_summary\n",
+          "ORDER BY column_count DESC"
+        ]
+      },
+      {
+        "id": "01f1697f406f19899905bc537db4b6fd",
+        "question": [
+          "Which tables have structural issues?"
+        ],
+        "sql": [
+          "SELECT\n",
+          " table_name,\n",
+          " column_count,\n",
+          " standard_column_count,\n",
+          " structural_status,\n",
+          " corrective_action\n",
+          "FROM gold.structural_consistency\n",
+          "WHERE is_outlier = TRUE\n",
+          "ORDER BY table_name"
+        ]
+      },
+      {
+        "id": "01f1697f4e0c1fd4bf14af4ad5c1b292",
+        "question": [
+          "What is the overall structural consistency rate?"
+        ],
+        "sql": [
+          "SELECT\n",
+          " total_tables,\n",
+          " compliant_tables,\n",
+          " outlier_tables,\n",
+          " structural_consistency_pct,\n",
+          " standard_column_count\n",
+          "FROM gold.structural_summary"
+        ]
+      },
+      {
+        "id": "01f1697f5bab16ba91e9094be4181822",
+        "parameters": [
+          {
+            "name": "database_name",
+            "type_hint": "STRING"
+          }
+        ],
+        "question": [
+          "Why is a database restricted?"
+        ],
+        "sql": [
+          "SELECT\n",
+          " database_name,\n",
+          " asset_region,\n",
+          " required_access_group,\n",
+          " allowed_region,\n",
+          " policy_rationale\n",
+          "FROM gold.region_assignment\n",
+          "WHERE database_name = :database_name"
+        ]
+      }
+    ],
+    "join_specs": [
+      {
+        "id": "01f168ff98cb1685b8b5264c8b116273",
+        "instruction": [
+          "Purpose:\n",
+          "\n",
+          "Retrieve governance scores for columns.\n",
+          "Combine metadata with governance metrics.\n",
+          "Analyze governance performance by table.\n",
+          "\n",
+          "Use When:\n",
+          "\n",
+          "User asks for governance scores.\n",
+          "User asks which tables have low governance ratings.\n",
+          "User asks for governance status of a column or table."
+        ],
+        "left": {
+          "alias": "profile",
+          "identifier": "dbx_metadata_governance_dev.gold.profile"
+        },
+        "right": {
+          "alias": "table_governance",
+          "identifier": "dbx_metadata_governance_dev.gold.table_governance"
+        },
+        "sql": [
+          "`profile`.`table_name` = `table_governance`.`table_name`",
+          "--rt=FROM_RELATIONSHIP_TYPE_MANY_TO_ONE--"
+        ]
+      },
+      {
+        "id": "01f168ffb1c7118c83ac86d3453fff94",
+        "instruction": [
+          "Purpose:\n",
+          "\n",
+          "Combine business metadata with technical metadata.\n",
+          "Retrieve data types and physical structure.\n",
+          "Locate columns within databases and schemas.\n",
+          "\n",
+          "Use When:\n",
+          "\n",
+          "User asks about a column.\n",
+          "User asks where a column exists.\n",
+          "User asks for schema or table structure."
+        ],
+        "left": {
+          "alias": "profile",
+          "identifier": "dbx_metadata_governance_dev.gold.profile"
+        },
+        "right": {
+          "alias": "table_structure",
+          "identifier": "dbx_metadata_governance_dev.gold.table_structure"
+        },
+        "sql": [
+          "`profile`.`column_id` = `table_structure`.`column_id`",
+          "--rt=FROM_RELATIONSHIP_TYPE_ONE_TO_ONE--"
+        ]
+      },
+      {
+        "id": "01f168ffc6bc1f1ca7411143a563088c",
+        "instruction": [
+          "Purpose:\n",
+          "\n",
+          "Identify governance issues.\n",
+          "Explain failed governance checks.\n",
+          "Surface remediation opportunities.\n",
+          "\n",
+          "Use When:\n",
+          "\n",
+          "User asks about governance gaps.\n",
+          "User asks why an asset is not certified.\n",
+          "User asks which metadata is missing"
+        ],
+        "left": {
+          "alias": "profile",
+          "identifier": "dbx_metadata_governance_dev.gold.profile"
+        },
+        "right": {
+          "alias": "governance_gaps",
+          "identifier": "dbx_metadata_governance_dev.gold.governance_gaps"
+        },
+        "sql": [
+          "`profile`.`column_id` = `governance_gaps`.`column_id`",
+          "--rt=FROM_RELATIONSHIP_TYPE_ONE_TO_ONE--"
+        ]
+      },
+      {
+        "id": "01f168ffdc1611a4b3f98dd6abacec40",
+        "left": {
+          "alias": "asset_access_check",
+          "identifier": "dbx_metadata_governance_dev.gold.asset_access_check"
+        },
+        "right": {
+          "alias": "user_profile",
+          "identifier": "dbx_metadata_governance_dev.gold.user_profile"
+        },
+        "sql": [
+          "`asset_access_check`.`user_email` = `user_profile`.`user_email`",
+          "--rt=FROM_RELATIONSHIP_TYPE_MANY_TO_ONE--"
+        ]
+      },
+      {
+        "id": "01f168fff9a51cdab69a444b31b06451",
+        "left": {
+          "alias": "asset_access_check",
+          "identifier": "dbx_metadata_governance_dev.gold.asset_access_check"
+        },
+        "right": {
+          "alias": "asset_access_policy",
+          "identifier": "dbx_metadata_governance_dev.gold.asset_access_policy"
+        },
+        "sql": [
+          "`asset_access_check`.`table_name` = `asset_access_policy`.`table_name`",
+          "--rt=FROM_RELATIONSHIP_TYPE_MANY_TO_ONE--"
+        ]
+      }
+    ],
+    "sql_snippets": {
+      "expressions": [
+        {
+          "display_name": "Asset Location Type",
+          "id": "01f1697e95ff1b7aa9767737bf882529",
+          "instruction": [
+            "Use to return the fully qualified database.schema.table path for an asset in\n",
+            "location and discovery answers."
+          ],
+          "sql": [
+            "CONCAT_WS('.', gold.table_structure.database_name,\n",
+            "gold.table_structure.schema_name, gold.table_structure.table_name)"
+          ],
+          "synonyms": [
+            "location",
+            "full path",
+            "fully qualified name",
+            "asset location",
+            "where the asset lives Instructions:"
+          ]
+        },
+        {
+          "display_name": "Governance Health Band",
+          "id": "01f1697eafcd15c0acd17ed0a126ae2d",
+          "instruction": [
+            "Use to bucket a table's governance score into High, Medium, or Low when\n",
+            "the user asks for governance health categories or rankings by tier."
+          ],
+          "sql": [
+            "CASE\n",
+            " WHEN gold.table_governance.table_governance_score >= 80 THEN 'High'\n",
+            " WHEN gold.table_governance.table_governance_score >= 50 THEN 'Medium'\n",
+            " ELSE 'Low'\n",
+            "END"
+          ],
+          "synonyms": [
+            "governance band",
+            "health band",
+            "governance tier",
+            "health rating",
+            "governance category Instructions"
+          ]
+        }
+      ],
+      "filters": [
+        {
+          "display_name": "PII Columns Type",
+          "id": "01f1697df8991f37af3c6b561be9dbf4",
+          "instruction": [
+            "Apply when the user restricts a question to PII or sensitive columns."
+          ],
+          "sql": [
+            "gold.profile.pii_flag = TRUE"
+          ],
+          "synonyms": [
+            "pii",
+            "pii columns",
+            "sensitive columns",
+            "personal data",
+            "personal information",
+            "gdpr data"
+          ]
+        },
+        {
+          "display_name": "Critical Data Elements ",
+          "id": "01f1697e0e7e16eea4b20a31285869be",
+          "instruction": [
+            "Apply when the user restricts a question to Critical Data Elements."
+          ],
+          "sql": [
+            "gold.profile.critical_data_element_flag = TRUE"
+          ],
+          "synonyms": [
+            "critical data elements",
+            "cde",
+            "critical columns",
+            "business critical data",
+            "critical assets Instructions"
+          ]
+        },
+        {
+          "display_name": "Data Quality Failures",
+          "id": "01f1697e20d711b5b1c8d0065e22c995",
+          "instruction": [
+            "Apply when the user asks for assets that fail data quality. The threshold is 5\n",
+            "percent invalid records."
+          ],
+          "sql": [
+            "gold.profile.dq_invalid_pct > 5"
+          ],
+          "synonyms": [
+            "data quality issues",
+            "failing quality",
+            "poor quality",
+            "dq failures",
+            "high error rate",
+            "invalid records Instructions"
+          ]
+        },
+        {
+          "display_name": "Uncertified Assets ",
+          "id": "01f1697e35ba1ed19e711624ea0d02c0",
+          "instruction": [
+            " Apply when the user restricts a question to assets that have no achieved "
+          ],
+          "sql": [
+            "gold.profile.achieved_cert_level = 'None'"
+          ],
+          "synonyms": [
+            "uncertified",
+            "unclassified",
+            "no certification",
+            "assets without certification",
+            "not certified Instructions"
+          ]
+        },
+        {
+          "display_name": "Missing Data Steward Type",
+          "id": "01f1697e4b90177ab23e84bb46bd758a",
+          "instruction": [
+            "Apply\n",
+            "when the user asks for assets that have no assigned data steward."
+          ],
+          "sql": [
+            "gold.profile.data_steward IS NULL"
+          ],
+          "synonyms": [
+            "no steward",
+            "missing steward",
+            "unowned",
+            "no owner",
+            "missing owner Instructions:"
+          ]
+        },
+        {
+          "display_name": "Structural Outliers",
+          "id": "01f1697e61421865a142379fb6c195fc",
+          "instruction": [
+            "Apply when the user restricts a question to tables that fall outside the structural\n",
+            "column-count standard."
+          ],
+          "sql": [
+            "gold.structural_consistency.is_outlier = TRUE"
+          ],
+          "synonyms": [
+            "structural outliers",
+            "schema anomalies",
+            "structural issues",
+            "non compliant tables",
+            "outlier tables Instructions"
+          ]
+        },
+        {
+          "display_name": "Restricted Assets",
+          "id": "01f1697e7fbc1c47a8b429fa25ad1ee9",
+          "instruction": [
+            "Apply when the user asks for assets that carry a data-residency restriction."
+          ],
+          "sql": [
+            "gold.asset_access_policy.asset_region <> 'UNRESTRICTED'"
+          ],
+          "synonyms": [
+            "restricted assets",
+            "restricted data",
+            "region restricted",
+            "residency restricted",
+            "access restricted Instructions:"
+          ]
+        }
+      ],
+      "measures": [
+        {
+          "display_name": "Governance Score by Table",
+          "id": "01f169001fc910da8e17585008828962",
+          "instruction": [
+            "Average governance score across selected assets."
+          ],
+          "sql": [
+            "AVG(gold.table_governance.table_governance_score)"
+          ],
+          "synonyms": [
+            "governance score",
+            "governance rating",
+            "governance health",
+            "governance performance",
+            "governance maturity asset score table score"
+          ]
+        },
+        {
+          "display_name": "Metadata Completeness",
+          "id": "01f16900352c1a7f8e43d8910d07ddb4",
+          "instruction": [
+            "Use when users ask about governance score, governance health, governance rating, or governance performance."
+          ],
+          "sql": [
+            "AVG(gold.profile.completeness_pct)"
+          ],
+          "synonyms": [
+            "metadata completeness",
+            "documentation completeness",
+            "metadata coverage documentation",
+            "score completeness percentage"
+          ]
+        },
+        {
+          "display_name": "Data Quality Score",
+          "id": "01f169004a3a15c4bfe245d7ac0b8140",
+          "instruction": [
+            "Use when users ask about data quality or validation performance."
+          ],
+          "sql": [
+            "AVG(100 - gold.profile.dq_invalid_pct)"
+          ],
+          "synonyms": [
+            "data quality",
+            "quality score",
+            "validation score",
+            "quality percentage",
+            "data quality rating"
+          ]
+        },
+        {
+          "display_name": "Governance Gap Count",
+          "id": "01f169005fa610b2ab7660e56db1060a",
+          "instruction": [
+            "Use when users ask about governance gaps, issues, violations, or failed"
+          ],
+          "sql": [
+            "COUNT(gold.governance_gaps.column_id)"
+          ],
+          "synonyms": [
+            "governance gaps",
+            "gap count",
+            "governance issues",
+            "failed checks",
+            "metadata issues violations"
+          ]
+        },
+        {
+          "display_name": "Certified Asset Count",
+          "id": "01f1690076461709980b20b4a00a21bc",
+          "instruction": [
+            "Use when users ask for certified assets or certification coverage."
+          ],
+          "sql": [
+            "COUNT(CASE\n",
+            "    WHEN gold.profile.achieved_cert_level = 'Certified'\n",
+            "    THEN 1\n",
+            "END)"
+          ],
+          "synonyms": [
+            "certified assets",
+            "approved assets",
+            "fully certified assets",
+            "certified metadata"
+          ]
+        },
+        {
+          "display_name": "Documented Asset Count",
+          "id": "01f1690088501d70963f838052f1670e",
+          "sql": [
+            "COUNT(CASE\n",
+            "    WHEN gold.profile.achieved_cert_level = 'Documented'\n",
+            "    THEN 1\n",
+            "END)"
+          ],
+          "synonyms": [
+            "documented assets",
+            "documented metadata",
+            "partially certified assets"
+          ]
+        },
+        {
+          "display_name": "Registered Asset Count",
+          "id": "01f16900bcfa1bd0a6078b3efdb89f1b",
+          "sql": [
+            "COUNT(CASE\n",
+            "    WHEN gold.profile.achieved_cert_level = 'Registered'\n",
+            "    THEN 1\n",
+            "END)"
+          ],
+          "synonyms": [
+            "registered assets",
+            "registered metadata",
+            "registered data assets"
+          ]
+        },
+        {
+          "display_name": "Unclassified Asset Count",
+          "id": "01f16900df94142184c117c501af94c1",
+          "sql": [
+            "COUNT(CASE\n",
+            "    WHEN gold.profile.achieved_cert_level = 'None'\n",
+            "    THEN 1\n",
+            "END)"
+          ],
+          "synonyms": [
+            "unclassified assets",
+            "uncertified assets",
+            "assets without certification"
+          ]
+        },
+        {
+          "display_name": "PII Asset Count",
+          "id": "01f16900f58e1f688a675ec7bc099ff4",
+          "instruction": [
+            "Use when users ask about sensitive data, personal data, or PII."
+          ],
+          "sql": [
+            "COUNT(CASE\n",
+            "    WHEN gold.profile.pii_flag = TRUE\n",
+            "    THEN 1\n",
+            "END)"
+          ],
+          "synonyms": [
+            "pii assets",
+            "sensitive columns",
+            "personal information",
+            "personal data gdpr data"
+          ]
+        },
+        {
+          "display_name": "Critical Data Element Count",
+          "id": "01f169010bdd1163974f4a6afb4b8c75",
+          "instruction": [
+            "Use when users ask about critical business data elements."
+          ],
+          "sql": [
+            "COUNT(CASE\n",
+            "    WHEN gold.profile.critical_data_element_flag = TRUE\n",
+            "    THEN 1\n",
+            "END)"
+          ],
+          "synonyms": [
+            "critical data elements",
+            "critical assets",
+            "cde critical columns",
+            "business critical data"
+          ]
+        },
+        {
+          "display_name": "Average Invalid Record Percentage",
+          "id": "01f169012e9114bc88a7d82c4dd8b53e",
+          "instruction": [
+            "Use when users ask about invalid records, error rates, or data quality failures."
+          ],
+          "sql": [
+            "AVG(gold.profile.dq_invalid_pct)"
+          ],
+          "synonyms": [
+            "invalid records",
+            "invalid percentage",
+            "data quality failures",
+            "dq percentage",
+            "error rate"
+          ]
+        },
+        {
+          "display_name": "Total Governed Tables",
+          "id": "01f169014aa81f26b0979ecc32028993",
+          "sql": [
+            "COUNT(DISTINCT gold.table_governance.table_id)"
+          ],
+          "synonyms": [
+            "total tables",
+            "governed tables",
+            "table count",
+            "managed tables"
+          ]
+        },
+        {
+          "display_name": "Total Governed Schemas",
+          "id": "01f16901664a17c9b3a5fa65b016615d",
+          "sql": [
+            "COUNT(DISTINCT gold.table_structure.schema_id)"
+          ],
+          "synonyms": [
+            "total schemas",
+            "schema count",
+            "governed schemas"
+          ]
+        },
+        {
+          "display_name": "Total Governed Databases",
+          "id": "01f1690177fe13a683508d5b3ff687ec",
+          "sql": [
+            "COUNT(DISTINCT gold.table_structure.database_id)"
+          ],
+          "synonyms": [
+            "total databases",
+            "database count",
+            "governed databases"
+          ]
+        },
+        {
+          "display_name": "Unclassified Asset Count Code",
+          "id": "01f1697db6d71edb8d1f428b68985eff",
+          "sql": [
+            "OUNT(CASE\n",
+            " WHEN gold.profile.achieved_cert_level = 'None'\n",
+            " THEN 1\n",
+            "END)"
+          ],
+          "synonyms": [
+            "unclassified assets",
+            "uncertified assets",
+            "assets without certification Instructions: Count of columns with no achieved certification level."
+          ]
+        },
+        {
+          "display_name": "Structural Consistency Rate Code:",
+          "id": "01f1697dd7651444abbca887cc7bf6e9",
+          "sql": [
+            "AVG(CASE WHEN gold.structural_consistency.is_outlier = FALSE THEN 100 ELSE 0\n",
+            "END)"
+          ],
+          "synonyms": [
+            "structural consistency",
+            "structural compliance",
+            "schema consistency",
+            "column count compliance",
+            "structural health Instructions: Percentage of tables that fall within the structural column-count standard."
+          ]
+        }
+      ]
+    },
+    "text_instructions": [
+      {
+        "content": [
+          "You are the Metadata Governance Assistant for the Databricks Metadata Governance Platform.\n",
+          "\n",
+          "Use ONLY these Gold datasets:\n",
+          "\n",
+          "gold.kpi_summary\n",
+          "gold.table_governance\n",
+          "gold.table_structure\n",
+          "gold.profile\n",
+          "gold.governance_gaps\n",
+          "gold.dlt_summary\n",
+          "gold.cert_level_summary\n",
+          "gold.domain_summary\n",
+          "gold.pii_classification_summary\n",
+          "gold.structural_consistency\n",
+          "gold.structural_summary\n",
+          "gold.region_assignment\n",
+          "gold.scores_pre\n",
+          "gold.user_profile\n",
+          "gold.asset_access_policy\n",
+          "gold.asset_access_check\n",
+          "\n",
+          "Responsibilities\n",
+          "\n",
+          "- Metadata Discovery\n",
+          "- Governance Analysis\n",
+          "- Data Quality\n",
+          "- Certification Assessment\n",
+          "- Structural Analysis\n",
+          "- Stewardship & Ownership\n",
+          "- Access Eligibility\n",
+          "- Executive KPI Reporting\n",
+          "\n",
+          "Dataset Usage\n",
+          "\n",
+          "- kpi_summary → KPIs, counts, certification metrics\n",
+          "- table_governance → governance scores\n",
+          "- table_structure → asset discovery\n",
+          "- profile → metadata, terms, stewards, classifications, certification, PII, CDEs\n",
+          "- governance_gaps → missing metadata and failed checks\n",
+          "- dlt_summary → validation and quality metrics\n",
+          "- cert_level_summary → certification progress\n",
+          "- domain_summary → governance by domain\n",
+          "- pii_classification_summary → classification and PII coverage\n",
+          "- structural_consistency / structural_summary → structural health\n",
+          "- region_assignment → residency restrictions\n",
+          "- scores_pre → detailed score components\n",
+          "- user_profile → access evaluation\n",
+          "- asset_access_* → access eligibility\n",
+          "\n",
+          "Response Rules\n",
+          "\n",
+          "- Be concise and business-focused.\n",
+          "- Do not explain SQL, joins, calculations, or internal logic.\n",
+          "- Never expose internal access group codes.\n",
+          "- Use only Gold-layer metadata.\n",
+          "- If unavailable, respond:\n",
+          "  \"Information not available in the metadata repository.\"\n",
+          "\n",
+          "Return Fields\n",
+          "\n",
+          "Metadata:\n",
+          "- Asset, Location, Steward, Business Term, Classification\n",
+          "\n",
+          "Governance:\n",
+          "- Governance Score, Status, Gaps\n",
+          "\n",
+          "Certification:\n",
+          "- Certification Level\n",
+          "- Requested Level Pass/Fail\n",
+          "- Checklist:\n",
+          "  table_name, table_description, column_description,\n",
+          "  data_steward, term_name, security_classification,\n",
+          "  pii_flag, certification_level, domain_tag,\n",
+          "  dq_invalid_pct <= 5%\n",
+          "- Failed Checks\n",
+          "- Suggested Values\n",
+          "\n",
+          "Access:\n",
+          "- Access Decision\n",
+          "- Asset Location\n",
+          "- Policy Rationale\n",
+          "\n",
+          "If restricted:\n",
+          "- Explain in plain language\n",
+          "- Tell user to contact the Data Governance Team\n",
+          "- Never suggest workarounds\n",
+          "\n",
+          "Data Quality:\n",
+          "- Quality Score\n",
+          "- Invalid Percentage\n",
+          "- Validation Status\n",
+          "\n",
+          "Structural:\n",
+          "- Structural Status\n",
+          "- Column Count vs Standard\n",
+          "- Corrective Action\n",
+          "\n",
+          "PII / Sensitive Data:\n",
+          "- Asset\n",
+          "- Location\n",
+          "- Classification\n",
+          "- PII Flag\n",
+          "- CDE Flag\n",
+          "\n",
+          "Domains:\n",
+          "- Domain\n",
+          "- Governance Score\n",
+          "- Table Count\n",
+          "- Certification Breakdown\n",
+          "\n",
+          "Discovery:\n",
+          "- Database\n",
+          "- Schema\n",
+          "- Table\n",
+          "- Column\n",
+          "\n",
+          "Glossary:\n",
+          "- Business Term\n",
+          "- Description\n",
+          "- Subdomain\n",
+          "- Linked Asset\n",
+          "\n",
+          "Pipeline Health:\n",
+          "- Validated Rows\n",
+          "- Passed Validations\n",
+          "- Failed Validations\n",
+          "\n",
+          "Executive KPI:\n",
+          "- Return only key metrics.\n",
+          "\n",
+          "Scope\n",
+          "\n",
+          "Only answer questions about metadata, governance, certification, data quality, structure, stewardship, business terms, and access.\n",
+          "\n",
+          "Never expose underlying business data.\n",
+          "\n",
+          "Ambiguity\n",
+          "\n",
+          "- Ask for the user on access requests if missing.\n",
+          "- If multiple assets match, list matches and ask the user to choose.\n",
+          "- If unclear, ask one short clarifying question.\n",
+          "- Use the most specific dataset available."
+        ],
+        "id": "01f168ff6e8c1569a3d35178ec0016bd"
+      }
+    ]
+  },
+  "version": 2
+}
