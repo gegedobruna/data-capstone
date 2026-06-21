@@ -1,0 +1,34 @@
+name: Databricks CI/CD
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    env:
+      DATABRICKS_HOST: ${{ secrets.DATABRICKS_HOST }}
+      DATABRICKS_TOKEN: ${{ secrets.DATABRICKS_TOKEN }}
+      SQL_WAREHOUSE_ID: "6d3a6392d8691ed6"
+      GENIE_SPACE_ID: "01f1699b3c5718c395e11d9877d814d0"
+      GOLD_CATALOG: "dbx_metadata_governance_dev"
+      GOLD_SCHEMA: "gold"
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Setup Databricks CLI
+        uses: databricks/setup-cli@main
+
+      - name: Validate Databricks bundle
+        run: databricks bundle validate -t dev
+
+      - name: Deploy Databricks bundle
+        run: databricks bundle deploy -t dev
+
+      - name: Run Metadata Medallion workflow
+        run: databricks bundle run Metadata_Medallion -t dev
