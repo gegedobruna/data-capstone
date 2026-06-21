@@ -1,6 +1,9 @@
 from dash import html, dcc
+import os
+
 
 def build_layout():
+
     return html.Div([
         dcc.Store(id="kpi-store"),
         dcc.Store(id="pipeline-store"),
@@ -8,6 +11,7 @@ def build_layout():
         dcc.Store(id="assets-store"),
         dcc.Store(id="domain-store"),
         dcc.Store(id="db-alerts-store"),
+        dcc.Store(id="monitoring-store", data=[]),
         dcc.Store(id="active-view", data="overview"),
         dcc.Interval(id="refresh-interval", interval=5 * 60 * 1000, n_intervals=0),
 
@@ -65,6 +69,10 @@ def build_layout():
                 html.Button(
                     html.I(className="ti ti-bell"),
                     id="nav-alerts", className="nb", n_clicks=0, title="Alerts"
+                ),
+                html.Button(
+                    html.I(className="ti ti-activity"),
+                    id="nav-monitoring", className="nb", n_clicks=0, title="Monitoring"
                 ),
                 html.Div(className="nb-bot"),
                 html.Div("GH", className="user-av", title="Gresa Hasani — MLOps Engineer"),
