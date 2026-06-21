@@ -117,7 +117,7 @@ resources:
 
     metadata_gov_dashboard:
       display_name: Metadata Governance Dashboard
-      file_path: src/metadata_dashboard.lvdash.json   # <<FILL: from generate>>
+      file_path: dashboards/metadata_dashboard.lvdash.json   # <<FILL: from generate>>
       warehouse_id: ${var.warehouse_id}
 
   # --- Genie space -------------------------------------------------------------
@@ -130,7 +130,7 @@ resources:
       title: Metadata Gov AI
       description: Ask questions about the governance metadata in natural language
       warehouse_id: ${var.warehouse_id}
-      file_path: src/metadata_gov_ai.geniespace.json   # <<FILL: from generate>>
+      file_path: chatbot/metadata_gov_ai.geniespace.json   # <<FILL: from generate>>
 
   # --- Databricks App ----------------------------------------------------------
   # COMMENTED OUT until the app source exists. When you have it:
