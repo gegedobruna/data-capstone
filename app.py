@@ -538,8 +538,6 @@ def _view_monitoring(mon_data):
             html.Div([
                 html.Div("v2.0 — Current",
                          style={"fontSize": "12px", "fontWeight": "500", "color": "#1a1a2e"}),
-                html.Div("Configured by Ajete Isaku (Role 6) · dg_poc_genie space",
-                         style={"fontSize": "11px", "color": "#888", "marginTop": "2px"}),
                 html.Div(
                     "Trusted datasets: gold.profile · gold.table_governance · "
                     "gold.governance_gaps · gold.kpi_summary · gold.dlt_summary · "
