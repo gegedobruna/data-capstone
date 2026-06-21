@@ -7,6 +7,38 @@ from typing import Optional
 logger = logging.getLogger(__name__)
 
 
+def _get_auth_token() -> str:
+    """
+    Resolve auth token using OAuth client credentials (Databricks Apps)
+    or fall back to personal access token for local development.
+    """
+    host          = os.environ.get("DATABRICKS_HOST", "").rstrip("/")
+    client_id     = os.environ.get("DATABRICKS_CLIENT_ID", "")
+    client_secret = os.environ.get("DATABRICKS_CLIENT_SECRET", "")
+    fallback      = os.environ.get("DATABRICKS_TOKEN", "")
+
+    if not client_id or not client_secret:
+        logger.warning("DATABRICKS_CLIENT_ID/SECRET not set, falling back to DATABRICKS_TOKEN.")
+        return fallback
+
+    try:
+        resp = requests.post(
+            f"{host}/oidc/v1/token",
+            data={"grant_type": "client_credentials", "scope": "all-apis"},
+            auth=(client_id, client_secret),
+            timeout=10,
+        )
+        resp.raise_for_status()
+        token = resp.json().get("access_token", "")
+        if not token:
+            logger.error("Empty token from OIDC endpoint, falling back.")
+            return fallback
+        return token
+    except Exception as e:
+        logger.error(f"OAuth token fetch failed: {e} — falling back to DATABRICKS_TOKEN.")
+        return fallback
+
+
 class GenieClient:
     """
     Production Genie Conversation API client.
@@ -16,28 +48,34 @@ class GenieClient:
     share context. Call reset() or pass new_conversation=True to start fresh.
 
     Recommendations from Databricks docs implemented here:
-    - Poll every 1–5 s (we use adaptive: start at 1s, cap at 5s)
+    - Poll every 1-5s (adaptive: start at 1s, cap at 5s)
     - Exponential backoff on transient HTTP errors
     - Hard 10-minute timeout per message
     - New conversation per user session (not shared across sessions)
     """
 
-    TERMINAL      = {"COMPLETED", "FAILED", "CANCELLED", "QUERY_RESULT_EXPIRED"}
-    MAX_WAIT_S    = 600
-    POLL_START_S  = 1.0
-    POLL_MAX_S    = 5.0
-    BACKOFF_BASE  = 2
-    MAX_RETRIES   = 4
+    TERMINAL     = {"COMPLETED", "FAILED", "CANCELLED", "QUERY_RESULT_EXPIRED"}
+    MAX_WAIT_S   = 600
+    POLL_START_S = 1.0
+    POLL_MAX_S   = 5.0
+    BACKOFF_BASE = 2
+    MAX_RETRIES  = 4
 
     def __init__(self, space_id: str):
         self.space_id = space_id
         self.host     = os.environ.get("DATABRICKS_HOST", "").rstrip("/")
-        self.token    = os.environ.get("DATABRICKS_TOKEN", "")
+        self.token    = _get_auth_token()
+
+        # Debug logging — verify credentials on startup
+        print(f"GenieClient init: host={self.host}")
+        print(f"GenieClient init: space_id={self.space_id}")
+        print(f"GenieClient init: token={'SET' if self.token else 'NOT SET'}")
 
         if not self.host or not self.token:
             raise EnvironmentError(
-                "DATABRICKS_HOST and DATABRICKS_TOKEN must be set. "
-                "Inside a Databricks App these are injected automatically."
+                "DATABRICKS_HOST and auth credentials must be set. "
+                "Inside a Databricks App, DATABRICKS_CLIENT_ID and "
+                "DATABRICKS_CLIENT_SECRET are injected automatically."
             )
 
         self.conversation_id: Optional[str] = None
@@ -56,6 +94,7 @@ class GenieClient:
         for attempt in range(self.MAX_RETRIES):
             try:
                 resp = self._session.post(url, json=body, timeout=20)
+                print(f"POST {path} → {resp.status_code}")
                 if resp.status_code < 500:
                     resp.raise_for_status()
                     return resp.json()
@@ -91,7 +130,7 @@ class GenieClient:
         POST /api/2.0/genie/spaces/{space_id}/start-conversation
         Returns (conversation_id, message_id).
         """
-        body = self._post("start-conversation", {"content": question})
+        body    = self._post("start-conversation", {"content": question})
         conv_id = body.get("conversation_id") or body.get("id")
         msg_id  = body.get("message_id") or (body.get("messages", [{}])[0].get("id"))
         if not conv_id or not msg_id:
@@ -114,18 +153,17 @@ class GenieClient:
     def _poll(self, conversation_id: str, message_id: str) -> dict:
         """
         GET /api/2.0/genie/spaces/{space_id}/conversations/{conv_id}/messages/{msg_id}
-        Polls with adaptive interval until a terminal status is reached.
+        Polls with adaptive interval until terminal status is reached.
         Returns the full message body.
         """
-        path    = f"conversations/{conversation_id}/messages/{message_id}"
-        elapsed = 0.0
+        path     = f"conversations/{conversation_id}/messages/{message_id}"
+        elapsed  = 0.0
         interval = self.POLL_START_S
 
         while elapsed < self.MAX_WAIT_S:
             body   = self._get(path)
             status = body.get("status", "")
-
-            logger.debug(f"Genie poll: message {message_id} status={status} elapsed={elapsed:.1f}s")
+            print(f"Genie poll: status={status} elapsed={elapsed:.1f}s")
 
             if status in self.TERMINAL:
                 return body
@@ -140,7 +178,6 @@ class GenieClient:
         )
 
     def ask(self, question: str, new_conversation: bool = False) -> str:
-
         if self.conversation_id is None or new_conversation:
             conv_id, msg_id      = self._start_conversation(question)
             self.conversation_id = conv_id
@@ -171,14 +208,12 @@ class GenieClient:
     def _extract_text(message: dict) -> str:
         parts = []
         for att in message.get("attachments", []):
-            # text attachment
             if "text" in att:
                 content = att["text"].get("content", "")
                 if content:
                     parts.append(content)
-            # query attachment
             elif "query" in att:
-                q = att["query"]
+                q    = att["query"]
                 desc = q.get("description", "")
                 if desc:
                     parts.append(desc)
