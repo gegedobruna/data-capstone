@@ -6,17 +6,52 @@ Catalog: dbx_metadata_governance_dev.gold.*
 
 import os
 import logging
+import requests
 from databricks import sql
 
 logger = logging.getLogger(__name__)
 
-CATALOG   = os.environ.get("GOLD_CATALOG",      "dbx_metadata_governance_dev")
-SCHEMA    = os.environ.get("GOLD_SCHEMA",        "gold")
-HOST      = os.environ.get("DATABRICKS_HOST",    "").replace("https://", "")
-TOKEN     = os.environ.get("DATABRICKS_TOKEN",   "")
+CATALOG   = os.environ.get("GOLD_CATALOG",   "dbx_metadata_governance_dev")
+SCHEMA    = os.environ.get("GOLD_SCHEMA",    "gold")
+HOST      = os.environ.get("DATABRICKS_HOST", "").replace("https://", "")
 HTTP_PATH = f"/sql/1.0/warehouses/{os.environ.get('SQL_WAREHOUSE_ID', '')}"
 
 
+# ── OAuth token from Service Principal
+def get_sp_token() -> str:
+    host          = os.environ.get("DATABRICKS_HOST", "").rstrip("/")
+    client_id     = os.environ.get("DATABRICKS_CLIENT_ID", "")
+    client_secret = os.environ.get("DATABRICKS_CLIENT_SECRET", "")
+
+    # Fallback: if no client credentials, use personal token (local dev only)
+    fallback = os.environ.get("DATABRICKS_TOKEN", "")
+
+    if not client_id or not client_secret:
+        logger.warning("DATABRICKS_CLIENT_ID/SECRET not set, falling back to DATABRICKS_TOKEN.")
+        return fallback
+
+    try:
+        resp = requests.post(
+            f"{host}/oidc/v1/token",
+            data={"grant_type": "client_credentials", "scope": "all-apis"},
+            auth=(client_id, client_secret),
+            timeout=10,
+        )
+        resp.raise_for_status()
+        token = resp.json().get("access_token", "")
+        if not token:
+            logger.error("Empty token returned from OIDC endpoint.")
+            return fallback
+        return token
+    except Exception as e:
+        logger.error(f"get_sp_token failed: {e} — falling back to DATABRICKS_TOKEN.")
+        return fallback
+
+
+TOKEN = get_sp_token()
+
+
+# ── SQL runner
 def _run(sql_str: str) -> list[dict]:
     with sql.connect(
         server_hostname=HOST,
@@ -34,6 +69,7 @@ def g(table: str) -> str:
     return f"{CATALOG}.{SCHEMA}.{table}"
 
 
+# ── Data loaders
 def load_kpi_summary() -> dict:
     rows = _run(f"""
         SELECT
@@ -69,6 +105,7 @@ def load_table_governance(limit: int = 200) -> list[dict]:
         ORDER BY table_governance_score DESC
         LIMIT {limit}
     """)
+
 
 def load_gaps(limit: int = 300) -> list[dict]:
     return _run(f"""
@@ -130,19 +167,19 @@ def load_pipeline_status() -> dict:
     total    = dq_pass + dq_fail
 
     steps = [
-        {"name": "Bronze ingestion",        "status": "ok",
+        {"name": "Bronze ingestion",       "status": "ok",
          "detail": f"{total:,} rows ingested from Azure Blob"},
-        {"name": "Silver validation",       "status": "warn" if dq_fail > 0 else "ok",
+        {"name": "Silver validation",      "status": "warn" if dq_fail > 0 else "ok",
          "detail": f"{dq_fail} rows exceed DQ threshold · routed to quarantine" if dq_fail > 0
                    else f"All {total:,} rows pass DQ threshold"},
-        {"name": "Gold scoring",            "status": "ok",
+        {"name": "Gold scoring",           "status": "ok",
          "detail": "11 rubric checks applied · Gold tables written"},
-        {"name": "KPI + gap tables",        "status": "ok",
+        {"name": "KPI + gap tables",       "status": "ok",
          "detail": "kpi_summary · governance_gaps · dlt_summary refreshed"},
-        {"name": "Structural consistency",  "status": "warn" if outliers > 0 else "ok",
+        {"name": "Structural consistency", "status": "warn" if outliers > 0 else "ok",
          "detail": f"{outliers} structural outlier(s) detected" if outliers > 0
                    else "All tables match structural standard"},
-        {"name": "Sensitivity check",       "status": "warn" if pii_bad > 0 else "ok",
+        {"name": "Sensitivity check",      "status": "warn" if pii_bad > 0 else "ok",
          "detail": f"{pii_bad} PII columns with inconsistent flags" if pii_bad > 0
                    else "All PII flags consistent"},
     ]
@@ -153,29 +190,28 @@ def load_pipeline_status() -> dict:
         "total_rows":      total,
         "alerts_fired":    sum([dq_fail > 0, pii_bad > 0, outliers > 0]),
     }
+
+
 def load_alerts() -> list[dict]:
-    """
-    Lexon statusin e alerts direkt nga Gold tables.
-    """
     try:
         rows = _run(f"""
             SELECT
                 'Data Quality Below 95%'        AS name,
-                CASE WHEN ROUND(100 - avg_dq_invalid_pct, 1) < 95 
+                CASE WHEN ROUND(100 - avg_dq_invalid_pct, 1) < 95
                      THEN 'triggered' ELSE 'ok' END AS status,
                 'erza.ademii24@gmail.com'        AS owner
             FROM {g('kpi_summary')}
             UNION ALL
             SELECT
                 'Metadata Completeness Below 90%',
-                CASE WHEN avg_completeness_pct < 90 
+                CASE WHEN avg_completeness_pct < 90
                      THEN 'triggered' ELSE 'ok' END,
                 'erza.ademii24@gmail.com'
             FROM {g('kpi_summary')}
             UNION ALL
             SELECT
                 'Structural Consistency Below 85%',
-                CASE WHEN structural_consistency_pct < 85 
+                CASE WHEN structural_consistency_pct < 85
                      THEN 'triggered' ELSE 'ok' END,
                 'erza.ademii24@gmail.com'
             FROM {g('structural_summary')}
