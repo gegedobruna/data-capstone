@@ -117,7 +117,7 @@ resources:
 
     metadata_gov_dashboard:
       display_name: Metadata Governance Dashboard
-      file_path: src/metadata_dashboard.lvdash.json   # <<FILL: from generate>>
+      file_path: dashboard/metadata_dashboard.lvdash.json   # <<FILL: from generate>>
       warehouse_id: ${var.warehouse_id}
 
   # --- Genie space -------------------------------------------------------------
