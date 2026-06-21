@@ -1,0 +1,2081 @@
+{
+  "datasets": [
+    {
+      "catalog": "dbx_metadata_governance_dev",
+      "displayName": "Executive KPI Summary",
+      "name": "d9c29308",
+      "queryLines": [
+        "-- DS-01 Executive KPI Summary\r\n",
+        "SELECT\r\n",
+        "  total_databases,\r\n",
+        "  total_schemas,\r\n",
+        "  total_tables,\r\n",
+        "  total_columns,\r\n",
+        "  ROUND(avg_completeness_pct / 100, 3) AS metadata_completeness_pct,\r\n",
+        "  ROUND((100 - avg_dq_invalid_pct) / 100, 3) AS data_quality_pct,\r\n",
+        "  pii_columns,\r\n",
+        "  critical_columns\r\n",
+        "FROM dbx_metadata_governance_dev.gold.kpi_summary;"
+      ],
+      "schema": "gold"
+    },
+    {
+      "catalog": "dbx_metadata_governance_dev",
+      "displayName": "Certification Level Distribution",
+      "name": "020b575c",
+      "queryLines": [
+        "-- DS-02 Certification Level Distribution\r\n",
+        "SELECT 'Certified' AS certification_level, certified_columns AS column_count\r\n",
+        "FROM dbx_metadata_governance_dev.gold.kpi_summary\r\n",
+        "\r\n",
+        "UNION ALL\r\n",
+        "\r\n",
+        "SELECT 'Documented', documented_columns\r\n",
+        "FROM dbx_metadata_governance_dev.gold.kpi_summary\r\n",
+        "\r\n",
+        "UNION ALL\r\n",
+        "\r\n",
+        "SELECT 'Registered', registered_columns\r\n",
+        "FROM dbx_metadata_governance_dev.gold.kpi_summary\r\n",
+        "\r\n",
+        "UNION ALL\r\n",
+        "\r\n",
+        "SELECT 'None', unclassified_columns\r\n",
+        "FROM dbx_metadata_governance_dev.gold.kpi_summary;\r\n",
+        "\r\n",
+        "\r\n"
+      ],
+      "schema": "gold"
+    },
+    {
+      "catalog": "dbx_metadata_governance_dev",
+      "displayName": "Table governance scores",
+      "name": "6ec2cc2f",
+      "queryLines": [
+        "-- DS-03 Table governance scores\r\n",
+        "SELECT\r\n",
+        "  schema_name,\r\n",
+        "  table_name,\r\n",
+        "  ROUND(table_governance_score, 1)   AS governance_score,\r\n",
+        "  ROUND(avg_documentation_score, 1)  AS documentation_score,\r\n",
+        "  ROUND(avg_quality_score, 1)        AS quality_score,\r\n",
+        "  column_count,\r\n",
+        "  pii_column_count,\r\n",
+        "  critical_column_count,\r\n",
+        "  data_steward\r\n",
+        "FROM dbx_metadata_governance_dev.gold.table_governance\r\n",
+        "WHERE schema_name = 'gold'   \r\n",
+        "ORDER BY governance_score DESC;"
+      ],
+      "schema": "gold"
+    },
+    {
+      "catalog": "dbx_metadata_governance_dev",
+      "displayName": "Governance gaps",
+      "name": "6d142f8f",
+      "queryLines": [
+        "-- DS-04 Governance gaps\r\n",
+        "SELECT\r\n",
+        "  database_name,\r\n",
+        "  schema_name,\r\n",
+        "  table_name,\r\n",
+        "  column_id,\r\n",
+        "  column_name,\r\n",
+        "  NULLIF(data_steward, 'nan')              AS data_steward,\r\n",
+        "  NULLIF(security_classification, 'nan')   AS security_classification,\r\n",
+        "  achieved_cert_level,\r\n",
+        "  ROUND(completeness_pct, 1)               AS completeness_pct,\r\n",
+        "  ROUND(dq_invalid_pct, 2)                 AS dq_invalid_pct,\r\n",
+        "  gap_reason\r\n",
+        "FROM dbx_metadata_governance_dev.gold.governance_gaps\r\n",
+        "WHERE schema_name = 'gold'\r\n",
+        "ORDER BY completeness_pct ASC;"
+      ],
+      "schema": "gold"
+    },
+    {
+      "catalog": "dbx_metadata_governance_dev",
+      "displayName": "PII coverage",
+      "name": "6741d733",
+      "queryLines": [
+        "-- DS-05 PII Coverage\r\n",
+        "SELECT\r\n",
+        "  total_columns,\r\n",
+        "  pii_columns,\r\n",
+        "  critical_columns,\r\n",
+        "  ROUND(pii_columns * 1.0 / total_columns, 3) AS pii_coverage_pct,\r\n",
+        "  ROUND(critical_columns * 1.0 / total_columns, 3) AS cde_coverage_pct\r\n",
+        "FROM dbx_metadata_governance_dev.gold.kpi_summary;"
+      ],
+      "schema": "gold"
+    },
+    {
+      "catalog": "dbx_metadata_governance_dev",
+      "displayName": "Pipeline Quality",
+      "name": "3060c6a7",
+      "queryLines": [
+        "--DS-06 Pipeline Quality\r\n",
+        "SELECT\r\n",
+        "  dq_pass_rows,\r\n",
+        "  dq_failed_rows,\r\n",
+        "  pii_consistent_rows,\r\n",
+        "  pii_inconsistent_rows\r\n",
+        "FROM dbx_metadata_governance_dev.gold.dlt_summary;"
+      ],
+      "schema": "gold"
+    },
+    {
+      "catalog": "dbx_metadata_governance_dev",
+      "displayName": "Structural Consistency",
+      "name": "6e4e594f",
+      "queryLines": [
+        "-- DS-07 Structural Consistency \r\n",
+        "SELECT\r\n",
+        "  database_name,\r\n",
+        "  schema_name,\r\n",
+        "  table_name,\r\n",
+        "  column_count,\r\n",
+        "  standard_column_count,\r\n",
+        "  lower_bound,\r\n",
+        "  upper_bound,\r\n",
+        "  structural_status,\r\n",
+        "  is_outlier,\r\n",
+        "  corrective_action\r\n",
+        "FROM dbx_metadata_governance_dev.gold.structural_consistency\r\n",
+        "WHERE schema_name = 'gold'\r\n",
+        "ORDER BY is_outlier DESC, table_name;"
+      ],
+      "schema": "gold"
+    },
+    {
+      "catalog": "dbx_metadata_governance_dev",
+      "displayName": "Domain Summary",
+      "name": "f98c42f3",
+      "queryLines": [
+        "-- DS-08 Domain Summary\r\n",
+        "SELECT\r\n",
+        "  domain,\r\n",
+        "  column_count,\r\n",
+        "  table_count,\r\n",
+        "  ROUND(avg_governance_score, 1) AS avg_governance_score,\r\n",
+        "  certified_columns,\r\n",
+        "  documented_columns,\r\n",
+        "  certified_pct\r\n",
+        "FROM dbx_metadata_governance_dev.gold.domain_summary\r\n",
+        "WHERE domain != 'Unassigned'\r\n",
+        "AND domain != 'nan'\r\n",
+        "ORDER BY avg_governance_score DESC;"
+      ],
+      "schema": "gold"
+    },
+    {
+      "catalog": "dbx_metadata_governance_dev",
+      "displayName": "Structural Summary KPI",
+      "name": "bd70deeb",
+      "queryLines": [
+        "-- DS-09 Structural Summary KPI (single counter row)\r\n",
+        "SELECT\r\n",
+        "  total_tables,\r\n",
+        "  standard_column_count,\r\n",
+        "  avg_columns_per_table,\r\n",
+        "  compliant_tables,\r\n",
+        "  outlier_tables,\r\n",
+        "  CONCAT(CAST(structural_consistency_pct AS STRING), '%') \r\n",
+        "  AS structural_consistency_pct\r\n",
+        "FROM dbx_metadata_governance_dev.gold.structural_summary;"
+      ],
+      "schema": "gold"
+    },
+    {
+      "catalog": "dbx_metadata_governance_dev",
+      "displayName": "PII vs Non-PII Columns",
+      "name": "5f9b4404",
+      "queryLines": [
+        "-- DS-10 PII vs Non-PII Columns\r\n",
+        "SELECT\r\n",
+        "  'PII Columns' AS pii_type,\r\n",
+        "  pii_columns AS column_count\r\n",
+        "FROM dbx_metadata_governance_dev.gold.kpi_summary\r\n",
+        "\r\n",
+        "UNION ALL\r\n",
+        "\r\n",
+        "SELECT\r\n",
+        "  'Non-PII Columns' AS pii_type,\r\n",
+        "  total_columns - pii_columns AS column_count\r\n",
+        "FROM dbx_metadata_governance_dev.gold.kpi_summary;"
+      ],
+      "schema": "gold"
+    },
+    {
+      "catalog": "dbx_metadata_governance_dev",
+      "displayName": "DQ passed/failed rows",
+      "name": "8c61f78f",
+      "queryLines": [
+        "--DS-11 DQ passed/failed rows\r\n",
+        "SELECT\r\n",
+        "  'Passed Rows' AS dq_status,\r\n",
+        "  dq_pass_rows AS row_count\r\n",
+        "FROM dbx_metadata_governance_dev.gold.dlt_summary\r\n",
+        "\r\n",
+        "UNION ALL\r\n",
+        "\r\n",
+        "SELECT\r\n",
+        "  'Failed Rows' AS dq_status,\r\n",
+        "  dq_failed_rows AS row_count\r\n",
+        "FROM dbx_metadata_governance_dev.gold.dlt_summary;"
+      ],
+      "schema": "gold"
+    },
+    {
+      "catalog": "dbx_metadata_governance_dev",
+      "displayName": "Gaps per Table",
+      "name": "cdd8bf9f",
+      "queryLines": [
+        "-- DS-12 Gaps per Table\r\n",
+        "SELECT\r\n",
+        "  table_name,\r\n",
+        "  COUNT(*) AS gap_column_count,\r\n",
+        "  ROUND(AVG(completeness_pct), 1) AS avg_completeness\r\n",
+        "FROM dbx_metadata_governance_dev.gold.governance_gaps\r\n",
+        "WHERE schema_name = 'gold'\r\n",
+        "GROUP BY table_name\r\n",
+        "ORDER BY gap_column_count DESC;"
+      ],
+      "schema": "gold"
+    },
+    {
+      "catalog": "dbx_metadata_governance_dev",
+      "displayName": "kpi_overview",
+      "name": "d1a7143a",
+      "queryLines": [
+        "-- DS-01 Executive KPI Summary\r\n",
+        "SELECT\r\n",
+        "  total_databases,\r\n",
+        "  total_schemas,\r\n",
+        "  total_tables,\r\n",
+        "  total_columns,\r\n",
+        "  ROUND(avg_completeness_pct / 100, 3) AS metadata_completeness_pct,\r\n",
+        "  ROUND((100 - avg_dq_invalid_pct) / 100, 3) AS data_quality_pct,\r\n",
+        "  pii_columns,\r\n",
+        "  critical_columns\r\n",
+        "FROM dbx_metadata_governance_dev.gold.kpi_summary;"
+      ],
+      "schema": "gold"
+    },
+    {
+      "catalog": "dbx_metadata_governance_dev",
+      "displayName": "kpi_overview",
+      "name": "d0242859",
+      "queryLines": [
+        "-- DS-01 Executive KPI Summary\r\n",
+        "SELECT\r\n",
+        "  total_databases,\r\n",
+        "  total_schemas,\r\n",
+        "  total_tables,\r\n",
+        "  total_columns,\r\n",
+        "  ROUND(avg_completeness_pct / 100, 3) AS metadata_completeness_pct,\r\n",
+        "  ROUND((100 - avg_dq_invalid_pct) / 100, 3) AS data_quality_pct,\r\n",
+        "  pii_columns,\r\n",
+        "  critical_columns\r\n",
+        "FROM dbx_metadata_governance_dev.gold.kpi_summary;"
+      ],
+      "schema": "gold"
+    },
+    {
+      "catalog": "dbx_metadata_governance_dev",
+      "displayName": "kpi_overview",
+      "name": "b8c14de1",
+      "queryLines": [
+        "-- DS-01 Executive KPI Summary\r\n",
+        "SELECT\r\n",
+        "  total_databases,\r\n",
+        "  total_schemas,\r\n",
+        "  total_tables,\r\n",
+        "  total_columns,\r\n",
+        "  ROUND(avg_completeness_pct / 100, 3) AS metadata_completeness_pct,\r\n",
+        "  ROUND((100 - avg_dq_invalid_pct) / 100, 3) AS data_quality_pct,\r\n",
+        "  pii_columns,\r\n",
+        "  critical_columns\r\n",
+        "FROM dbx_metadata_governance_dev.gold.kpi_summary;"
+      ],
+      "schema": "gold"
+    },
+    {
+      "catalog": "dbx_metadata_governance_dev",
+      "displayName": "kpi_overview",
+      "name": "51ecb168",
+      "queryLines": [
+        "-- DS-01 Executive KPI Summary\r\n",
+        "SELECT\r\n",
+        "  total_databases,\r\n",
+        "  total_schemas,\r\n",
+        "  total_tables,\r\n",
+        "  total_columns,\r\n",
+        "  ROUND(avg_completeness_pct / 100, 3) AS metadata_completeness_pct,\r\n",
+        "  ROUND((100 - avg_dq_invalid_pct) / 100, 3) AS data_quality_pct,\r\n",
+        "  pii_columns,\r\n",
+        "  critical_columns\r\n",
+        "FROM dbx_metadata_governance_dev.gold.kpi_summary;"
+      ],
+      "schema": "gold"
+    },
+    {
+      "catalog": "dbx_metadata_governance_dev",
+      "displayName": "kpi_overview",
+      "name": "00933419",
+      "queryLines": [
+        "-- DS-01 Executive KPI Summary\r\n",
+        "SELECT\r\n",
+        "  total_databases,\r\n",
+        "  total_schemas,\r\n",
+        "  total_tables,\r\n",
+        "  total_columns,\r\n",
+        "  ROUND(avg_completeness_pct / 100, 3) AS metadata_completeness_pct,\r\n",
+        "  ROUND((100 - avg_dq_invalid_pct) / 100, 3) AS data_quality_pct,\r\n",
+        "  pii_columns,\r\n",
+        "  critical_columns\r\n",
+        "FROM dbx_metadata_governance_dev.gold.kpi_summary;"
+      ],
+      "schema": "gold"
+    },
+    {
+      "catalog": "dbx_metadata_governance_dev",
+      "displayName": "kpi_overview",
+      "name": "4a067baa",
+      "queryLines": [
+        "-- DS-01 Executive KPI Summary\r\n",
+        "SELECT\r\n",
+        "  total_databases,\r\n",
+        "  total_schemas,\r\n",
+        "  total_tables,\r\n",
+        "  total_columns,\r\n",
+        "  ROUND(avg_completeness_pct / 100, 3) AS metadata_completeness_pct,\r\n",
+        "  ROUND((100 - avg_dq_invalid_pct) / 100, 3) AS data_quality_pct,\r\n",
+        "  pii_columns,\r\n",
+        "  critical_columns\r\n",
+        "FROM dbx_metadata_governance_dev.gold.kpi_summary;"
+      ],
+      "schema": "gold"
+    },
+    {
+      "catalog": "dbx_metadata_governance_dev",
+      "displayName": "kpi_overview",
+      "name": "64cde4d2",
+      "queryLines": [
+        "-- DS-01 Executive KPI Summary\r\n",
+        "SELECT\r\n",
+        "  total_databases,\r\n",
+        "  total_schemas,\r\n",
+        "  total_tables,\r\n",
+        "  total_columns,\r\n",
+        "  ROUND(avg_completeness_pct / 100, 3) AS metadata_completeness_pct,\r\n",
+        "  ROUND((100 - avg_dq_invalid_pct) / 100, 3) AS data_quality_pct,\r\n",
+        "  pii_columns,\r\n",
+        "  critical_columns\r\n",
+        "FROM dbx_metadata_governance_dev.gold.kpi_summary;"
+      ],
+      "schema": "gold"
+    },
+    {
+      "catalog": "dbx_metadata_governance_dev",
+      "displayName": "kpi_overview",
+      "name": "bd4c3c36",
+      "queryLines": [
+        "-- DS-01 Executive KPI Summary\r\n",
+        "SELECT\r\n",
+        "  total_databases,\r\n",
+        "  total_schemas,\r\n",
+        "  total_tables,\r\n",
+        "  total_columns,\r\n",
+        "  ROUND(avg_completeness_pct / 100, 3) AS metadata_completeness_pct,\r\n",
+        "  ROUND((100 - avg_dq_invalid_pct) / 100, 3) AS data_quality_pct,\r\n",
+        "  pii_columns,\r\n",
+        "  critical_columns\r\n",
+        "FROM dbx_metadata_governance_dev.gold.kpi_summary;"
+      ],
+      "schema": "gold"
+    },
+    {
+      "catalog": "dbx_metadata_governance_dev",
+      "displayName": "Certification Level Distribution",
+      "name": "e4b36090",
+      "queryLines": [
+        "-- DS-02 Certification Level Distribution\r\n",
+        "SELECT 'Certified' AS certification_level, certified_columns AS column_count\r\n",
+        "FROM dbx_metadata_governance_dev.gold.kpi_summary\r\n",
+        "\r\n",
+        "UNION ALL\r\n",
+        "\r\n",
+        "SELECT 'Documented', documented_columns\r\n",
+        "FROM dbx_metadata_governance_dev.gold.kpi_summary\r\n",
+        "\r\n",
+        "UNION ALL\r\n",
+        "\r\n",
+        "SELECT 'Registered', registered_columns\r\n",
+        "FROM dbx_metadata_governance_dev.gold.kpi_summary\r\n",
+        "\r\n",
+        "UNION ALL\r\n",
+        "\r\n",
+        "SELECT 'None', unclassified_columns\r\n",
+        "FROM dbx_metadata_governance_dev.gold.kpi_summary;\r\n",
+        "\r\n",
+        "\r\n"
+      ],
+      "schema": "gold"
+    },
+    {
+      "catalog": "dbx_metadata_governance_dev",
+      "displayName": "Structural Summary KPI",
+      "name": "a1508099",
+      "queryLines": [
+        "-- DS-09 Structural Summary KPI (single counter row)\r\n",
+        "SELECT\r\n",
+        "  total_tables,\r\n",
+        "  standard_column_count,\r\n",
+        "  avg_columns_per_table,\r\n",
+        "  compliant_tables,\r\n",
+        "  outlier_tables,\r\n",
+        "  CONCAT(CAST(structural_consistency_pct AS STRING), '%') \r\n",
+        "  AS structural_consistency_pct\r\n",
+        "FROM dbx_metadata_governance_dev.gold.structural_summary;"
+      ],
+      "schema": "gold"
+    },
+    {
+      "catalog": "dbx_metadata_governance_dev",
+      "displayName": "Structural Summary KPI",
+      "name": "c4048ceb",
+      "queryLines": [
+        "-- DS-09 Structural Summary KPI (single counter row)\r\n",
+        "SELECT\r\n",
+        "  total_tables,\r\n",
+        "  standard_column_count,\r\n",
+        "  avg_columns_per_table,\r\n",
+        "  compliant_tables,\r\n",
+        "  outlier_tables,\r\n",
+        "  CONCAT(CAST(structural_consistency_pct AS STRING), '%') \r\n",
+        "  AS structural_consistency_pct\r\n",
+        "FROM dbx_metadata_governance_dev.gold.structural_summary;"
+      ],
+      "schema": "gold"
+    },
+    {
+      "catalog": "dbx_metadata_governance_dev",
+      "displayName": "Structural Summary KPI",
+      "name": "9a84330b",
+      "queryLines": [
+        "-- DS-09 Structural Summary KPI (single counter row)\r\n",
+        "SELECT\r\n",
+        "  total_tables,\r\n",
+        "  standard_column_count,\r\n",
+        "  avg_columns_per_table,\r\n",
+        "  compliant_tables,\r\n",
+        "  outlier_tables,\r\n",
+        "  CONCAT(CAST(structural_consistency_pct AS STRING), '%') \r\n",
+        "  AS structural_consistency_pct\r\n",
+        "FROM dbx_metadata_governance_dev.gold.structural_summary;"
+      ],
+      "schema": "gold"
+    },
+    {
+      "catalog": "dbx_metadata_governance_dev",
+      "displayName": "PII vs Non-PII Columns",
+      "name": "1257dcfa",
+      "queryLines": [
+        "-- DS-10 PII vs Non-PII Columns\r\n",
+        "SELECT\r\n",
+        "  'PII Columns' AS pii_type,\r\n",
+        "  pii_columns AS column_count\r\n",
+        "FROM dbx_metadata_governance_dev.gold.kpi_summary\r\n",
+        "\r\n",
+        "UNION ALL\r\n",
+        "\r\n",
+        "SELECT\r\n",
+        "  'Non-PII Columns' AS pii_type,\r\n",
+        "  total_columns - pii_columns AS column_count\r\n",
+        "FROM dbx_metadata_governance_dev.gold.kpi_summary;"
+      ],
+      "schema": "gold"
+    },
+    {
+      "catalog": "dbx_metadata_governance_dev",
+      "displayName": "Domain Summary",
+      "name": "142b4734",
+      "queryLines": [
+        "-- DS-08 Domain Summary\r\n",
+        "SELECT\r\n",
+        "  domain,\r\n",
+        "  column_count,\r\n",
+        "  table_count,\r\n",
+        "  ROUND(avg_governance_score, 1) AS avg_governance_score,\r\n",
+        "  certified_columns,\r\n",
+        "  documented_columns,\r\n",
+        "  certified_pct\r\n",
+        "FROM dbx_metadata_governance_dev.gold.domain_summary\r\n",
+        "WHERE domain != 'Unassigned'\r\n",
+        "AND domain != 'nan'\r\n",
+        "ORDER BY avg_governance_score DESC;"
+      ],
+      "schema": "gold"
+    },
+    {
+      "catalog": "dbx_metadata_governance_dev",
+      "displayName": "Structural Consistency",
+      "name": "5f4ac6e6",
+      "queryLines": [
+        "-- DS-07 Structural Consistency \r\n",
+        "SELECT\r\n",
+        "  database_name,\r\n",
+        "  schema_name,\r\n",
+        "  table_name,\r\n",
+        "  column_count,\r\n",
+        "  standard_column_count,\r\n",
+        "  lower_bound,\r\n",
+        "  upper_bound,\r\n",
+        "  structural_status,\r\n",
+        "  is_outlier,\r\n",
+        "  corrective_action\r\n",
+        "FROM dbx_metadata_governance_dev.gold.structural_consistency\r\n",
+        "WHERE schema_name = 'gold'\r\n",
+        "ORDER BY is_outlier DESC, table_name;"
+      ],
+      "schema": "gold"
+    },
+    {
+      "catalog": "dbx_metadata_governance_dev",
+      "displayName": "PII coverage",
+      "name": "9116f5b7",
+      "queryLines": [
+        "-- DS-05 PII Coverage\r\n",
+        "SELECT\r\n",
+        "  total_columns,\r\n",
+        "  pii_columns,\r\n",
+        "  critical_columns,\r\n",
+        "  ROUND(pii_columns * 1.0 / total_columns, 3) AS pii_coverage_pct,\r\n",
+        "  ROUND(critical_columns * 1.0 / total_columns, 3) AS cde_coverage_pct\r\n",
+        "FROM dbx_metadata_governance_dev.gold.kpi_summary;"
+      ],
+      "schema": "gold"
+    },
+    {
+      "catalog": "dbx_metadata_governance_dev",
+      "displayName": "PII coverage",
+      "name": "60b4564f",
+      "queryLines": [
+        "-- DS-05 PII Coverage\r\n",
+        "SELECT\r\n",
+        "  total_columns,\r\n",
+        "  pii_columns,\r\n",
+        "  critical_columns,\r\n",
+        "  ROUND(pii_columns * 1.0 / total_columns, 3) AS pii_coverage_pct,\r\n",
+        "  ROUND(critical_columns * 1.0 / total_columns, 3) AS cde_coverage_pct\r\n",
+        "FROM dbx_metadata_governance_dev.gold.kpi_summary;"
+      ],
+      "schema": "gold"
+    },
+    {
+      "catalog": "dbx_metadata_governance_dev",
+      "displayName": "Pipeline Quality",
+      "name": "8e25bca4",
+      "queryLines": [
+        "--DS-06 Pipeline Quality\r\n",
+        "SELECT\r\n",
+        "  dq_pass_rows,\r\n",
+        "  dq_failed_rows,\r\n",
+        "  pii_consistent_rows,\r\n",
+        "  pii_inconsistent_rows\r\n",
+        "FROM dbx_metadata_governance_dev.gold.dlt_summary;"
+      ],
+      "schema": "gold"
+    },
+    {
+      "catalog": "dbx_metadata_governance_dev",
+      "displayName": "Pipeline Quality",
+      "name": "8b2b48a9",
+      "queryLines": [
+        "--DS-06 Pipeline Quality\r\n",
+        "SELECT\r\n",
+        "  dq_pass_rows,\r\n",
+        "  dq_failed_rows,\r\n",
+        "  pii_consistent_rows,\r\n",
+        "  pii_inconsistent_rows\r\n",
+        "FROM dbx_metadata_governance_dev.gold.dlt_summary;"
+      ],
+      "schema": "gold"
+    },
+    {
+      "catalog": "dbx_metadata_governance_dev",
+      "displayName": "Governance gaps",
+      "name": "53a31a28",
+      "queryLines": [
+        "-- DS-04 Governance gaps\r\n",
+        "SELECT\r\n",
+        "  database_name,\r\n",
+        "  schema_name,\r\n",
+        "  table_name,\r\n",
+        "  column_id,\r\n",
+        "  column_name,\r\n",
+        "  NULLIF(data_steward, 'nan')              AS data_steward,\r\n",
+        "  NULLIF(security_classification, 'nan')   AS security_classification,\r\n",
+        "  achieved_cert_level,\r\n",
+        "  ROUND(completeness_pct, 1)               AS completeness_pct,\r\n",
+        "  ROUND(dq_invalid_pct, 2)                 AS dq_invalid_pct,\r\n",
+        "  gap_reason\r\n",
+        "FROM dbx_metadata_governance_dev.gold.governance_gaps\r\n",
+        "WHERE schema_name = 'gold'\r\n",
+        "ORDER BY completeness_pct ASC;"
+      ],
+      "schema": "gold"
+    },
+    {
+      "catalog": "dbx_metadata_governance_dev",
+      "displayName": "DQ passed/failed rows",
+      "name": "be3cdd34",
+      "queryLines": [
+        "--DS-11 DQ passed/failed rows\r\n",
+        "SELECT\r\n",
+        "  'Passed Rows' AS dq_status,\r\n",
+        "  dq_pass_rows AS row_count\r\n",
+        "FROM dbx_metadata_governance_dev.gold.dlt_summary\r\n",
+        "\r\n",
+        "UNION ALL\r\n",
+        "\r\n",
+        "SELECT\r\n",
+        "  'Failed Rows' AS dq_status,\r\n",
+        "  dq_failed_rows AS row_count\r\n",
+        "FROM dbx_metadata_governance_dev.gold.dlt_summary;"
+      ],
+      "schema": "gold"
+    },
+    {
+      "catalog": "dbx_metadata_governance_dev",
+      "displayName": "Gaps per Table",
+      "name": "b1cf4262",
+      "queryLines": [
+        "-- DS-12 Gaps per Table\r\n",
+        "SELECT\r\n",
+        "  table_name,\r\n",
+        "  COUNT(*) AS gap_column_count,\r\n",
+        "  ROUND(AVG(completeness_pct), 1) AS avg_completeness\r\n",
+        "FROM dbx_metadata_governance_dev.gold.governance_gaps\r\n",
+        "WHERE schema_name = 'gold'\r\n",
+        "GROUP BY table_name\r\n",
+        "ORDER BY gap_column_count DESC;"
+      ],
+      "schema": "gold"
+    }
+  ],
+  "pages": [
+    {
+      "displayName": "Executive Overview",
+      "layout": [
+        {
+          "position": {
+            "height": 2,
+            "width": 3,
+            "x": 0,
+            "y": 1
+          },
+          "widget": {
+            "name": "9760aa9c",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "d1a7143a",
+                  "disaggregated": false,
+                  "fields": [
+                    {
+                      "expression": "SUM(`total_databases`)",
+                      "name": "sum(total_databases)"
+                    }
+                  ]
+                }
+              }
+            ],
+            "spec": {
+              "data": {
+                "queryName": "main_query"
+              },
+              "encodings": {
+                "value": {
+                  "fieldName": "sum(total_databases)"
+                }
+              },
+              "frame": {
+                "showTitle": true,
+                "title": "Total Databases"
+              },
+              "version": 2,
+              "widgetType": "counter"
+            }
+          }
+        },
+        {
+          "position": {
+            "height": 2,
+            "width": 3,
+            "x": 3,
+            "y": 1
+          },
+          "widget": {
+            "name": "5f298f9b",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "d0242859",
+                  "disaggregated": false,
+                  "fields": [
+                    {
+                      "expression": "SUM(`total_schemas`)",
+                      "name": "sum(total_schemas)"
+                    }
+                  ]
+                }
+              }
+            ],
+            "spec": {
+              "data": {
+                "queryName": "main_query"
+              },
+              "encodings": {
+                "value": {
+                  "fieldName": "sum(total_schemas)"
+                }
+              },
+              "frame": {
+                "showTitle": true,
+                "title": "Total Schemas"
+              },
+              "version": 2,
+              "widgetType": "counter"
+            }
+          }
+        },
+        {
+          "position": {
+            "height": 2,
+            "width": 3,
+            "x": 6,
+            "y": 1
+          },
+          "widget": {
+            "name": "598ec63f",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "b8c14de1",
+                  "disaggregated": false,
+                  "fields": [
+                    {
+                      "expression": "SUM(`total_tables`)",
+                      "name": "sum(total_tables)"
+                    }
+                  ]
+                }
+              }
+            ],
+            "spec": {
+              "data": {
+                "queryName": "main_query"
+              },
+              "encodings": {
+                "value": {
+                  "fieldName": "sum(total_tables)"
+                }
+              },
+              "frame": {
+                "showTitle": true,
+                "title": "Total Tables"
+              },
+              "version": 2,
+              "widgetType": "counter"
+            }
+          }
+        },
+        {
+          "position": {
+            "height": 2,
+            "width": 3,
+            "x": 9,
+            "y": 1
+          },
+          "widget": {
+            "name": "1ed9cedc",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "51ecb168",
+                  "disaggregated": false,
+                  "fields": [
+                    {
+                      "expression": "SUM(`total_columns`)",
+                      "name": "sum(total_columns)"
+                    }
+                  ]
+                }
+              }
+            ],
+            "spec": {
+              "data": {
+                "queryName": "main_query"
+              },
+              "encodings": {
+                "value": {
+                  "fieldName": "sum(total_columns)",
+                  "format": {
+                    "abbreviation": "none",
+                    "decimalPlaces": {
+                      "places": 2,
+                      "type": "max"
+                    },
+                    "hideGroupSeparator": false,
+                    "type": "number-plain"
+                  }
+                }
+              },
+              "frame": {
+                "showDescription": false,
+                "showTitle": true,
+                "title": "Total Columns"
+              },
+              "version": 2,
+              "widgetType": "counter"
+            }
+          }
+        },
+        {
+          "position": {
+            "height": 1,
+            "width": 12,
+            "x": 0,
+            "y": 0
+          },
+          "widget": {
+            "multilineTextboxSpec": {
+              "lines": [
+                "### <span style=\"color:#919191\">**Catalog Overview**</span>\n",
+                "<p>&nbsp;</p>\n",
+                "\n",
+                "<p>&nbsp;</p>\n"
+              ]
+            },
+            "name": "8ba87921"
+          }
+        },
+        {
+          "position": {
+            "height": 1,
+            "width": 12,
+            "x": 0,
+            "y": 3
+          },
+          "widget": {
+            "multilineTextboxSpec": {
+              "lines": [
+                "### <span style=\"color: #99DDB4;\">**Governance Health**</span>"
+              ]
+            },
+            "name": "ba70703c"
+          }
+        },
+        {
+          "position": {
+            "height": 4,
+            "width": 3,
+            "x": 0,
+            "y": 4
+          },
+          "widget": {
+            "name": "49abecbe",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "00933419",
+                  "disaggregated": false,
+                  "fields": [
+                    {
+                      "expression": "AVG(`data_quality_pct`)",
+                      "name": "avg(data_quality_pct)"
+                    }
+                  ]
+                }
+              }
+            ],
+            "spec": {
+              "data": {
+                "queryName": "main_query"
+              },
+              "encodings": {
+                "value": {
+                  "fieldName": "avg(data_quality_pct)",
+                  "format": {
+                    "decimalPlaces": {
+                      "places": 2,
+                      "type": "max"
+                    },
+                    "type": "number-percent"
+                  }
+                }
+              },
+              "frame": {
+                "showTitle": true,
+                "title": "Data Quality Score"
+              },
+              "version": 2,
+              "widgetType": "counter"
+            }
+          }
+        },
+        {
+          "position": {
+            "height": 4,
+            "width": 3,
+            "x": 3,
+            "y": 4
+          },
+          "widget": {
+            "name": "c1755ddc",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "4a067baa",
+                  "disaggregated": false,
+                  "fields": [
+                    {
+                      "expression": "AVG(`metadata_completeness_pct`)",
+                      "name": "avg(metadata_completeness_pct)"
+                    }
+                  ]
+                }
+              }
+            ],
+            "spec": {
+              "data": {
+                "queryName": "main_query"
+              },
+              "encodings": {
+                "value": {
+                  "fieldName": "avg(metadata_completeness_pct)",
+                  "format": {
+                    "decimalPlaces": {
+                      "places": 2,
+                      "type": "max"
+                    },
+                    "type": "number-percent"
+                  }
+                }
+              },
+              "frame": {
+                "showTitle": true,
+                "title": "Metadata \nCompleteness\n"
+              },
+              "style": {
+                "fontColor": {
+                  "dark": "#088008"
+                }
+              },
+              "version": 2,
+              "widgetType": "counter"
+            }
+          }
+        },
+        {
+          "position": {
+            "height": 4,
+            "width": 3,
+            "x": 6,
+            "y": 4
+          },
+          "widget": {
+            "name": "5d7c4d33",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "64cde4d2",
+                  "disaggregated": false,
+                  "fields": [
+                    {
+                      "expression": "SUM(`pii_columns`)",
+                      "name": "sum(pii_columns)"
+                    }
+                  ]
+                }
+              }
+            ],
+            "spec": {
+              "data": {
+                "queryName": "main_query"
+              },
+              "encodings": {
+                "value": {
+                  "fieldName": "sum(pii_columns)"
+                }
+              },
+              "frame": {
+                "showTitle": true,
+                "title": "PII Columns"
+              },
+              "style": {
+                "fontColor": {
+                  "dark": "#E4394E"
+                }
+              },
+              "version": 2,
+              "widgetType": "counter"
+            }
+          }
+        },
+        {
+          "position": {
+            "height": 4,
+            "width": 3,
+            "x": 9,
+            "y": 4
+          },
+          "widget": {
+            "name": "9f155484",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "bd4c3c36",
+                  "disaggregated": false,
+                  "fields": [
+                    {
+                      "expression": "SUM(`critical_columns`)",
+                      "name": "sum(critical_columns)"
+                    }
+                  ]
+                }
+              }
+            ],
+            "spec": {
+              "data": {
+                "queryName": "main_query"
+              },
+              "encodings": {
+                "value": {
+                  "fieldName": "sum(critical_columns)",
+                  "format": {
+                    "abbreviation": "none",
+                    "decimalPlaces": {
+                      "places": 2,
+                      "type": "max"
+                    },
+                    "hideGroupSeparator": false,
+                    "type": "number-plain"
+                  }
+                }
+              },
+              "frame": {
+                "showDescription": false,
+                "showTitle": true,
+                "title": "Critical Columns"
+              },
+              "style": {
+                "fontColor": {
+                  "dark": "#C99E2A"
+                }
+              },
+              "version": 2,
+              "widgetType": "counter"
+            }
+          }
+        },
+        {
+          "position": {
+            "height": 1,
+            "width": 12,
+            "x": 0,
+            "y": 8
+          },
+          "widget": {
+            "multilineTextboxSpec": {
+              "lines": [
+                "### <span style=\"color: #8BCAE7;\">**Certification & Structural Compliance**</span>"
+              ]
+            },
+            "name": "cf324559"
+          }
+        },
+        {
+          "position": {
+            "height": 4,
+            "width": 5,
+            "x": 0,
+            "y": 9
+          },
+          "widget": {
+            "name": "5053f32c",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "e4b36090",
+                  "disaggregated": false,
+                  "fields": [
+                    {
+                      "expression": "SUM(`column_count`)",
+                      "name": "sum(column_count)"
+                    },
+                    {
+                      "expression": "`certification_level`",
+                      "name": "certification_level"
+                    }
+                  ]
+                }
+              }
+            ],
+            "spec": {
+              "data": {
+                "queryName": "main_query"
+              },
+              "encodings": {
+                "angle": {
+                  "displayName": "Column Count",
+                  "fieldName": "sum(column_count)",
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                },
+                "color": {
+                  "fieldName": "certification_level",
+                  "scale": {
+                    "mappings": [
+                      {
+                        "color": {
+                          "position": 5,
+                          "themeColorType": "visualizationColors"
+                        },
+                        "value": "Certified"
+                      },
+                      {
+                        "color": "#F8B733",
+                        "value": "Documented"
+                      },
+                      {
+                        "color": {
+                          "position": 3,
+                          "themeColorType": "visualizationColors"
+                        },
+                        "value": "Registered"
+                      },
+                      {
+                        "color": {
+                          "position": 4,
+                          "themeColorType": "visualizationColors"
+                        },
+                        "value": "None"
+                      }
+                    ],
+                    "type": "categorical"
+                  }
+                },
+                "extra": [
+                  {
+                    "fieldName": "certification_level"
+                  }
+                ],
+                "label": {
+                  "show": true
+                }
+              },
+              "frame": {
+                "showTitle": true,
+                "title": "Certification Level Distribution"
+              },
+              "version": 3,
+              "widgetType": "pie"
+            }
+          }
+        },
+        {
+          "position": {
+            "height": 4,
+            "width": 2,
+            "x": 5,
+            "y": 9
+          },
+          "widget": {
+            "name": "557d38be",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "a1508099",
+                  "disaggregated": false,
+                  "fields": [
+                    {
+                      "expression": "SUM(`compliant_tables`)",
+                      "name": "sum(compliant_tables)"
+                    }
+                  ]
+                }
+              }
+            ],
+            "spec": {
+              "data": {
+                "queryName": "main_query"
+              },
+              "encodings": {
+                "value": {
+                  "fieldName": "sum(compliant_tables)"
+                }
+              },
+              "frame": {
+                "showTitle": true,
+                "title": "Compliant Tables"
+              },
+              "version": 2,
+              "widgetType": "counter"
+            }
+          }
+        },
+        {
+          "position": {
+            "height": 4,
+            "width": 2,
+            "x": 7,
+            "y": 9
+          },
+          "widget": {
+            "name": "0977c9ef",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "c4048ceb",
+                  "disaggregated": false,
+                  "fields": [
+                    {
+                      "expression": "SUM(`outlier_tables`)",
+                      "name": "sum(outlier_tables)"
+                    }
+                  ]
+                }
+              }
+            ],
+            "spec": {
+              "data": {
+                "queryName": "main_query"
+              },
+              "encodings": {
+                "value": {
+                  "fieldName": "sum(outlier_tables)"
+                }
+              },
+              "frame": {
+                "showTitle": true,
+                "title": "Outlier Tables"
+              },
+              "version": 2,
+              "widgetType": "counter"
+            }
+          }
+        },
+        {
+          "position": {
+            "height": 4,
+            "width": 3,
+            "x": 9,
+            "y": 9
+          },
+          "widget": {
+            "name": "e0d3ea25",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "9a84330b",
+                  "disaggregated": true,
+                  "fields": [
+                    {
+                      "expression": "`structural_consistency_pct`",
+                      "name": "structural_consistency_pct"
+                    }
+                  ]
+                }
+              }
+            ],
+            "spec": {
+              "data": {
+                "queryName": "main_query"
+              },
+              "encodings": {
+                "value": {
+                  "fieldName": "structural_consistency_pct",
+                  "style": {
+                    "rules": [
+                      {
+                        "color": "#00A972",
+                        "condition": {
+                          "operator": ">="
+                        }
+                      }
+                    ]
+                  }
+                }
+              },
+              "frame": {
+                "showTitle": true,
+                "title": "Structural Consistency Rate\n"
+              },
+              "version": 2,
+              "widgetType": "counter"
+            }
+          }
+        },
+        {
+          "position": {
+            "height": 6,
+            "width": 5,
+            "x": 0,
+            "y": 13
+          },
+          "widget": {
+            "name": "191c5f7c",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "1257dcfa",
+                  "disaggregated": false,
+                  "fields": [
+                    {
+                      "expression": "SUM(`column_count`)",
+                      "name": "sum(column_count)"
+                    },
+                    {
+                      "expression": "`pii_type`",
+                      "name": "pii_type"
+                    }
+                  ]
+                }
+              }
+            ],
+            "spec": {
+              "data": {
+                "queryName": "main_query"
+              },
+              "encodings": {
+                "angle": {
+                  "displayName": "PII vs Non-PII Columns",
+                  "fieldName": "sum(column_count)",
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                },
+                "color": {
+                  "fieldName": "pii_type",
+                  "scale": {
+                    "mappings": [
+                      {
+                        "color": {
+                          "position": 3,
+                          "themeColorType": "visualizationColors"
+                        },
+                        "value": "Non-PII Columns"
+                      },
+                      {
+                        "color": "#FB3622",
+                        "value": "PII Columns"
+                      }
+                    ],
+                    "type": "categorical"
+                  }
+                },
+                "label": {
+                  "show": true
+                }
+              },
+              "version": 3,
+              "widgetType": "pie"
+            }
+          }
+        },
+        {
+          "position": {
+            "height": 6,
+            "width": 7,
+            "x": 5,
+            "y": 13
+          },
+          "widget": {
+            "name": "4f05465e",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "142b4734",
+                  "disaggregated": false,
+                  "fields": [
+                    {
+                      "expression": "AVG(`avg_governance_score`)",
+                      "name": "avg(avg_governance_score)"
+                    },
+                    {
+                      "expression": "`domain`",
+                      "name": "domain"
+                    }
+                  ]
+                }
+              }
+            ],
+            "spec": {
+              "data": {
+                "queryName": "main_query"
+              },
+              "encodings": {
+                "label": {
+                  "show": true
+                },
+                "x": {
+                  "displayName": "Governance Score",
+                  "fieldName": "avg(avg_governance_score)",
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                },
+                "y": {
+                  "fieldName": "domain",
+                  "scale": {
+                    "sort": {
+                      "by": "x-reversed"
+                    },
+                    "type": "categorical"
+                  }
+                }
+              },
+              "frame": {
+                "showTitle": true,
+                "title": "Avg governance score by domain"
+              },
+              "mark": {
+                "colors": [
+                  {
+                    "position": 5,
+                    "themeColorType": "visualizationColors"
+                  },
+                  {
+                    "position": 2,
+                    "themeColorType": "visualizationColors"
+                  },
+                  {
+                    "position": 3,
+                    "themeColorType": "visualizationColors"
+                  },
+                  {
+                    "position": 4,
+                    "themeColorType": "visualizationColors"
+                  },
+                  {
+                    "position": 5,
+                    "themeColorType": "visualizationColors"
+                  },
+                  {
+                    "position": 6,
+                    "themeColorType": "visualizationColors"
+                  },
+                  {
+                    "position": 7,
+                    "themeColorType": "visualizationColors"
+                  },
+                  {
+                    "position": 8,
+                    "themeColorType": "visualizationColors"
+                  },
+                  {
+                    "position": 9,
+                    "themeColorType": "visualizationColors"
+                  },
+                  {
+                    "position": 10,
+                    "themeColorType": "visualizationColors"
+                  }
+                ]
+              },
+              "version": 3,
+              "widgetType": "bar"
+            }
+          }
+        }
+      ],
+      "layoutVersion": "GRID_V1",
+      "name": "fd917a23",
+      "pageType": "PAGE_TYPE_CANVAS"
+    },
+    {
+      "displayName": "Governance Details",
+      "layout": [
+        {
+          "position": {
+            "height": 1,
+            "width": 12,
+            "x": 0,
+            "y": 0
+          },
+          "widget": {
+            "multilineTextboxSpec": {
+              "lines": [
+                "### <span style=\"color: #919191;\">**Objectice 1 - Structural Consistency**</span>"
+              ]
+            },
+            "name": "d851c529"
+          }
+        },
+        {
+          "position": {
+            "height": 6,
+            "width": 12,
+            "x": 0,
+            "y": 1
+          },
+          "widget": {
+            "name": "3e48d259",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "5f4ac6e6",
+                  "disaggregated": true,
+                  "fields": [
+                    {
+                      "expression": "`table_name`",
+                      "name": "table_name"
+                    },
+                    {
+                      "expression": "`column_count`",
+                      "name": "column_count"
+                    },
+                    {
+                      "expression": "`standard_column_count`",
+                      "name": "standard_column_count"
+                    },
+                    {
+                      "expression": "`structural_status`",
+                      "name": "structural_status"
+                    },
+                    {
+                      "expression": "`corrective_action`",
+                      "name": "corrective_action"
+                    }
+                  ]
+                }
+              }
+            ],
+            "spec": {
+              "data": {
+                "queryName": "main_query"
+              },
+              "encodings": {
+                "columns": [
+                  {
+                    "fieldName": "table_name"
+                  },
+                  {
+                    "fieldName": "column_count"
+                  },
+                  {
+                    "fieldName": "standard_column_count"
+                  },
+                  {
+                    "fieldName": "structural_status"
+                  },
+                  {
+                    "fieldName": "corrective_action"
+                  }
+                ]
+              },
+              "frame": {
+                "showTitle": true,
+                "title": "Structural Outliers"
+              },
+              "version": 2,
+              "widgetType": "table"
+            }
+          }
+        },
+        {
+          "position": {
+            "height": 1,
+            "width": 12,
+            "x": 0,
+            "y": 7
+          },
+          "widget": {
+            "multilineTextboxSpec": {
+              "lines": [
+                "### <span style=\"color: #8BCAE7;\">**Data Quality & PII Coverage**</span>"
+              ]
+            },
+            "name": "090e0fa1"
+          }
+        },
+        {
+          "position": {
+            "height": 3,
+            "width": 3,
+            "x": 0,
+            "y": 8
+          },
+          "widget": {
+            "name": "1d6778e4",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "9116f5b7",
+                  "disaggregated": false,
+                  "fields": [
+                    {
+                      "expression": "SUM(`pii_coverage_pct`)",
+                      "name": "sum(pii_coverage_pct)"
+                    }
+                  ]
+                }
+              }
+            ],
+            "spec": {
+              "data": {
+                "queryName": "main_query"
+              },
+              "encodings": {
+                "value": {
+                  "fieldName": "sum(pii_coverage_pct)",
+                  "format": {
+                    "decimalPlaces": {
+                      "places": 2,
+                      "type": "max"
+                    },
+                    "type": "number-percent"
+                  },
+                  "style": {
+                    "rules": [
+                      {
+                        "color": "#00A972",
+                        "condition": {
+                          "operator": ">="
+                        }
+                      }
+                    ]
+                  }
+                }
+              },
+              "frame": {
+                "showTitle": true,
+                "title": "PII Coverage"
+              },
+              "version": 2,
+              "widgetType": "counter"
+            }
+          }
+        },
+        {
+          "position": {
+            "height": 3,
+            "width": 3,
+            "x": 3,
+            "y": 8
+          },
+          "widget": {
+            "name": "1f6df13b",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "60b4564f",
+                  "disaggregated": false,
+                  "fields": [
+                    {
+                      "expression": "SUM(`cde_coverage_pct`)",
+                      "name": "sum(cde_coverage_pct)"
+                    }
+                  ]
+                }
+              }
+            ],
+            "spec": {
+              "data": {
+                "queryName": "main_query"
+              },
+              "encodings": {
+                "value": {
+                  "fieldName": "sum(cde_coverage_pct)",
+                  "format": {
+                    "decimalPlaces": {
+                      "places": 2,
+                      "type": "max"
+                    },
+                    "type": "number-percent"
+                  }
+                }
+              },
+              "frame": {
+                "showTitle": true,
+                "title": "Critical Data Elements Coverage"
+              },
+              "version": 2,
+              "widgetType": "counter"
+            }
+          }
+        },
+        {
+          "position": {
+            "height": 3,
+            "width": 3,
+            "x": 6,
+            "y": 8
+          },
+          "widget": {
+            "name": "294a53e9",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "8e25bca4",
+                  "disaggregated": false,
+                  "fields": [
+                    {
+                      "expression": "SUM(`dq_pass_rows`)",
+                      "name": "sum(dq_pass_rows)"
+                    }
+                  ]
+                }
+              }
+            ],
+            "spec": {
+              "data": {
+                "queryName": "main_query"
+              },
+              "encodings": {
+                "value": {
+                  "fieldName": "sum(dq_pass_rows)",
+                  "format": {
+                    "abbreviation": "none",
+                    "decimalPlaces": {
+                      "places": 2,
+                      "type": "max"
+                    },
+                    "hideGroupSeparator": false,
+                    "type": "number-plain"
+                  }
+                }
+              },
+              "frame": {
+                "showTitle": true,
+                "title": "DQ Pass Rows"
+              },
+              "version": 2,
+              "widgetType": "counter"
+            }
+          }
+        },
+        {
+          "position": {
+            "height": 3,
+            "width": 3,
+            "x": 9,
+            "y": 8
+          },
+          "widget": {
+            "name": "b0945cad",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "8b2b48a9",
+                  "disaggregated": false,
+                  "fields": [
+                    {
+                      "expression": "SUM(`dq_failed_rows`)",
+                      "name": "sum(dq_failed_rows)"
+                    }
+                  ]
+                }
+              }
+            ],
+            "spec": {
+              "data": {
+                "queryName": "main_query"
+              },
+              "encodings": {
+                "value": {
+                  "fieldName": "sum(dq_failed_rows)"
+                }
+              },
+              "frame": {
+                "showTitle": true,
+                "title": "DQ Failed Rows"
+              },
+              "version": 2,
+              "widgetType": "counter"
+            }
+          }
+        },
+        {
+          "position": {
+            "height": 6,
+            "width": 7,
+            "x": 0,
+            "y": 11
+          },
+          "widget": {
+            "name": "0cfbc17a",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "53a31a28",
+                  "disaggregated": true,
+                  "fields": [
+                    {
+                      "expression": "`table_name`",
+                      "name": "table_name"
+                    },
+                    {
+                      "expression": "`column_name`",
+                      "name": "column_name"
+                    },
+                    {
+                      "expression": "`achieved_cert_level`",
+                      "name": "achieved_cert_level"
+                    },
+                    {
+                      "expression": "`completeness_pct`",
+                      "name": "completeness_pct"
+                    },
+                    {
+                      "expression": "`gap_reason`",
+                      "name": "gap_reason"
+                    }
+                  ]
+                }
+              }
+            ],
+            "spec": {
+              "data": {
+                "queryName": "main_query"
+              },
+              "encodings": {
+                "columns": [
+                  {
+                    "fieldName": "table_name"
+                  },
+                  {
+                    "fieldName": "column_name"
+                  },
+                  {
+                    "fieldName": "achieved_cert_level"
+                  },
+                  {
+                    "fieldName": "completeness_pct"
+                  },
+                  {
+                    "fieldName": "gap_reason"
+                  }
+                ]
+              },
+              "frame": {
+                "showTitle": true,
+                "title": "Governance Gaps – Columns Requiring Attention"
+              },
+              "version": 2,
+              "widgetType": "table"
+            }
+          }
+        },
+        {
+          "position": {
+            "height": 6,
+            "width": 5,
+            "x": 7,
+            "y": 11
+          },
+          "widget": {
+            "name": "994b8aac",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "be3cdd34",
+                  "disaggregated": false,
+                  "fields": [
+                    {
+                      "expression": "SUM(`row_count`)",
+                      "name": "sum(row_count)"
+                    },
+                    {
+                      "expression": "`dq_status`",
+                      "name": "dq_status"
+                    }
+                  ]
+                }
+              }
+            ],
+            "spec": {
+              "data": {
+                "queryName": "main_query"
+              },
+              "encodings": {
+                "angle": {
+                  "displayName": "DQ Passed vs Failed Rows",
+                  "fieldName": "sum(row_count)",
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                },
+                "color": {
+                  "fieldName": "dq_status",
+                  "scale": {
+                    "mappings": [
+                      {
+                        "color": {
+                          "position": 5,
+                          "themeColorType": "visualizationColors"
+                        },
+                        "value": "Passed Rows"
+                      },
+                      {
+                        "color": {
+                          "position": 9,
+                          "themeColorType": "visualizationColors"
+                        },
+                        "value": "Failed Rows"
+                      }
+                    ],
+                    "type": "categorical"
+                  }
+                },
+                "label": {
+                  "show": true
+                }
+              },
+              "version": 3,
+              "widgetType": "pie"
+            }
+          }
+        },
+        {
+          "position": {
+            "height": 7,
+            "width": 12,
+            "x": 0,
+            "y": 17
+          },
+          "widget": {
+            "name": "132b1761",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "b1cf4262",
+                  "disaggregated": true,
+                  "fields": [
+                    {
+                      "expression": "`table_name`",
+                      "name": "table_name"
+                    },
+                    {
+                      "expression": "`gap_column_count`",
+                      "name": "gap_column_count"
+                    }
+                  ]
+                }
+              }
+            ],
+            "spec": {
+              "data": {
+                "queryName": "main_query"
+              },
+              "encodings": {
+                "label": {
+                  "show": true
+                },
+                "x": {
+                  "fieldName": "table_name",
+                  "scale": {
+                    "sort": {
+                      "by": "y-reversed"
+                    },
+                    "type": "categorical"
+                  }
+                },
+                "y": {
+                  "fieldName": "gap_column_count",
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                }
+              },
+              "frame": {
+                "description": "Shows the number of governance gaps per table. Higher values indicate tables requiring more remediation.",
+                "showDescription": true,
+                "showTitle": true,
+                "title": "Governance Gaps by Table"
+              },
+              "mark": {
+                "colors": [
+                  "#F05646",
+                  {
+                    "position": 2,
+                    "themeColorType": "visualizationColors"
+                  },
+                  {
+                    "position": 3,
+                    "themeColorType": "visualizationColors"
+                  },
+                  {
+                    "position": 4,
+                    "themeColorType": "visualizationColors"
+                  },
+                  {
+                    "position": 5,
+                    "themeColorType": "visualizationColors"
+                  },
+                  {
+                    "position": 6,
+                    "themeColorType": "visualizationColors"
+                  },
+                  {
+                    "position": 7,
+                    "themeColorType": "visualizationColors"
+                  },
+                  {
+                    "position": 8,
+                    "themeColorType": "visualizationColors"
+                  },
+                  {
+                    "position": 9,
+                    "themeColorType": "visualizationColors"
+                  },
+                  {
+                    "position": 10,
+                    "themeColorType": "visualizationColors"
+                  }
+                ]
+              },
+              "version": 3,
+              "widgetType": "bar"
+            }
+          }
+        }
+      ],
+      "layoutVersion": "GRID_V1",
+      "name": "c402f287",
+      "pageType": "PAGE_TYPE_CANVAS"
+    }
+  ],
+  "uiSettings": {
+    "applyModeEnabled": false,
+    "theme": {
+      "widgetHeaderAlignment": "ALIGNMENT_UNSPECIFIED"
+    }
+  }
+}
