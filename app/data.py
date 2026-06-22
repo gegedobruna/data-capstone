@@ -13,14 +13,21 @@ logger = logging.getLogger(__name__)
 
 CATALOG   = os.environ.get("GOLD_CATALOG",   "dbx_metadata_governance_dev")
 SCHEMA    = os.environ.get("GOLD_SCHEMA",    "gold")
-HOST      = os.environ.get("DATABRICKS_HOST", "").replace("https://", "")
-HTTP_PATH = f"/sql/1.0/warehouses/{os.environ.get('SQL_WAREHOUSE_ID', '')}"
+# HOST      = os.environ.get("DATABRICKS_HOST", "").replace("https://", "")
+# HTTP_PATH = f"/sql/1.0/warehouses/{os.environ.get('SQL_WAREHOUSE_ID', '')}"
 
+def _ensure_https(host: str) -> str:
+    host = host.strip().rstrip("/")
+    if host and not host.startswith("https://"):
+        host = f"https://{host}"
+    return host
+
+HTTP_PATH = f"/sql/1.0/warehouses/{os.environ.get('SQL_WAREHOUSE_ID', '')}"
 
 # ── OAuth token from Service Principal
 def get_sp_token() -> str:
-    host          = os.environ.get("DATABRICKS_HOST", "").rstrip("/")
-    client_id     = os.environ.get("DATABRICKS_CLIENT_ID", "")
+    host = _ensure_https(os.environ.get("DATABRICKS_HOST", ""))
+    client_id = os.environ.get("DATABRICKS_CLIENT_ID", "")
     client_secret = os.environ.get("DATABRICKS_CLIENT_SECRET", "")
 
     # Fallback: if no client credentials, use personal token (local dev only)
@@ -49,6 +56,7 @@ def get_sp_token() -> str:
 
 
 TOKEN = get_sp_token()
+HOST  = _ensure_https(os.environ.get("DATABRICKS_HOST", "")).replace("https://", "")
 
 
 # ── SQL runner
