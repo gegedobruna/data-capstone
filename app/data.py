@@ -63,8 +63,12 @@ def _get_token() -> str:
     """Return a cached token, refreshing only when it's about to expire."""
     with _token_lock:
         if _token_cache["value"] and time.time() < _token_cache["expires"]:
+            print("[DATA] token: cache hit")
             return _token_cache["value"]
+        print("[DATA] token: fetching new OAuth token...")
+        t0    = time.time()
         token = get_sp_token()
+        print(f"[DATA] token: done in {time.time()-t0:.1f}s  ok={bool(token)}")
         _token_cache["value"]   = token
         _token_cache["expires"] = time.time() + 3000  # 50-min TTL
         return token
@@ -78,21 +82,31 @@ def _get_host() -> str:
 @contextmanager
 def _connect():
     """Open one SQL connection; all queries in a refresh share it."""
+    print(f"[DATA] connect: opening SQL connection to warehouse {os.environ.get('SQL_WAREHOUSE_ID','?')}")
+    t0 = time.time()
     with sql.connect(
         server_hostname=_get_host(),
         http_path=HTTP_PATH,
         access_token=_get_token(),
+        _socket_timeout=60,          # fail fast — don't hang for 15 min
     ) as conn:
+        print(f"[DATA] connect: established in {time.time()-t0:.1f}s")
         yield conn
+    print(f"[DATA] connect: closed  (total open time {time.time()-t0:.1f}s)")
 
 
 # ── SQL runner — accepts an optional open connection to avoid re-connecting
 def _run(sql_str: str, conn=None) -> list[dict]:
+    label = sql_str.strip().split("\n")[0][:60]
+
     def _exec(c):
+        t0 = time.time()
         with c.cursor() as cur:
             cur.execute(sql_str)
             cols = [d[0] for d in cur.description]
-            return [dict(zip(cols, row)) for row in cur.fetchall()]
+            rows = cur.fetchall()
+        print(f"[DATA] query ({time.time()-t0:.1f}s): {label}")
+        return [dict(zip(cols, row)) for row in rows]
 
     if conn is not None:
         return _exec(conn)
