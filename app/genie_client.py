@@ -6,13 +6,18 @@ from typing import Optional
 
 logger = logging.getLogger(__name__)
 
+def _ensure_https(host: str) -> str:
+    host = host.strip().rstrip("/")
+    if host and not host.startswith("https://"):
+        host = f"https://{host}"
+    return host
 
 def _get_auth_token() -> str:
     """
     Resolve auth token using OAuth client credentials (Databricks Apps)
     or fall back to personal access token for local development.
     """
-    host          = os.environ.get("DATABRICKS_HOST", "").rstrip("/")
+    host = _ensure_https(os.environ.get("DATABRICKS_HOST", ""))
     client_id     = os.environ.get("DATABRICKS_CLIENT_ID", "")
     client_secret = os.environ.get("DATABRICKS_CLIENT_SECRET", "")
     fallback      = os.environ.get("DATABRICKS_TOKEN", "")
@@ -63,7 +68,7 @@ class GenieClient:
 
     def __init__(self, space_id: str):
         self.space_id = space_id
-        self.host     = os.environ.get("DATABRICKS_HOST", "").rstrip("/")
+        self.host = _ensure_https(os.environ.get("DATABRICKS_HOST", ""))
         self.token    = _get_auth_token()
 
         # Debug logging — verify credentials on startup
