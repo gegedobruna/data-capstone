@@ -135,9 +135,12 @@ def go_to_genie(_):
     Input("manual-refresh-btn", "n_clicks"),
 )
 def refresh_all_data(_intervals, _clicks):
+    print("[REFRESH] refresh_all_data triggered")
     if not DATA_AVAILABLE:
+        print("[REFRESH] DATA_AVAILABLE=False — skipping")
         return {}, {}, [], [], [], [], [html.Span(className="rdot warn"), " No DB connection"]
 
+    t_start = time.time()
     try:
         # Single connection for all queries — avoids 10 separate TCP handshakes
         with _connect() as conn:
@@ -157,11 +160,12 @@ def refresh_all_data(_intervals, _clicks):
         pill = [html.Span(className=dot_cls),
                 f" Run complete · {warnings} warning{'s' if warnings != 1 else ''}"]
 
+        print(f"[REFRESH] done in {time.time()-t_start:.1f}s")
         return kpis, pl, gaps, assets, domains, db_alerts, pill
 
     except Exception as e:
-        print(f"Data refresh error: {e}")
-        return {}, {}, [], [], [], [], [html.Span(className="rdot warn"), f" Error: {str(e)[:40]}"]
+        print(f"[REFRESH] ERROR after {time.time()-t_start:.1f}s — {e}")
+        return {}, {}, [], [], [], [], [html.Span(className="rdot warn"), f" Error: {str(e)[:60]}"]
 
 
 # ── Alerts view
