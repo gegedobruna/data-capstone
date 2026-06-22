@@ -22,6 +22,7 @@ from app.alerts import AlertEngine
 
 try:
     from app.data import (
+        _connect,
         load_kpi_summary,
         load_pipeline_quality,
         load_structural_summary,
@@ -138,14 +139,16 @@ def refresh_all_data(_intervals, _clicks):
         return {}, {}, [], [], [], [], [html.Span(className="rdot warn"), " No DB connection"]
 
     try:
-        kpis      = load_kpi_summary()
-        pq        = load_pipeline_quality()
-        ss        = load_structural_summary()
-        gaps      = load_gaps()
-        assets    = load_table_governance()
-        domains   = load_domain_summary()
-        pl        = load_pipeline_status()
-        db_alerts = load_alerts()
+        # Single connection for all queries — avoids 10 separate TCP handshakes
+        with _connect() as conn:
+            kpis      = load_kpi_summary(conn)
+            pq        = load_pipeline_quality(conn)
+            ss        = load_structural_summary(conn)
+            gaps      = load_gaps(conn)
+            assets    = load_table_governance(conn=conn)
+            domains   = load_domain_summary(conn)
+            db_alerts = load_alerts(conn)
+            pl        = load_pipeline_status(pq, ss)  # reuses already-fetched pq/ss
 
         alerts_engine.evaluate_and_fire(kpis=kpis, pq=pq, ss=ss, gaps=gaps)
 
@@ -165,10 +168,9 @@ def refresh_all_data(_intervals, _clicks):
 @app.callback(
     Output("alerts-container", "children"),
     Input("db-alerts-store",   "data"),
-    Input("refresh-interval",  "n_intervals"),
 )
-def update_alerts_view(_, __):
-    alerts = load_alerts() if DATA_AVAILABLE else []
+def update_alerts_view(alerts):
+    alerts = alerts or []
 
     if not alerts:
         return html.Div("No alerts found.",
