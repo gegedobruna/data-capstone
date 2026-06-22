@@ -1,16 +1,24 @@
 import os
+import sys
 import time
 import datetime
+
+# Force line-buffered stdout so prints inside threads appear in Databricks logs immediately
+try:
+    sys.stdout.reconfigure(line_buffering=True)
+except (AttributeError, ValueError):
+    pass  # stdout isn't a standard TextIOWrapper — fall back to default buffering
+
 from dotenv import load_dotenv
 load_dotenv()
 
-print("=== ENV CHECK ===")
-print(f"HOST:          {os.environ.get('DATABRICKS_HOST',      'NOT SET')}")
-print(f"CLIENT_ID:     {os.environ.get('DATABRICKS_CLIENT_ID', 'NOT SET')}")
-print(f"CLIENT_SECRET: {'SET' if os.environ.get('DATABRICKS_CLIENT_SECRET') else 'NOT SET'}")
-print(f"GENIE_SPACE:   {os.environ.get('GENIE_SPACE_ID',       'NOT SET')}")
-print(f"WAREHOUSE:     {os.environ.get('SQL_WAREHOUSE_ID',     'NOT SET')}")
-print("=================")
+print("=== ENV CHECK ===", flush=True)
+print(f"HOST:          {os.environ.get('DATABRICKS_HOST',      'NOT SET')}", flush=True)
+print(f"CLIENT_ID:     {os.environ.get('DATABRICKS_CLIENT_ID', 'NOT SET')}", flush=True)
+print(f"CLIENT_SECRET: {'SET' if os.environ.get('DATABRICKS_CLIENT_SECRET') else 'NOT SET'}", flush=True)
+print(f"GENIE_SPACE:   {os.environ.get('GENIE_SPACE_ID',       'NOT SET')}", flush=True)
+print(f"WAREHOUSE:     {os.environ.get('SQL_WAREHOUSE_ID',     'NOT SET')}", flush=True)
+print("=================", flush=True)
 
 import dash
 from dash import Dash, html, dcc, Input, Output, State, callback_context, no_update, MATCH
@@ -34,7 +42,7 @@ try:
     )
     DATA_AVAILABLE = True
 except Exception as e:
-    print(f"Data layer error: {e}")
+    print(f"Data layer error: {e}", flush=True)
     DATA_AVAILABLE = False
 
 GENIE_SPACE_ID = os.environ.get("GENIE_SPACE_ID", "")
@@ -53,7 +61,7 @@ server = app.server
 try:
     genie = GenieClient(space_id=GENIE_SPACE_ID)
 except Exception as e:
-    print(f"Genie disabled: {e}")
+    print(f"Genie disabled: {e}", flush=True)
     genie = None
 
 alerts_engine = AlertEngine()
@@ -135,9 +143,9 @@ def go_to_genie(_):
     Input("manual-refresh-btn", "n_clicks"),
 )
 def refresh_all_data(_intervals, _clicks):
-    print("[REFRESH] refresh_all_data triggered")
+    print("[REFRESH] refresh_all_data triggered", flush=True)
     if not DATA_AVAILABLE:
-        print("[REFRESH] DATA_AVAILABLE=False — skipping")
+        print("[REFRESH] DATA_AVAILABLE=False — skipping", flush=True)
         return {}, {}, [], [], [], [], [html.Span(className="rdot warn"), " No DB connection"]
 
     t_start = time.time()
@@ -147,7 +155,7 @@ def refresh_all_data(_intervals, _clicks):
             kpis      = load_kpi_summary(conn)
             pq        = load_pipeline_quality(conn)
             ss        = load_structural_summary(conn)
-            gaps      = load_gaps(conn)
+            gaps      = load_gaps(conn=conn)
             assets    = load_table_governance(conn=conn)
             domains   = load_domain_summary(conn)
             db_alerts = load_alerts(conn)
@@ -160,11 +168,11 @@ def refresh_all_data(_intervals, _clicks):
         pill = [html.Span(className=dot_cls),
                 f" Run complete · {warnings} warning{'s' if warnings != 1 else ''}"]
 
-        print(f"[REFRESH] done in {time.time()-t_start:.1f}s")
+        print(f"[REFRESH] done in {time.time()-t_start:.1f}s", flush=True)
         return kpis, pl, gaps, assets, domains, db_alerts, pill
 
     except Exception as e:
-        print(f"[REFRESH] ERROR after {time.time()-t_start:.1f}s — {e}")
+        print(f"[REFRESH] ERROR after {time.time()-t_start:.1f}s — {e}", flush=True)
         return {}, {}, [], [], [], [], [html.Span(className="rdot warn"), f" Error: {str(e)[:60]}"]
 
 
@@ -581,7 +589,7 @@ def handle_genie(current_msgs, question, mon_data, send_clicks, clear_clicks):
     ctx  = callback_context
     trig = ctx.triggered[0]["prop_id"].split(".")[0] if ctx.triggered else None
 
-    print(f"handle_genie: trig={trig} question='{question}'")
+    print(f"handle_genie: trig={trig} question='{question}'", flush=True)
 
     mon_data = list(mon_data or [])
 
@@ -608,7 +616,7 @@ def handle_genie(current_msgs, question, mon_data, send_clicks, clear_clicks):
         html.Div(html.Div(question, className="bub")),
     ], className="msg u"))
 
-    print(f"Sending to Genie: '{question}'")
+    print(f"Sending to Genie: '{question}'", flush=True)
 
     start_time = time.time()
     try:
@@ -619,10 +627,10 @@ def handle_genie(current_msgs, question, mon_data, send_clicks, clear_clicks):
         answer = genie.ask(question)
     except Exception as e:
         answer = f"⚠️ Error: {str(e)}\n\n```\n{traceback.format_exc()}\n```"
-        print(f"Genie error: {e}")
+        print(f"Genie error: {e}", flush=True)
 
     response_time = round(time.time() - start_time, 1)
-    print(f"Genie answered in {response_time}s: {answer[:100]}")
+    print(f"Genie answered in {response_time}s: {answer[:100]}", flush=True)
 
     mon_data.append({
         "id":              entry_id,
