@@ -167,8 +167,10 @@ def refresh_all_data(_intervals, _clicks):
     Input("db-alerts-store",   "data"),
     Input("refresh-interval",  "n_intervals"),
 )
-def update_alerts_view(_, __):
-    alerts = load_alerts() if DATA_AVAILABLE else []
+def update_alerts_view(stored_alerts, _intervals):
+    alerts = stored_alerts
+    if alerts is None:
+        alerts = load_alerts() if DATA_AVAILABLE else []
 
     if not alerts:
         return html.Div("No alerts found.",
@@ -180,6 +182,7 @@ def update_alerts_view(_, __):
         "unknown":   ("p-nu", "UNKNOWN",   "ti-question-mark"),
     }
 
+    triggered_count = sum(1 for alert in alerts if (alert.get("status") or "unknown").lower() == "triggered")
     items = []
     for alert in alerts:
         status = (alert.get("status") or "unknown").lower()
@@ -201,7 +204,12 @@ def update_alerts_view(_, __):
         ], className="alert-row",
            style={"display": "flex", "alignItems": "center", "gap": "10px"}))
 
-    return items
+    summary = html.Div([
+        html.Span(f"{triggered_count} triggered", className="pill p-cr"),
+        html.Span(f"{len(alerts)} total", className="pill p-nu"),
+    ], style={"display": "flex", "gap": "8px", "padding": "12px 12px 4px"})
+
+    return [summary, *items]
 
 
 # ── Render active view
