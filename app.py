@@ -21,7 +21,7 @@ print(f"WAREHOUSE:     {os.environ.get('SQL_WAREHOUSE_ID',     'NOT SET')}", flu
 print("=================", flush=True)
 
 import dash
-from dash import Dash, html, dcc, Input, Output, State, callback_context, no_update, MATCH
+from dash import Dash, html, dcc, Input, Output, State, callback_context, no_update, MATCH, ALL
 import dash_bootstrap_components as dbc
 
 from app.layout import build_layout
@@ -678,33 +678,50 @@ def handle_genie(current_msgs, question, mon_data, send_clicks, clear_clicks):
     return messages, "", mon_data
 
 
-# ── Feedback capture callback
+# ── Feedback capture — record into the global store (ALL inputs → static output).
+# Kept separate from the per-button label callback because Dash forbids mixing a
+# MATCH-wildcard Output with a plain static Output in the same callback.
 @app.callback(
-    Output({"type": "fb-saved", "index": MATCH}, "children"),
     Output("monitoring-store", "data", allow_duplicate=True),
-    Input({"type": "fb-up",    "index": MATCH}, "n_clicks"),
-    Input({"type": "fb-dn",    "index": MATCH}, "n_clicks"),
-    State({"type": "fb-up",    "index": MATCH}, "id"),
-    State("monitoring-store",  "data"),
+    Input({"type": "fb-up", "index": ALL}, "n_clicks"),
+    Input({"type": "fb-dn", "index": ALL}, "n_clicks"),
+    State("monitoring-store", "data"),
     prevent_initial_call=True,
 )
-def capture_feedback(up_clicks, dn_clicks, btn_id, mon_data):
+def capture_feedback(up_clicks, dn_clicks, mon_data):
     ctx = callback_context
-    if not ctx.triggered:
-        return no_update, no_update
+    # Skip spurious fires (e.g. when new buttons mount with n_clicks=0)
+    if not ctx.triggered or not ctx.triggered[0]["value"]:
+        return no_update
 
-    trig       = ctx.triggered[0]["prop_id"]
-    entry_id   = btn_id["index"]
+    trig_id = ctx.triggered_id            # {"type": "fb-up"|"fb-dn", "index": N}
+    if not trig_id:
+        return no_update
+
+    entry_id   = trig_id["index"]
+    is_helpful = trig_id["type"] == "fb-up"
     mon_data   = list(mon_data or [])
-    is_helpful = "fb-up" in trig
 
     for entry in mon_data:
         if entry["id"] == entry_id:
             entry["feedback"] = "helpful" if is_helpful else "not_helpful"
             break
 
-    label = "· logged ✓" if is_helpful else "· flagged for review"
-    return label, mon_data
+    return mon_data
+
+
+# ── Feedback label — pure MATCH callback (output + inputs share the same MATCH key)
+@app.callback(
+    Output({"type": "fb-saved", "index": MATCH}, "children"),
+    Input({"type": "fb-up", "index": MATCH}, "n_clicks"),
+    Input({"type": "fb-dn", "index": MATCH}, "n_clicks"),
+    prevent_initial_call=True,
+)
+def show_feedback_label(up_clicks, dn_clicks):
+    ctx = callback_context
+    if not ctx.triggered or not ctx.triggered[0]["value"]:
+        return no_update
+    return "· logged ✓" if ctx.triggered_id["type"] == "fb-up" else "· flagged for review"
 
 
 if __name__ == "__main__":
