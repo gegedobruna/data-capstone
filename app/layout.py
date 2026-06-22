@@ -3,7 +3,6 @@ import os
 
 
 def build_layout():
-
     return html.Div([
         dcc.Store(id="kpi-store"),
         dcc.Store(id="pipeline-store"),
@@ -11,8 +10,10 @@ def build_layout():
         dcc.Store(id="assets-store"),
         dcc.Store(id="domain-store"),
         dcc.Store(id="db-alerts-store"),
-        dcc.Store(id="monitoring-store", data=[]),
-        dcc.Store(id="active-view", data="overview"),
+        dcc.Store(id="monitoring-store",       data=[]),
+        dcc.Store(id="pending-question-store", data=None),
+        dcc.Store(id="chat-history-store",     data=[]),
+        dcc.Store(id="active-view",            data="overview"),
         dcc.Interval(id="refresh-interval", interval=5 * 60 * 1000, n_intervals=0),
 
         # ── Topbar
