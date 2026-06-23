@@ -194,6 +194,7 @@ def update_alerts_view(alerts):
         "unknown":   ("p-nu", "UNKNOWN",   "ti-question-mark"),
     }
 
+    triggered_count = sum(1 for alert in alerts if (alert.get("status") or "unknown").lower() == "triggered")
     items = []
     for alert in alerts:
         status = (alert.get("status") or "unknown").lower()
@@ -215,7 +216,12 @@ def update_alerts_view(alerts):
         ], className="alert-row",
            style={"display": "flex", "alignItems": "center", "gap": "10px"}))
 
-    return items
+    summary = html.Div([
+        html.Span(f"{triggered_count} triggered", className="pill p-cr"),
+        html.Span(f"{len(alerts)} total", className="pill p-nu"),
+    ], style={"display": "flex", "gap": "8px", "padding": "12px 12px 4px"})
+
+    return [summary, *items]
 
 
 # ── Render active view
